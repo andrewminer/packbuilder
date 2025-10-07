@@ -16,27 +16,27 @@ def makeMineral(name:str, blockId:str, deepslateBlockId:None|str=None) -> Minera
     deepslateBlockId = deepslateBlockId if deepslateBlockId else blockId
 
     return Mineral(name, [
-        R.inStone(blockId),
-        R.inDeepslate(blockId)
+        Replacement.inStone(blockId),
+        Replacement.inDeepslate(blockId)
     ])
 
 def makeOreMineral(name:str) -> Mineral:
     return Mineral(name, [
-        R.inStone(f"{name}_ore"),
-        R.inDeepslate(f"deepslate_{name}_ore")
+        Replacement.inStone(f"{name}_ore"),
+        Replacement.inDeepslate(f"deepslate_{name}_ore")
     ])
 
 def makeImmersiveEngineeringOreMineral(name:str) -> Mineral:
     return Mineral(name, [
-        R.inStone(f"{IE}:ore_{name}"),
-        R.inDeepslate("{IE}:deepslate_ore_{name}")
-    ]),
+        Replacement.inStone(f"{IE}:ore_{name}"),
+        Replacement.inDeepslate("{IE}:deepslate_ore_{name}")
+    ])
 
 def makeRailcraftOreMineral(name:str) -> Mineral:
     return Mineral(name, [
-        R.inStone(f"{RC}:{name}_ore"),
-        R.inDeepslate("{RC}:deepslate_{name}_ore")
-    ]),
+        Replacement.inStone(f"{RC}:{name}_ore"),
+        Replacement.inDeepslate("{RC}:deepslate_{name}_ore")
+    ])
 
 
 # Catalog ##########################################################################################
@@ -56,7 +56,7 @@ C.add(makeOreMineral("redstone"))
 # Crystals
 C.add(makeMineral("amethyst",   "amethyst_block"))
 C.add(makeMineral("glowstone",  "glowstone"))
-C.add(makeMineral("quartz",    f"{OQ}:quartz_ore") f"{OQ}:deepslate_quartz_ore")
+C.add(makeMineral("quartz",    f"{OQ}:quartz_ore", f"{OQ}:deepslate_quartz_ore"))
 C.add(makeMineral("salt",       "butcher:saltblock"))
 
 # Earth, gravel, etc.

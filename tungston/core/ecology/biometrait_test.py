@@ -52,7 +52,7 @@ def test_repr(green):
     assert repr(green) == "BiomeTrait<green>"
 
 def test_str(green):
-    assert str(green) == "green"
+    assert str(green) == "BiomeTrait: green"
 
 def test_within(traitList, green, yellow, orange):
     assert biomeTrait.within(traitList, green, orange) == [green, yellow, orange]

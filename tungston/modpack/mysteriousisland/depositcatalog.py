@@ -1,7 +1,7 @@
 from tungston.core.ecology.biomefilter import BiomeFilter as BF
-from tungston.core.geology.depositcatalog import DepositCatalog
-from tungston.core.geology.deposit.inclusion import Inclusion as I
 from tungston.core.geology.deposit.metaldeposit import MetalDeposit
+from tungston.core.geology.depositcatalog import DepositCatalog
+from tungston.core.geology.inclusion import Inclusion as I
 from tungston.modpack.mysteriousisland.mineralcatalog import CATALOG as M
 
 import tungston.core.altitude         as AL
@@ -16,13 +16,13 @@ import tungston.core.scarcity         as SC
 
 # Catalog ##########################################################################################
 
-CATALOG = C = DepositCatalog(minerals)
+CATALOG = C = DepositCatalog()
 
 C.add(MetalDeposit(
     name        = "bif_iron",
-    biomeFilter = BF([GE.METAMORPHIC, (HE.BOREAL, HE.FROZEN), HU.DAMP]),
     scarcity    = SC.COMMON,
-    minerals    = [I(M.get("iron"), 50), I(M.get("quartz"), 45), I(M.get("uranium"), 5)],
+    biomeFilter = BF([GE.METAMORPHIC, (HE.BOREAL, HE.FROZEN), HU.DAMP]),
+    inclusions  = [I(M.get("iron"), 50), I(M.get("quartz"), 45), I(M.get("uranium"), 5)],
     bulk        = BU.LARGE,
     proportion  = 0.2,
 ))

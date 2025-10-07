@@ -4,13 +4,14 @@ from tungston.core.world import World
 
 # Constants ########################################################################################
 
-INDENT = "    "
+INDENT = "  "
 
 # Class ############################################################################################
 
 class Report:
 
-    def __init__(self, world:World):
+    def __init__(self, name:str, world:World):
+        self.name = name
         self.world = world
         self.reset()
 

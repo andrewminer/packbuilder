@@ -59,8 +59,8 @@ class Biome(object):
             "}"
         ]])
 
-    def traits(self) -> set[BiomeTrait]:
-        return set([
+    def traits(self) -> list[BiomeTrait]:
+        return list([
             self.flora,
             self.geology,
             self.heat,

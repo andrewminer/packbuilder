@@ -1,9 +1,9 @@
 from tungston.core.ecology.biomefilter import BiomeFilter as BF
+from tungston.core.habitat import Habitat
 from tungston.core.fauna.mob import Mob
-from tungston.core.fauna.mobplacement import MobPlacement
 from tungston.core.fauna.mobcatalog import MobCatalog
+from tungston.core.fauna.mobplacement import MobPlacement
 
-import tungston.core.active           as AC
 import tungston.core.altitude         as AL
 import tungston.core.ecology.flora    as FL
 import tungston.core.ecology.geology  as GE
@@ -11,6 +11,7 @@ import tungston.core.ecology.heat     as HE
 import tungston.core.ecology.humidity as HU
 import tungston.core.ecology.soil     as SO
 import tungston.core.ecology.water    as WA
+import tungston.core.fauna.active     as AC
 import tungston.core.fauna.group      as GR
 import tungston.core.fauna.location   as LO
 import tungston.core.scarcity         as SC
@@ -22,17 +23,17 @@ import tungston.core.season           as SE
 CATALOG = MobCatalog([
     MobPlacement(Mob("armadillo", "minecraft:armadillo", AC.NOCTURNAL),
         Habitat(
-            altitude    = AL.LOWLANDS,
+            altitudes   = AL.LOWLANDS,
             biomeFilter = BF([HE.SUBTROPICAL, HU.DRY]),
             seasons     = SE.SUMMER,
             group       = GR.merge(GR.SOLO, GR.PAIR),
             scarcity    = SC.COMMON
         ).derive(
-            altitude = AL.UPLANDS, scarcity = SC.SPARSE,
+            altitudes = AL.UPLANDS, scarcity = SC.SPARSE,
         ).derive(
-            altitude = AL.LOWLANDS, SE.excluding(SE.SUMMER), scarcity = SC.UNCOMMON,
+            altitudes = AL.LOWLANDS, seasons = SE.excluding(SE.SUMMER), scarcity = SC.UNCOMMON,
         ).derive(
-            altitude = AL.UPLANDS, scarcity = SC.UNUSUAL,
+            altitudes = AL.UPLANDS, scarcity = SC.UNUSUAL,
         )
     ),
     MobPlacement(Mob("black_bear", "bearminimum:black_bear"),
@@ -47,7 +48,7 @@ CATALOG = MobCatalog([
         ).derive(
             seasons = SE.WINTER, scarcity = SC.UNUSUAL
         ).derive(
-            biomeFilter = BF([HE.BOREAL, (HE.CANOPY, HE.FOREST)]),
+            biomeFilter = BF([HE.BOREAL, (FL.CANOPY, FL.FOREST)]),
             seasons = SE.AUTUMN,
             scarcity = SC.SPARSE
         ).derive(
@@ -65,7 +66,7 @@ CATALOG = MobCatalog([
         )
     ),
     MobPlacement(Mob("bogged", "minecraft:bogged")),
-    MobPlacement(Mob("brown_bear", "bearminimum:brown_bear")
+    MobPlacement(Mob("brown_bear", "bearminimum:brown_bear"),
         Habitat(
             altitudes   = AL.span(AL.LOWLANDS, AL.ALPINE),
             biomeFilter = BF([HE.BOREAL, (FL.CANOPY, FL.FOREST)]),
@@ -93,7 +94,7 @@ CATALOG = MobCatalog([
     MobPlacement(Mob("cat", "minecraft:cat")),
     MobPlacement(Mob("cave_spider", "minecraft:cave_spider"),
         Habitat(
-            altitudes = AL.SPAN(AL.OVERBURDEN, AL.HILLS),
+            altitudes = AL.span(AL.OVERBURDEN, AL.HILLS),
             location  = LO.CAVE,
             group     = GR.SOLO,
             scarcity  = SC.UNCOMMON
@@ -102,27 +103,27 @@ CATALOG = MobCatalog([
     MobPlacement(Mob("chameleon", "cold_sweat:chameleon"),
         Habitat(
             altitudes = AL.span(AL.DUNES, AL.UPLANDS),
-            biomeFilters = BF([HE.TROPICAL, HU.WET, [FL.CANOPY, FL.FOREST]]),
+            biomeFilter = BF([HE.TROPICAL, HU.WET, [FL.CANOPY, FL.FOREST]]),
             seasons = SE.WET,
-            groups = GR.merge(GR.SOLO, GR.FAMILY),
+            group = GR.merge(GR.SOLO, GR.FAMILY),
             scarcity = SC.COMMON,
         ).derive(
             seasons = SE.DRY, scarcity = SC.UNCOMMON,
         ).derive(
-            biomeFilters = BF([HE.TROPICAL, HU.WET, FL.CLEARING]),
+            biomeFilter = BF([HE.TROPICAL, HU.WET, FL.CLEARING]),
             seasons = SE.WET,
             scarcity = SC.UNCOMMON
         ).derive(
             seasons = SE.DRY, scarcity = SC.SPARSE,
         )
     ),
-    MobPlacement(Mob("chicken", "minecraft:chicken")
+    MobPlacement(Mob("chicken", "minecraft:chicken"),
         Habitat(
             altitudes = AL.span(AL.LOWLANDS, AL.UPLANDS),
-            biomeFilters = BF([HE.TROPICAL, HU.WET, FL.within(FL.CANOPY, FL.CLEARING)]),
+            biomeFilter = BF([HE.TROPICAL, HU.WET, FL.within(FL.CANOPY, FL.CLEARING)]),
             seasons = SE.SUMMER,
-            groups = GR.TROUP,
-            scarcity.COMMON,
+            group = GR.TROUP,
+            scarcity = SC.COMMON,
         ).derive(
             seasons = SE.excluding(SE.SUMMER), scarcity = SC.UNCOMMON
         )

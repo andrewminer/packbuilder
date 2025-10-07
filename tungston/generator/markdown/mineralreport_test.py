@@ -45,11 +45,11 @@ def test_report(report):
     assert str(report) == textwrap.dedent("""
         # Mineral: copper
 
-            #minecraft:stone_replaceables => minecraft:copper_ore
-            #minecraft:deepslate_replaceables => minecraft:deepslate_copper_ore
+          * #minecraft:stone_replaceables => minecraft:copper_ore
+          * #minecraft:deepslate_replaceables => minecraft:deepslate_copper_ore
 
         # Mineral: iron
 
-            #minecraft:stone_replaceables => minecraft:iron_ore
-            #minecraft:deepslate_replaceables => minecraft:deepslate_iron_ore
+          * #minecraft:stone_replaceables => minecraft:iron_ore
+          * #minecraft:deepslate_replaceables => minecraft:deepslate_iron_ore
     """).strip()

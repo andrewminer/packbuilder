@@ -1,1 +1,1 @@
-python -m tungston.modpack.mysteriousisland.runner $*
+python -m mcpacker.pack.mysteriousisland.runner $*

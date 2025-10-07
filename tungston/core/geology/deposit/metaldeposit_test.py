@@ -44,7 +44,7 @@ def test_repr(bifIron):
     assert repr(bifIron) == (
         "MetalDeposit<bifiron>{" +
             "scarcity: Scarcity<common>, " +
-            "biomeFilter: BiomeFilter([[Flora<forest>]], [[]]), " +
+            "biomeFilter: must:[Flora: forest], not:[], " +
             "inclusions: [" +
                 "Inclusion{mineral: iron, weight: 60}, " +
                 "Inclusion{mineral: quartz, weight: 40}" +

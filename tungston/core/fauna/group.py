@@ -5,7 +5,7 @@ class Group:
     How many individuals are commonly present when encountering a creature.
     """
 
-    def __init__(self, name, smallest, largest):
+    def __init__(self, name:str, smallest:int, largest:int):
         self.name = name
         self.smallest = smallest
         self.largest = largest
@@ -42,9 +42,19 @@ ALL = [SOLO, PAIR, FAMILY, TROUP, HERD]
 def merge(*groups):
     if not groups: return SOLO
 
-    result = Group(f"", HERD.largest, SOLO.smallest)
-    for group in groups:
-        result.smallest = min(result.smallest, group.smallest)
-        result.largest = max(result.largest, group.largest)
+    smallest = ALL[-1].largest
+    smallestGroup = None
 
-    return result
+    largest = ALL[0].smallest
+    largestGroup = None
+
+    for group in groups:
+        if group.smallest < smallest:
+            smallest = group.smallest
+            smallestGroup = group
+
+        if group.largest > largest:
+            largest = group.largest
+            largestGroup = group
+
+    return Group(f"{smallestGroup.name}-{largestGroup.name}", smallest, largest)

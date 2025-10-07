@@ -30,7 +30,7 @@ def test_cowsInFields(placement):
         "Placement{" +
             "habitats: [" +
                 "Habitat{" +
-                    "altitude: [anywhere <-64 to 320>], " +
+                    "altitude: anywhere <-64 to 320>, " +
                     "biomeFilter: BiomeFilter([[Flora<field>, Heat<temperate>]], [[]]), " +
                     "seasons: [Season<spring>, Season<summer>, Season<autumn>, Season<winter>], " +
                     "group: solo<1 to 1>, " +

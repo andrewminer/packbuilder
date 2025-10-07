@@ -7,6 +7,7 @@ from tungston.modpack.mysteriousisland.mobcatalog import CATALOG as mobs
 from tungston.generator.markdown.reportwriter import ReportWriter
 from tungston.generator.markdown.biomereport import BiomeReport
 from tungston.generator.markdown.mineralreport import MineralReport
+from tungston.generator.markdown.mobreport import MobReport
 
 import sys
 
@@ -23,7 +24,8 @@ class Runner(BaseRunner):
     def _command_writeReports(self):
         writer = ReportWriter([
             BiomeReport(self.world),
-            MineralReport(self.world)
+            MineralReport(self.world),
+            MobReport(self.world),
         ])
         writer.write(REPORT_PATH)
 

@@ -22,7 +22,7 @@ class Habitat:
     def __init__(
         self,
 
-        altitudes:tuple[Altitude]|Altitude=[A.ANYWHERE],
+        altitude:Altitude=A.ANYWHERE,
         biomeFilter:BiomeFilter=None,
         seasons:tuple[Season]=E.ALL,
 
@@ -30,7 +30,7 @@ class Habitat:
         location:Location=L.OUTSIDE,
         scarcity:Scarcity=C.SPARSE,
     ):
-        self.altitudes = (altitudes,) if isinstance(altitudes, Altitude) else altitudes
+        self.altitude = altitude
         self.biomeFilter = biomeFilter or BiomeFilter()
         self.seasons = (seasons,) if isinstance(seasons, Season) else seasons
 
@@ -41,19 +41,19 @@ class Habitat:
         self._source = None
 
     def __str__(self) -> str:
-        return "".join(str(p) for p in [
-            self.altitude, "|",
+        return "".join([str(p) for p in [
+            ", ".join(self.altitude), "|",
             self.biomeFilter, "|",
-            self.seasons, "|",
+            ", ".join([str(s) for s in self.seasons]), "|",
             self.group, "|",
             self.location, "|",
             self.scarcity
-        ])
+        ]])
 
     def __repr__(self) -> str:
         return "".join([str(p) for p in [
             "Habitat{",
-                "altitude: [", ", ".join([repr(a) for a in self.altitudes]), "], ",
+                "altitude: ", repr(self.altitude), ", ",
                 "biomeFilter: ", repr(self.biomeFilter), ", ",
                 "seasons: [", ", ".join([repr(s) for s in self.seasons]), "], ",
                 "group: ", repr(self.group), ", ",
@@ -64,7 +64,7 @@ class Habitat:
 
     def derive(self, **kwargs):
         kwargs = {
-            "altitudes": self.altitudes,
+            "altitude": self.altitude,
             "biomeFilter": self.biomeFilter,
             "seasons": self.seasons,
             "group": self.group,

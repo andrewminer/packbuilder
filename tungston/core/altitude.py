@@ -67,8 +67,20 @@ def span(*altitudes):
     if not altitudes: return ANYWHERE
     result = Altitude("", ANYWHERE.top, ANYWHERE.bottom)
 
-    for altitude in altitudes:
-        result.bottom = min(result.bottom, altitude.bottom)
-        result.top = max(result.top, altitude.top)
+    bottom = OVERGROUND[-1].top
+    bottomAltitude = None
 
+    top = UNDERGROUND[-1].bottom
+    topAltitude = None
+
+    for altitude in altitudes:
+        if altitude.bottom < bottom:
+            bottom = altitude.bottom
+            bottomAltitude = altitude
+
+        if altitude.top > top:
+            top = altitude.top
+            topAltitude = altitude
+
+    result = Altitude(f"{bottomAltitude.name}-{topAltitude.name}", bottom, top)
     return result

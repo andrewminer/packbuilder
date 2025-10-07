@@ -23,22 +23,22 @@ import tungston.core.season           as SE
 CATALOG = MobCatalog([
     MobPlacement(Mob("armadillo", "minecraft:armadillo", AC.NOCTURNAL),
         Habitat(
-            altitudes   = AL.LOWLANDS,
+            altitude    = AL.LOWLANDS,
             biomeFilter = BF([HE.SUBTROPICAL, HU.DRY]),
             seasons     = SE.SUMMER,
             group       = GR.merge(GR.SOLO, GR.PAIR),
             scarcity    = SC.COMMON
         ).derive(
-            altitudes = AL.UPLANDS, scarcity = SC.SPARSE,
+            altitude = AL.UPLANDS, scarcity = SC.SPARSE,
         ).derive(
-            altitudes = AL.LOWLANDS, seasons = SE.excluding(SE.SUMMER), scarcity = SC.UNCOMMON,
+            altitude = AL.LOWLANDS, seasons = SE.excluding(SE.SUMMER), scarcity = SC.UNCOMMON,
         ).derive(
-            altitudes = AL.UPLANDS, scarcity = SC.UNUSUAL,
+            altitude = AL.UPLANDS, scarcity = SC.UNUSUAL,
         )
     ),
     MobPlacement(Mob("black_bear", "bearminimum:black_bear"),
         Habitat(
-            altitudes = AL.span(AL.LOWLANDS, AL.ALPINE),
+            altitude = AL.span(AL.LOWLANDS, AL.ALPINE),
             biomeFilter = BF([HE.TEMPERATE, FL.FOREST]),
             seasons = SE.AUTUMN,
             group = GR.merge(GR.SOLO, GR.FAMILY),
@@ -59,7 +59,7 @@ CATALOG = MobCatalog([
     ),
     MobPlacement(Mob("blaze", "minecraft:blaze"),
         Habitat(
-            altitudes = AL.PLUTONIC,
+            altitude = AL.PLUTONIC,
             location  = LO.CAVE,
             group     = GR.SOLO,
             scarcity  = SC.UNCOMMON
@@ -68,7 +68,7 @@ CATALOG = MobCatalog([
     MobPlacement(Mob("bogged", "minecraft:bogged")),
     MobPlacement(Mob("brown_bear", "bearminimum:brown_bear"),
         Habitat(
-            altitudes   = AL.span(AL.LOWLANDS, AL.ALPINE),
+            altitude   = AL.span(AL.LOWLANDS, AL.ALPINE),
             biomeFilter = BF([HE.BOREAL, (FL.CANOPY, FL.FOREST)]),
             seasons     = SE.AUTUMN,
             group       = GR.SOLO,
@@ -82,19 +82,19 @@ CATALOG = MobCatalog([
     MobPlacement(Mob("bulwark", "immersiveengineering:bulwark")),
     MobPlacement(Mob("camel", "minecraft:camel", AC.CREPUSCULAR),
         Habitat(
-            altitudes = AL.span(AL.DUNES, AL.LOWLANDS),
+            altitude = AL.span(AL.DUNES, AL.LOWLANDS),
             biomeFilter = BF([HE.TROPICAL, HU.DRY, FL.BARREN, SO.SANDY]),
-            seasons = SE.WET,
+            seasons = SE.DRY,
             group = GR.FAMILY,
             scarcity = SC.UNUSUAL,
         ).derive(
-            seasons = SE.DRY, scarcity = SC.RARE
+            seasons = SE.WET, scarcity = SC.RARE
         )
     ),
     MobPlacement(Mob("cat", "minecraft:cat")),
     MobPlacement(Mob("cave_spider", "minecraft:cave_spider"),
         Habitat(
-            altitudes = AL.span(AL.OVERBURDEN, AL.HILLS),
+            altitude = AL.span(AL.OVERBURDEN, AL.HILLS),
             location  = LO.CAVE,
             group     = GR.SOLO,
             scarcity  = SC.UNCOMMON
@@ -102,7 +102,7 @@ CATALOG = MobCatalog([
     ),
     MobPlacement(Mob("chameleon", "cold_sweat:chameleon"),
         Habitat(
-            altitudes = AL.span(AL.DUNES, AL.UPLANDS),
+            altitude = AL.span(AL.DUNES, AL.UPLANDS),
             biomeFilter = BF([HE.TROPICAL, HU.WET, [FL.CANOPY, FL.FOREST]]),
             seasons = SE.WET,
             group = GR.merge(GR.SOLO, GR.FAMILY),
@@ -119,7 +119,7 @@ CATALOG = MobCatalog([
     ),
     MobPlacement(Mob("chicken", "minecraft:chicken"),
         Habitat(
-            altitudes = AL.span(AL.LOWLANDS, AL.UPLANDS),
+            altitude = AL.span(AL.LOWLANDS, AL.UPLANDS),
             biomeFilter = BF([HE.TROPICAL, HU.WET, FL.within(FL.CANOPY, FL.CLEARING)]),
             seasons = SE.SUMMER,
             group = GR.TROUP,

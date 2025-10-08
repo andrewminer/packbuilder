@@ -1,15 +1,25 @@
-from mcpacker.model.core.world import World
+from mcpacker.emit.markdown.reportwriter import ReportWriter
+from mcpacker.emit.markdown.biomereport import BiomeReport
+from mcpacker.emit.markdown.mineralreport import MineralReport
+from mcpacker.emit.markdown.mobreport import MobReport
+from mcpacker.model.modpack import ModPack
 
 import inspect
+import os
 import sys
+
+
+# Constants ########################################################################################
+
+OUTPUT_PATH = "output"
 
 
 # Class ############################################################################################
 
 class Runner:
 
-    def __init__(self, world:World):
-        self.world = world
+    def __init__(self, pack:ModPack|None=None):
+        self.pack = pack or ModPack("untitled")
 
     def abort(self, message:str, status:int=-1):
         print(message)
@@ -26,3 +36,13 @@ class Runner:
                 sys.exit(0)
 
         abort("No command named: " + argv[1])
+
+    # Commands #################################################################
+
+    def _command_writeReports(self):
+        writer = ReportWriter([
+            BiomeReport(self.pack),
+            MineralReport(self.pack),
+            MobReport(self.pack),
+        ])
+        writer.write(os.path.join(OUTPUT_PATH, self.pack.name, "markdown"))

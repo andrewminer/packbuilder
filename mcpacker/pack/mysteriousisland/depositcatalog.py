@@ -1,8 +1,7 @@
-from mcpacker.model.core.ecology.biomefilter import BiomeFilter as BF
+from mcpacker.model.core.ecology.biomefilter          import BiomeFilter as BF
 from mcpacker.model.core.geology.deposit.metaldeposit import MetalDeposit
-from mcpacker.model.core.geology.depositcatalog import DepositCatalog
-from mcpacker.model.core.geology.inclusion import Inclusion as I
-from mcpacker.pack.mysteriousisland.mineralcatalog import CATALOG as M
+from mcpacker.model.core.geology.inclusion            import Inclusion as I
+from mcpacker.model.modpack                           import ModPack
 
 import mcpacker.model.core.altitude         as AL
 import mcpacker.model.core.ecology.flora    as FL
@@ -16,13 +15,19 @@ import mcpacker.model.core.scarcity         as SC
 
 # Catalog ##########################################################################################
 
-CATALOG = C = DepositCatalog()
+def addDeposits(pack:ModPack):
+    minerals = pack.world.minerals
+    deposits = pack.world.deposits
 
-C.add(MetalDeposit(
-    name        = "bif_iron",
-    scarcity    = SC.COMMON,
-    biomeFilter = BF([GE.METAMORPHIC, (HE.BOREAL, HE.FROZEN), HU.DAMP]),
-    inclusions  = [I(M.get("iron"), 50), I(M.get("quartz"), 45), I(M.get("uranium"), 5)],
-    bulk        = BU.LARGE,
-    proportion  = 0.2,
-))
+    deposits.add(MetalDeposit(
+        name = "bif_iron",
+        scarcity = SC.COMMON,
+        biomeFilter = BF([GE.METAMORPHIC, (HE.BOREAL, HE.FROZEN), HU.DAMP]),
+        inclusions = [
+            I(minerals.get("iron"), 50),
+            I(minerals.get("quartz"), 45),
+            I(minerals.get("uranium"), 5)
+        ],
+        bulk = BU.LARGE,
+        proportion = 0.2,
+    ))

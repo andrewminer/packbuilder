@@ -34,7 +34,7 @@ COLD = [WINTER]
 
 # Constants ########################################################################################
 
-def excluding(target:Season) -> list[Season]:
+def exclude(target:Season) -> list[Season]:
     result = []
 
     for season in ALL:

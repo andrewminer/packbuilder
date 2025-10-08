@@ -1,4 +1,4 @@
-from mcpacker.ui.runner import Runner
+import mcpacker.ui.runner
 
 
 # Tests ############################################################################################

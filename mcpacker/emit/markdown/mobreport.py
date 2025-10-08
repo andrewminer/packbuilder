@@ -1,17 +1,17 @@
-from mcpacker.emit.markdown.report import Report
+from mcpacker.emit.markdown.report          import Report
 from mcpacker.model.core.ecology.biometrait import BiomeTrait
-from mcpacker.model.core.world import World
+from mcpacker.model.modpack                 import ModPack
 
 
 # Class ############################################################################################
 
 class MobReport(Report):
 
-    def __init__(self, world:World):
-        super().__init__("mobs.md", world)
+    def __init__(self, pack:ModPack):
+        super().__init__("mobs.md", pack)
 
     def build(self):
-        for placement in self.world.mobs.all():
+        for placement in self.pack.world.mobs.all():
             self.line(f"# Mob: {placement.mob.name} <{placement.mob.gameId}>")
             self.line()
 

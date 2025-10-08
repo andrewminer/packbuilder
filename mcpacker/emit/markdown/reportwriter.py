@@ -3,6 +3,7 @@ from mcpacker.emit.markdown.report import Report
 import os
 import shutil
 
+
 # Class ############################################################################################
 
 class ReportWriter:

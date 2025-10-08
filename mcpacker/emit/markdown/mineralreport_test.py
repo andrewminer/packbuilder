@@ -1,40 +1,38 @@
-from mcpacker.emit.markdown.mineralreport import MineralReport
-from mcpacker.model.core.geology.mineral import Mineral
-from mcpacker.model.core.geology.mineralcatalog import MineralCatalog
+from mcpacker.emit.markdown.mineralreport    import MineralReport
+from mcpacker.model.core.geology.mineral     import Mineral
 from mcpacker.model.core.geology.replacement import Replacement
-from mcpacker.model.core.world import World
-from pytest import fixture
+from mcpacker.model.modpack                  import ModPack
+from pytest                                  import fixture
 
 import textwrap
 
 
 # Fixtures #########################################################################################
 
-@fixture(name="copper")
-def createCopper():
-    yield Mineral("copper", [
-        Replacement("#minecraft:stone_replaceables", "minecraft:copper_ore"),
-        Replacement("#minecraft:deepslate_replaceables", "minecraft:deepslate_copper_ore")
-    ])
+@fixture(name="addMinerals")
+def defineAddMinerals():
+    def addMinerals(pack:ModPack):
+        pack.world.minerals.add(Mineral("copper", [
+            Replacement("#minecraft:stone_replaceables", "minecraft:copper_ore"),
+            Replacement("#minecraft:deepslate_replaceables", "minecraft:deepslate_copper_ore")
+        ]))
 
-@fixture(name="iron")
-def createIron():
-    yield Mineral("iron", [
-        Replacement("#minecraft:stone_replaceables", "minecraft:iron_ore"),
-        Replacement("#minecraft:deepslate_replaceables", "minecraft:deepslate_iron_ore")
-    ])
+        pack.world.minerals.add(Mineral("iron", [
+            Replacement("#minecraft:stone_replaceables", "minecraft:iron_ore"),
+            Replacement("#minecraft:deepslate_replaceables", "minecraft:deepslate_iron_ore")
+        ]))
 
-@fixture(name="minerals")
-def createMineralCatalog(copper, iron):
-    yield MineralCatalog([copper, iron])
+    return addMinerals
 
-@fixture(name="world")
-def createWorld(minerals):
-    yield World(None, None, minerals, None)
+@fixture(name="pack")
+def createPack(addMinerals):
+    pack = ModPack("test")
+    pack.augment(addMinerals)
+    yield pack
 
 @fixture(name="report")
-def createReport(world):
-    report = MineralReport(world)
+def createReport(pack):
+    report = MineralReport(pack)
     report.build()
     yield report
 

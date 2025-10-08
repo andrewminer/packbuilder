@@ -1,4 +1,4 @@
-from collections.abc import Iterator
+from collections.abc import Iterable
 from mcpacker.model.core.fauna.mobplacement import MobPlacement
 
 
@@ -6,10 +6,10 @@ from mcpacker.model.core.fauna.mobplacement import MobPlacement
 
 class MobCatalog:
 
-    def __init__(self, mobs:tuple[MobPlacement]):
+    def __init__(self, mobs:Iterable[MobPlacement]|None=None):
         self._mobs = {}
 
-        for mob in mobs:
+        for mob in (mobs or []):
             self.add(mob)
 
     def add(self, placement:MobPlacement) -> "MobCatalog":
@@ -18,7 +18,7 @@ class MobCatalog:
 
         self._mobs[placement.mob.name] = placement
 
-    def all(self) -> Iterator[MobPlacement]:
+    def all(self) -> Iterable[MobPlacement]:
         for placement in self._mobs.values():
             yield placement
 

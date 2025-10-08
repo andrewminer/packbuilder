@@ -7,10 +7,10 @@ import mcpacker.model.core.season as season
 
 @fixture(name="notSummer")
 def createNotSummerList():
-    yield season.excluding(season.SUMMER)
+    yield season.exclude(season.SUMMER)
 
 
 # Tests ############################################################################################
 
-def test_excluding(notSummer):
+def test_exclude(notSummer):
     assert ", ".join([str(s) for s in notSummer]) == "spring, autumn, winter"

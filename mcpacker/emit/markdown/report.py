@@ -1,18 +1,19 @@
-from collections.abc import Iterator
-from mcpacker.model.core.world import World
+from collections.abc        import Iterator
+from mcpacker.model.modpack import ModPack
 
 
 # Constants ########################################################################################
 
 INDENT = "  "
 
+
 # Class ############################################################################################
 
 class Report:
 
-    def __init__(self, name:str, world:World):
+    def __init__(self, name:str, pack:ModPack):
         self.name = name
-        self.world = world
+        self.pack = pack
         self.reset()
 
     def __str__(self) -> str:

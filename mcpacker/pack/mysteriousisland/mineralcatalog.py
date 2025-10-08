@@ -1,6 +1,7 @@
-from mcpacker.model.core.geology.mineral import Mineral
+from mcpacker.model.core.geology.mineral        import Mineral
 from mcpacker.model.core.geology.mineralcatalog import MineralCatalog
-from mcpacker.model.core.geology.replacement import Replacement
+from mcpacker.model.core.geology.replacement    import Replacement
+from mcpacker.model.modpack                     import ModPack
 
 
 # Constants ########################################################################################
@@ -41,69 +42,70 @@ def makeRailcraftOreMineral(name:str) -> Mineral:
 
 # Catalog ##########################################################################################
 
-CATALOG = C = MineralCatalog()
+def addMinerals(pack:ModPack):
+    minerals = pack.world.minerals
 
-# Basic Ores
-C.add(makeOreMineral("coal"))
-C.add(makeOreMineral("copper"))
-C.add(makeOreMineral("diamond"))
-C.add(makeOreMineral("emerald"))
-C.add(makeOreMineral("gold"))
-C.add(makeOreMineral("iron"))
-C.add(makeOreMineral("lapis"))
-C.add(makeOreMineral("redstone"))
+    # Basic Ores
+    minerals.add(makeOreMineral("coal"))
+    minerals.add(makeOreMineral("copper"))
+    minerals.add(makeOreMineral("diamond"))
+    minerals.add(makeOreMineral("emerald"))
+    minerals.add(makeOreMineral("gold"))
+    minerals.add(makeOreMineral("iron"))
+    minerals.add(makeOreMineral("lapis"))
+    minerals.add(makeOreMineral("redstone"))
 
-# Crystals
-C.add(makeMineral("amethyst",   "amethyst_block"))
-C.add(makeMineral("glowstone",  "glowstone"))
-C.add(makeMineral("quartz",    f"{OQ}:quartz_ore", f"{OQ}:deepslate_quartz_ore"))
-C.add(makeMineral("salt",       "butcher:saltblock"))
+    # Crystals
+    minerals.add(makeMineral("amethyst",   "amethyst_block"))
+    minerals.add(makeMineral("glowstone",  "glowstone"))
+    minerals.add(makeMineral("quartz",    f"{OQ}:quartz_ore", f"{OQ}:deepslate_quartz_ore"))
+    minerals.add(makeMineral("salt",       "butcher:saltblock"))
 
-# Earth, gravel, etc.
-C.add(makeMineral("clay",       "clay"))
-C.add(makeMineral("coarsedirt", "coarse_dirt"))
-C.add(makeMineral("dirt",       "dirt"))
-C.add(makeMineral("gravel",     "gravel"))
-C.add(makeMineral("loam",       "farmersdelight:rich_soil"))
-C.add(makeMineral("packedice",  "packed_ice"))
-C.add(makeMineral("peat",       "kubejs:peat_block"))
-C.add(makeMineral("redsand",    "redsand"))
-C.add(makeMineral("sand",       "sand"))
-C.add(makeMineral("soulsand",   "soulsand"))
+    # Earth, gravel, etc.
+    minerals.add(makeMineral("clay",       "clay"))
+    minerals.add(makeMineral("coarsedirt", "coarse_dirt"))
+    minerals.add(makeMineral("dirt",       "dirt"))
+    minerals.add(makeMineral("gravel",     "gravel"))
+    minerals.add(makeMineral("loam",       "farmersdelight:rich_soil"))
+    minerals.add(makeMineral("packedice",  "packed_ice"))
+    minerals.add(makeMineral("peat",       "kubejs:peat_block"))
+    minerals.add(makeMineral("redsand",    "redsand"))
+    minerals.add(makeMineral("sand",       "sand"))
+    minerals.add(makeMineral("soulsand",   "soulsand"))
 
-# Stone
-C.add(makeMineral("andesite",   "andesite"))
-C.add(makeMineral("arkrose",    "red_sandstone"))
-C.add(makeMineral("basalt",     "basalt"))
-C.add(makeMineral("breccia",    "cobblestone"))
-C.add(makeMineral("chalk",      "calcite"))
-C.add(makeMineral("diorite",    "diorite"))
-C.add(makeMineral("dolostone",  "end_stone"))
-C.add(makeMineral("gneiss",     "deepslate"))
-C.add(makeMineral("granite",    "granite"))
-C.add(makeMineral("greywacke",  "stone"))
-C.add(makeMineral("komatite",   "blackstone"))
-C.add(makeMineral("limestone",  "dripstone_block"))
-C.add(makeMineral("magma",      "magma_block"))
-C.add(makeMineral("marble",    f"{RC}:quarried_stone"))
-C.add(makeMineral("netherite",  "ancient_debris"))
-C.add(makeMineral("obsidian",   "obsidian"))
-C.add(makeMineral("pumice",     "netherrack"))
-C.add(makeMineral("sandstone",  "sandstone"))
-C.add(makeMineral("tuff",       "tuff"))
+    # Stone
+    minerals.add(makeMineral("andesite",   "andesite"))
+    minerals.add(makeMineral("arkrose",    "red_sandstone"))
+    minerals.add(makeMineral("basalt",     "basalt"))
+    minerals.add(makeMineral("breccia",    "cobblestone"))
+    minerals.add(makeMineral("chalk",      "calcite"))
+    minerals.add(makeMineral("diorite",    "diorite"))
+    minerals.add(makeMineral("dolostone",  "end_stone"))
+    minerals.add(makeMineral("gneiss",     "deepslate"))
+    minerals.add(makeMineral("granite",    "granite"))
+    minerals.add(makeMineral("greywacke",  "stone"))
+    minerals.add(makeMineral("komatite",   "blackstone"))
+    minerals.add(makeMineral("limestone",  "dripstone_block"))
+    minerals.add(makeMineral("magma",      "magma_block"))
+    minerals.add(makeMineral("marble",    f"{RC}:quarried_stone"))
+    minerals.add(makeMineral("netherite",  "ancient_debris"))
+    minerals.add(makeMineral("obsidian",   "obsidian"))
+    minerals.add(makeMineral("pumice",     "netherrack"))
+    minerals.add(makeMineral("sandstone",  "sandstone"))
+    minerals.add(makeMineral("tuff",       "tuff"))
 
-# Immersive Engineering Ores
-C.add(makeImmersiveEngineeringOreMineral("aluminum"))
-C.add(makeImmersiveEngineeringOreMineral("lead"))
-C.add(makeImmersiveEngineeringOreMineral("nickel"))
-C.add(makeImmersiveEngineeringOreMineral("silver"))
-C.add(makeImmersiveEngineeringOreMineral("uranium"))
+    # Immersive Engineering Ores
+    minerals.add(makeImmersiveEngineeringOreMineral("aluminum"))
+    minerals.add(makeImmersiveEngineeringOreMineral("lead"))
+    minerals.add(makeImmersiveEngineeringOreMineral("nickel"))
+    minerals.add(makeImmersiveEngineeringOreMineral("silver"))
+    minerals.add(makeImmersiveEngineeringOreMineral("uranium"))
 
-# Railcraft Ores
-C.add(Mineral("saltpeter", [
-    Replacement("sand", f"{RC}:saltpeter_ore"),
-    Replacement("sandstone", f"{RC}:saltpeter_ore"),
-]))
-C.add(makeRailcraftOreMineral("sulfur"))
-C.add(makeRailcraftOreMineral("tin"))
-C.add(makeRailcraftOreMineral("zinc"))
+    # Railcraft Ores
+    minerals.add(Mineral("saltpeter", [
+        Replacement("sand", f"{RC}:saltpeter_ore"),
+        Replacement("sandstone", f"{RC}:saltpeter_ore"),
+    ]))
+    minerals.add(makeRailcraftOreMineral("sulfur"))
+    minerals.add(makeRailcraftOreMineral("tin"))
+    minerals.add(makeRailcraftOreMineral("zinc"))

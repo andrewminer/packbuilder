@@ -1,7 +1,7 @@
-from mcpacker.model.core.geology.mineral import Mineral
+from mcpacker.model.core.geology.mineral        import Mineral
 from mcpacker.model.core.geology.mineralcatalog import MineralCatalog
-from mcpacker.model.core.geology.replacement import Replacement
-from pytest import fixture
+from mcpacker.model.core.geology.replacement    import Replacement
+from pytest                                     import fixture
 
 
 # Fixtures #########################################################################################

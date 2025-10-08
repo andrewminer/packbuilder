@@ -1,4 +1,4 @@
-import mcpacker.pack.mysteriousisland.datapack
+import mcpacker.emit.modpack
 
 
 # Tests ############################################################################################

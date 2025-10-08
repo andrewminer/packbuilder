@@ -1,4 +1,4 @@
-import mcpacker.pack.mysteriousisland.mineralcatalog
+import mcpacker.pack.mysteriousisland.addmobs
 
 
 # Class ############################################################################################

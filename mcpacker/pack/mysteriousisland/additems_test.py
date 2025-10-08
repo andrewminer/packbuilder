@@ -1,4 +1,4 @@
-import mcpacker.pack.mysteriousisland.blockcatalog
+import mcpacker.pack.mysteriousisland.additems
 
 
 # Class ############################################################################################

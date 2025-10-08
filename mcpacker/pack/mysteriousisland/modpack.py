@@ -1,12 +1,12 @@
-from mcpacker.model.modpack                        import ModPack
-from mcpacker.pack.mysteriousisland.biomecatalog   import addBiomes
-from mcpacker.pack.mysteriousisland.blockcatalog   import addBlocks
-from mcpacker.pack.mysteriousisland.depositcatalog import addDeposits
-from mcpacker.pack.mysteriousisland.itemcatalog    import addItems
-from mcpacker.pack.mysteriousisland.mineralcatalog import addMinerals
-from mcpacker.pack.mysteriousisland.mobcatalog     import addMobs
-from mcpacker.pack.mysteriousisland.datapack       import addDataPack
-from mcpacker.pack.mysteriousisland.resourcepack   import addResourcePack
+from mcpacker.model.modpack                         import ModPack
+from mcpacker.pack.mysteriousisland.addbiomes       import addBiomes
+from mcpacker.pack.mysteriousisland.addblocks       import addBlocks
+from mcpacker.pack.mysteriousisland.adddatapack     import addDataPack
+from mcpacker.pack.mysteriousisland.adddeposits     import addDeposits
+from mcpacker.pack.mysteriousisland.additems        import addItems
+from mcpacker.pack.mysteriousisland.addminerals     import addMinerals
+from mcpacker.pack.mysteriousisland.addmobs         import addMobs
+from mcpacker.pack.mysteriousisland.addresourcepack import addResourcePack
 
 
 # Constants ########################################################################################

@@ -1,4 +1,4 @@
-import mcpacker.pack.mysteriousisland.biomecatalog
+import mcpacker.pack.mysteriousisland.adddeposits
 
 
 # Class ############################################################################################

@@ -1,4 +1,4 @@
-import mcpacker.pack.mysteriousisland.depositcatalog
+import mcpacker.pack.mysteriousisland.addminerals
 
 
 # Class ############################################################################################

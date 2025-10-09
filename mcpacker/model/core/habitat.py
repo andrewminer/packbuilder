@@ -1,15 +1,16 @@
-from mcpacker.model.core.altitude import Altitude
+from collections.abc                         import Iterable
+from mcpacker.model.core.altitude            import Altitude
 from mcpacker.model.core.ecology.biomefilter import BiomeFilter
-from mcpacker.model.core.fauna.group import Group
-from mcpacker.model.core.fauna.location import Location
-from mcpacker.model.core.scarcity import Scarcity
-from mcpacker.model.core.season import Season
+from mcpacker.model.core.fauna.group         import Group
+from mcpacker.model.core.fauna.location      import Location
+from mcpacker.model.core.scarcity            import Scarcity
+from mcpacker.model.core.season              import Season
 
-import mcpacker.model.core.altitude as A
-import mcpacker.model.core.fauna.group as G
+import mcpacker.model.core.altitude       as A
+import mcpacker.model.core.fauna.group    as G
 import mcpacker.model.core.fauna.location as L
-import mcpacker.model.core.scarcity as C
-import mcpacker.model.core.season as E
+import mcpacker.model.core.scarcity       as C
+import mcpacker.model.core.season         as E
 
 
 # Class ############################################################################################
@@ -23,8 +24,8 @@ class Habitat:
         self,
 
         altitude:Altitude=A.ANYWHERE,
-        biomeFilter:BiomeFilter=None,
-        seasons:tuple[Season]=E.ALL,
+        biomeFilter:BiomeFilter|None=None,
+        seasons:Iterable[Season]|Season=E.ALL,
 
         group:Group=G.SOLO,
         location:Location=L.OUTSIDE,
@@ -32,7 +33,7 @@ class Habitat:
     ):
         self.altitude = altitude
         self.biomeFilter = biomeFilter or BiomeFilter()
-        self.seasons = (seasons,) if isinstance(seasons, Season) else seasons
+        self.seasons = [seasons] if isinstance(seasons, Season) else seasons
 
         self.group = group
         self.location = location
@@ -42,7 +43,7 @@ class Habitat:
 
     def __str__(self) -> str:
         return "".join([str(p) for p in [
-            ", ".join(self.altitude), "|",
+            self.altitude, "|",
             self.biomeFilter, "|",
             ", ".join([str(s) for s in self.seasons]), "|",
             self.group, "|",
@@ -77,13 +78,12 @@ class Habitat:
 
         return result
 
-    def collect(self) -> "tuple[Habitat]":
-        result = []
-
-        current = self
+    def collect(self) -> "Iterable[Habitat]":
+        stack:list[Habitat] = []
+        current:Habitat|None = self
         while current:
-            result.append(current)
+            stack.append(current)
             current = current._source
 
-        return tuple(reversed(result))
-
+        while stack:
+            yield stack.pop()

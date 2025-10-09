@@ -1,6 +1,7 @@
+from mcpacker.json                              import JsonBlob
 from mcpacker.model.datapack.blockstateprovider import BlockStateProvider
-from mcpacker.model.datapack.configuredfeature import ConfiguredFeature
-from typing import Any
+from mcpacker.model.datapack.configuredfeature  import ConfiguredFeature
+from typing                                     import Any
 
 
 # Class ############################################################################################
@@ -11,10 +12,10 @@ class SimpleBlock(ConfiguredFeature):
         super().__init__("minecraft:simple_block")
         self.toPlace = toPlace
 
-    def asData(self) -> dict[str, Any]:
+    def asJsonBlob(self) -> JsonBlob:
         return {
             "type": self.gameId,
             "config": {
-                "to_place": self.toPlace.asData()
+                "to_place": self.toPlace.asJsonBlob()
             }
         }

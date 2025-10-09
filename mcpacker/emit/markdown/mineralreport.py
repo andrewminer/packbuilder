@@ -10,7 +10,7 @@ class MineralReport(Report):
         super().__init__("minerals.md", pack)
 
     def build(self):
-        for mineral in self.pack.world.minerals.all():
+        for mineral in self.pack.world.minerals:
             self.line(f"# Mineral: {mineral.name}")
             self.line()
 

@@ -1,4 +1,4 @@
-import mcpacker.model.datapack.mod
+import mcpacker.model.core.dimension
 
 
 # Tests ############################################################################################

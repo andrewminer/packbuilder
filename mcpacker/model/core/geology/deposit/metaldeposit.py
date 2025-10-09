@@ -1,3 +1,4 @@
+from collections.abc import Iterable
 from mcpacker.model.core.ecology.biomefilter import BiomeFilter
 from mcpacker.model.core.geology.bulk import Bulk
 from mcpacker.model.core.geology.deposit import Deposit
@@ -17,10 +18,10 @@ class MetalDeposit(Deposit):
     def __init__(
         self,
         name:str,
-        inclusions:tuple[Inclusion],
+        inclusions:Iterable[Inclusion],
         bulk:Bulk=BU.MEDIUM,
         proportion:Proportion=PR.BODY,
-        biomeFilter:BiomeFilter=None,
+        biomeFilter:BiomeFilter|None=None,
         scarcity:Scarcity=SC.SPARSE,
     ):
         super().__init__(name, scarcity, biomeFilter)

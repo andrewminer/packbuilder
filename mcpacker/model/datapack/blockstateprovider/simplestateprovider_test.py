@@ -10,14 +10,14 @@ def createBlockState():
     yield BlockState("minecraft:button", {"waterlogged": "true"})
 
 @fixture(name="provider")
-def createProvider(state):
+def createProvider(state:BlockState):
     return SimpleStateProvider(state)
 
 
 # Tests ############################################################################################
 
-def test_asData(provider):
-    assert provider.asData() == {
+def test_asData(provider:SimpleStateProvider):
+    assert provider.asJsonBlob() == {
         "type": "minecraft:simple_state_provider",
         "state": {
             "Name": "minecraft:button",

@@ -1,26 +1,24 @@
+from collections.abc import Iterable
 from mcpacker.model.core.habitat import Habitat
 
 
 # Class ############################################################################################
 
-class Placement:
+class Spawn:
     """
     Abstract base class for placing something into its various habitats.
     """
 
-    def __init__(self, habitats:tuple[Habitat]=None):
-        self.habitats = habitats
+    def __init__(self, habitats:Iterable[Habitat]|Habitat|None=None):
+        if isinstance(habitats, Habitat):
+            habitats = habitats.collect()
 
-        if not self.habitats:
-            self.habitats = ()
-
-        if isinstance(self.habitats, Habitat):
-            self.habitats = self.habitats.collect()
+        self.habitats = habitats or []
 
 
     def __repr__(self) -> str:
         return (
-            "Placement{" +
+            "Spawn{" +
                 f"habitats: [{', '.join([repr(h) for h in self.habitats])}]" +
             "}"
         )

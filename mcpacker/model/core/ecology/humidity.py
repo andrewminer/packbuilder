@@ -1,3 +1,4 @@
+from collections.abc                        import Iterable
 from mcpacker.model.core.ecology.biometrait import BiomeTrait
 
 import mcpacker.model.core.ecology.biometrait as biomeTrait
@@ -23,5 +24,5 @@ ALL = [WET, DAMP, DRY]
 
 # Helpers ##########################################################################################
 
-def within(start:Humidity, end:Humidity) -> list[Humidity]:
+def within(start:Humidity, end:Humidity) -> Iterable[Humidity]:
     return biomeTrait.within(ALL, start, end)

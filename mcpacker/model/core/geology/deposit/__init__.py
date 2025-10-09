@@ -17,6 +17,7 @@ class Deposit:
         biomeFilter:BiomeFilter|None=None,
     ):
         self.name = name
+        self.gameId = name
         self.biomeFilter = biomeFilter or BiomeFilter()
         self.scarcity = scarcity
 

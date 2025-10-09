@@ -1,39 +1,40 @@
 from collections.abc import Iterable
-from mcpacker.model.datapack.mod import Mod
+from mcpacker.model.datapack.moddata import ModData
 
 
 # Class ############################################################################################
 
 class DataPack:
 
-    def __init__(self, name:str, mods:Iterable[Mod]|None=None):
+    def __init__(self, name:str, mods:Iterable[ModData]|None=None):
         self.name = name
-        self._mods = {}
-        self._defaultMod = None
+        self._mods:dict[str,ModData] = {}
+        self._defaultMod:ModData|None = None
 
         for mod in (mods or []):
             self.add(mod)
 
-    def add(self, mod:Mod) -> "Datapack":
+    def add(self, mod:ModData) -> "DataPack":
         if not self._defaultMod:
             self._defaultMod = mod
 
         self._mods[mod.name] = mod
         return self
 
-    def get(self, modName:str) -> Mod:
-        return self._mods.get(modName, None)
+    def get(self, name:str) -> ModData|None:
+        return self._mods.get(name, None)
 
     @property
-    def defaultMod(self) -> Mod:
+    def defaultMod(self) -> ModData|None:
         return self._defaultMod
 
     @defaultMod.setter
-    def setDefaultMod(self, mod:Mod) -> "Datapack":
-        existingMod = self.get(mod.name)
-        if not existingMod:
-            self.add(mod)
-        elif existingMod != mod:
-            raise Exception(f"Datapack already has a mod named {mod.name}")
+    def defaultMod(self, mod:ModData):
+        if mod:
+            existingModData = self.get(mod.name)
+            if not existingModData:
+                self.add(mod)
+            elif existingModData != mod:
+                raise Exception(f"Datapack already has a mod named {mod.name}")
 
         self._defaultMod = mod

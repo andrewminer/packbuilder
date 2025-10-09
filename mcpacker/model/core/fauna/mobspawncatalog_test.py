@@ -1,7 +1,8 @@
-import mcpacker.model.core.geology.mineralcatalog
+import mcpacker.model.core.fauna.mobspawncatalog
 
 
 # Tests ############################################################################################
 
 def test_syntax():
     pass
+

@@ -1,4 +1,4 @@
-import mcpacker.model.core.geology.mineralcatalog
+import mcpacker.model.datapack.moddata
 
 
 # Tests ############################################################################################

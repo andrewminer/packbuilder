@@ -1,6 +1,7 @@
+from collections.abc                        import Iterable
 from mcpacker.model.core.material.loottable import LootTable
 from mcpacker.model.core.material.soundtype import SoundType
-from mcpacker.model.core.resourceid import ResourceId
+from mcpacker.model.core.resourceid         import ResourceId
 
 import mcpacker.model.core.material.soundtype as ST
 
@@ -12,11 +13,11 @@ class Block:
     def __init__(
         self,
         name:str,
-        gameId:ResourceId,
+        gameId:str,
         loot:LootTable,
         requiresTool:bool=False,
         soundType:SoundType=ST.STONE,
-        tags:list[str]=None,
+        tags:Iterable[str]|None=None,
     ):
         self.gameId        = gameId
         self.loot          = loot

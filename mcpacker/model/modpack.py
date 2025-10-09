@@ -29,3 +29,4 @@ class ModPack:
 
     def augment(self, doAugment:"Callable[[ModPack], None]") -> "ModPack":
         doAugment(self)
+        return self

@@ -37,12 +37,12 @@ class Biome(object):
 
     def __eq__(self, other) -> bool:
         if type(self) != type(other): return False
-        if self.biomeId != other.biomeId: return False
+        if self.gameId != other.gameId: return False
         if self.city != other.city: return False
         return True
 
     def __hash__(self) -> int:
-        return hash((self.biomeId, self.city))
+        return hash((self.gameId, self.city))
 
     def __str__(self) -> str:
         return f"{self.city}<{self.gameId}>"

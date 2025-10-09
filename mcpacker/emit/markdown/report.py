@@ -32,8 +32,8 @@ class Report:
         raise NotImplementedError()
 
     def reset(self) -> "Report":
-        self._lineBuffer = []
-        self._lines = []
+        self._lineBuffer:list[str] = []
+        self._lines:list[str] = []
         self._indent = 0
         return self
 

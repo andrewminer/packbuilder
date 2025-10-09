@@ -5,8 +5,9 @@ from os.path import join
 
 class Locator:
 
-    def __init__(self, basePath:str):
+    def __init__(self, basePath:str, mod:str):
         self.basePath = basePath
+        self.mod = mod
 
     def biomeModifier(self) -> str:
         return join(self.basePath, "data", self.mod, "neoforge", "biome_modifier")

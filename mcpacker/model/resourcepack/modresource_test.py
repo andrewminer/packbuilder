@@ -1,4 +1,4 @@
-import mcpacker.model.resourcepack.mod
+import mcpacker.model.resourcepack.modresource
 
 
 # Tests ############################################################################################

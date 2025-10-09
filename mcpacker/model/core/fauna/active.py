@@ -19,12 +19,17 @@ class Active:
 
 # Constants ########################################################################################
 
-DAY     = Active("day", 0, 12000)
-NIGHT   = Active("night", 13000, 23000)
-SUNRISE = Active("sunrise", 23000, 24000)
-SUNSET  = Active("sunset", 12000, 13000)
+DAY         = Active("day",          0, 12000)
+NIGHT       = Active("night",    13000, 23000)
+SUNRISE     = Active("sunrise",  23000, 24000)
+SUNSET      = Active("sunset",   12000, 13000)
 
-ANY         = (SUNRISE, DAY, SUNSET, NIGHT)
+ANY         = Active("any",          0, 24000)
+RAINY       = Active("rainy",        0, 24000)
+STORMY      = Active("stormy",       0, 24000)
+MIDNIGHT    = Active("midnight", 18000, 19000)
+
+ALL         = (SUNRISE, DAY, SUNSET, NIGHT)
 DIURNAL     = (DAY)
 NOCTURNAL   = (NIGHT)
 CREPUSCULAR = (SUNRISE, SUNSET)

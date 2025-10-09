@@ -11,8 +11,8 @@ def createBlockState():
 
 # Tests ############################################################################################
 
-def test_asData(state):
-    assert state.asData() == {
+def test_asData(state:BlockState):
+    assert state.asJsonBlob() == {
         "Name": "minecraft:button",
         "Properties": {
             "waterlogged": "true"

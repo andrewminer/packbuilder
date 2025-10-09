@@ -1,8 +1,8 @@
 from mcpacker.model.catalog             import Catalog
-from mcpacker.model.core.material.block import Block
+from mcpacker.model.core.fauna.mobspawn import MobSpawn
 
 
 # Classes ##########################################################################################
 
-class BlockCatalog(Catalog[Block]):
+class MobSpawnCatalog(Catalog[MobSpawn]):
     pass

@@ -11,8 +11,8 @@ class MobReport(Report):
         super().__init__("mobs.md", pack)
 
     def build(self):
-        for placement in self.pack.world.mobs.all():
-            self.line(f"# Mob: {placement.mob.name} <{placement.mob.gameId}>")
+        for placement in self.pack.world.mobs:
+            self.line(f"# Mob: {placement.gameId}")
             self.line()
 
             self.indent()

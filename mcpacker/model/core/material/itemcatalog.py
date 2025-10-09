@@ -1,12 +1,14 @@
+from collections.abc                   import Iterable
+from mcpacker.model.catalog            import Catalog
 from mcpacker.model.core.material.item import Item
-from typing import Iterator
+from typing                            import Iterator
 
 
 # Class ############################################################################################
 
-class ItemCatalog:
+class ItemCatalog(Catalog[Item]):
 
-    def __init__(self, items:tuple[Item]=None):
+    def __init__(self, items:Iterable[Item]|None=None):
         self._items = {}
 
         for item in (items or []):
@@ -17,6 +19,7 @@ class ItemCatalog:
             raise Exception(f"Catalog already contains an entry for {item.gameId}")
 
         self._items[item.gameId] = item
+        return self
 
     def all(self) -> Iterator[Item]:
         for item in self._items.values():

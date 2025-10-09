@@ -1,3 +1,6 @@
+from typing import TypeVar
+
+
 # Class ############################################################################################
 
 class BiomeTrait:
@@ -23,9 +26,18 @@ class BiomeTrait:
         return f"{type(self).__name__}<{self.name}>"
 
 
+# Type Support #####################################################################################
+
+BiomeTraitSubclass = TypeVar("BiomeTraitSubclass", bound=BiomeTrait)
+
+
 # Helper Functions #################################################################################
 
-def within(allTraits:list[BiomeTrait], start:BiomeTrait, end:BiomeTrait) -> list[BiomeTrait]:
+def within(
+    allTraits:list[BiomeTraitSubclass],
+    start:BiomeTraitSubclass,
+    end:BiomeTraitSubclass
+) -> list[BiomeTraitSubclass]:
     if not allTraits: return []
     start = start if start else allTraits[0]
     end = end if end else allTraits[-1]

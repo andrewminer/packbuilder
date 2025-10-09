@@ -1,7 +1,6 @@
 from mcpacker.model.core.ecology.biomefilter import BiomeFilter
-from mcpacker.model.core.fauna.mob import Mob
-from mcpacker.model.core.fauna.mobplacement import MobPlacement
 from mcpacker.model.core.habitat import Habitat
+from mcpacker.model.core.spawn import Spawn
 from pytest import fixture
 
 import mcpacker.model.core.ecology.flora as F
@@ -10,24 +9,20 @@ import mcpacker.model.core.ecology.heat as E
 
 # Fixtures #########################################################################################
 
-@fixture(name="cow")
-def createCow():
-    yield Mob("cow", "minecraft:cow")
-
 @fixture(name="fields")
 def createFieldsHabitat():
     yield Habitat(biomeFilter=BiomeFilter([F.FIELD, E.TEMPERATE]))
 
-@fixture(name="placement")
-def createMobPlacement(cow, fields):
-    yield MobPlacement(cow, fields)
+@fixture(name="spawn")
+def createSpawn(fields):
+    yield Spawn([fields])
 
 
 # Tests ############################################################################################
 
-def test_cowsInFields(placement):
-    assert str(placement) == (
-        "Placement{" +
+def test_repr(spawn):
+    assert repr(spawn) == (
+        "Spawn{" +
             "habitats: [" +
                 "Habitat{" +
                     "altitude: anywhere <-64 to 320>, " +

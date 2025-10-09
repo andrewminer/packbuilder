@@ -1,3 +1,4 @@
+from collections.abc import Iterable
 from mcpacker.model.core.geology.replacement import Replacement
 from mcpacker.model.core.resourceid import ResourceId
 
@@ -6,9 +7,10 @@ from mcpacker.model.core.resourceid import ResourceId
 
 class Mineral:
 
-    def __init__(self, name:str, replacements:None|tuple[Replacement]=None):
+    def __init__(self, name:str, replacements:Iterable[Replacement]|None=None):
         self.name = name
-        self.replacements = replacements or []
+        self.gameId = name
+        self.replacements = list(replacements or [])
 
     def __str__(self) -> str:
         return self.name
@@ -21,12 +23,3 @@ class Mineral:
                 "]",
             "}"
         ]])
-
-    def addStoneReplacement(self, blockId:str) -> "Mineral":
-        blockId = ResourceId.canonical(blockId)
-        self.replacements.append(Replacement(STONE_REPLACEABLES, blockId))
-        return self
-
-    def addDeepslateReplacement(self, blockId:str) -> "Mineral":
-        blockId = ResourceId.canonical(blockId)
-        self.replacements.append(Replacement(DEEPSLATE_REPLACEABLES, blockId))

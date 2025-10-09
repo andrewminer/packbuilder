@@ -7,7 +7,7 @@ class Kind:
 
     def __eq__(self, other) -> bool:
         if type(self) != type(other): return False
-        if self.name != othere.name: return False
+        if self.name != other.name: return False
         return True
 
     def __repr__(self) -> str:

@@ -27,7 +27,7 @@ class Runner:
 
     def run(self, argv:list[str]):
         if len(sys.argv) < 2:
-            abort("Please provide a command name")
+            self.abort("Please provide a command name")
 
         commandName = "_command_" + argv[1]
         for name, doCommand in inspect.getmembers(self):
@@ -35,7 +35,7 @@ class Runner:
                 doCommand(*argv[2:])
                 sys.exit(0)
 
-        abort("No command named: " + argv[1])
+        self.abort("No command named: " + argv[1])
 
     # Commands #################################################################
 

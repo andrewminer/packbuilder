@@ -1,4 +1,3 @@
-from mcpacker.model.core.ecology.biome       import Biome
 from mcpacker.model.core.ecology.biomefilter import BiomeFilter as BF
 from mcpacker.model.core.fauna.mob           import Mob
 from mcpacker.model.core.fauna.mobspawn      import MobSpawn
@@ -6,12 +5,9 @@ from mcpacker.model.core.geology.mineral     import Mineral
 from mcpacker.model.core.geology.replacement import Replacement
 from mcpacker.model.core.habitat             import Habitat
 from mcpacker.model.modpack                  import ModPack
-from mcpacker.ui.runner                      import Runner
-from mcpacker.write.incontrol.spawnerwriter  import SpawnerWriter
-from pathlib                                 import Path
+from mcpacker.write.markdown.mobspawnreport  import MobSpawnReport
 from pytest                                  import fixture
 
-import mcpacker.json                        as json
 import mcpacker.model.core.altitude         as AL
 import mcpacker.model.core.ecology.flora    as FL
 import mcpacker.model.core.ecology.geology  as GE
@@ -28,15 +24,6 @@ import textwrap
 
 
 # Fixtures #########################################################################################
-
-@fixture(name="addBiomes")
-def defineAddBiomes():
-    def addBiomes(pack:ModPack):
-        pack.world.biomes.add(Biome("singapore", "minecraft:jungle",
-            FL.CANOPY, GE.SEDIMENTARY, HE.TROPICAL, HU.WET, SO.ACIDIC, WA.INLAND
-        ))
-
-    yield addBiomes
 
 @fixture(name="addMobs")
 def defineAddMobs():
@@ -69,31 +56,44 @@ def defineAddMobSpawnss():
     yield addMobSpawns
 
 @fixture(name="pack")
-def createPack(addBiomes, addMobs, addMobSpawns):
+def createPack(addMobs, addMobSpawns):
     pack = ModPack("testModPack")
-    pack.augment(addBiomes)
     pack.augment(addMobs)
     pack.augment(addMobSpawns)
     yield pack
 
-@fixture(name="modPackRunner")
-def createModPackRunner(tmp_path:Path):
-    runner = Runner(ModPack("testModPack"), tmp_path)
-    runner._command_writeModPack()
-    yield runner
-
-@fixture(name="reportRunner")
-def createReportRunner(tmp_path:Path):
-    runner = Runner(ModPack("testModPack"), tmp_path)
-    runner._command_writeReports()
-    yield runner
+@fixture(name="report")
+def createReport(pack, tmp_path):
+    report = MobSpawnReport(pack, tmp_path)
+    report.write()
+    yield report
 
 # Tests ############################################################################################
 
-def test_writeModPack(tmp_path:Path, modPackRunner:Runner):
-    assert (tmp_path/"testModPack"/"config"/"incontrol"/"spawner.json").exists()
+def test_write(report, tmp_path):
+    path = tmp_path / "testModPack" / "reports" / "mobspawns.md"
+    assert path.read_text() == textwrap.dedent("""
+        # Mob: minecraft:chicken
 
-def test_writeReports(tmp_path:Path, reportRunner:Runner):
-    assert (tmp_path/"testModPack"/"reports"/"biomes.md").exists()
-    assert (tmp_path/"testModPack"/"reports"/"minerals.md").exists()
-    assert (tmp_path/"testModPack"/"reports"/"mobspawns.md").exists()
+          * habitat 1
+            * altitude: lowlands-uplands
+            * biomeFilter:
+              * Heat: tropical
+              * Humidity: wet
+              * Flora: any of: canopy, forest, clearing
+            * seasons: summer
+            * group: troup
+            * location: outside
+            * scarcity: common
+          * habitat 2
+            * altitude: lowlands-uplands
+            * biomeFilter:
+              * Heat: tropical
+              * Humidity: wet
+              * Flora: any of: canopy, forest, clearing
+            * seasons: spring, autumn, winter
+            * group: troup
+            * location: outside
+            * scarcity: uncommon
+
+    """).lstrip()

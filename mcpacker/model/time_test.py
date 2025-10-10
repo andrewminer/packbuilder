@@ -1,4 +1,4 @@
-import mcpacker.emit.modpack
+import mcpacker.model.time
 
 
 # Tests ############################################################################################

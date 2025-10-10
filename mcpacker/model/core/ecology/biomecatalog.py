@@ -7,8 +7,4 @@ from typing                                  import Iterator
 # Classes ##########################################################################################
 
 class BiomeCatalog(Catalog[Biome]):
-
-    def matching(self, biomeFilter:BiomeFilter) -> Iterator[Biome]:
-        for biome in self:
-            if biomeFilter.accepts(biome):
-                yield biome
+    pass

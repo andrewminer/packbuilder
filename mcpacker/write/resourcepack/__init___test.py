@@ -1,8 +1,7 @@
-import mcpacker.emit.markdown.mobreport
+import mcpacker.write.resourcepack
 
 
 # Tests ############################################################################################
 
 def test_syntax():
     pass
-

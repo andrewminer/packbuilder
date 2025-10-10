@@ -1,4 +1,4 @@
-from mcpacker.emit.markdown.mineralreport    import MineralReport
+from mcpacker.write.markdown.mineralreport   import MineralReport
 from mcpacker.model.core.geology.mineral     import Mineral
 from mcpacker.model.core.geology.replacement import Replacement
 from mcpacker.model.modpack                  import ModPack
@@ -26,21 +26,23 @@ def defineAddMinerals():
 
 @fixture(name="pack")
 def createPack(addMinerals):
-    pack = ModPack("test")
+    pack = ModPack("testModPack")
     pack.augment(addMinerals)
     yield pack
 
 @fixture(name="report")
-def createReport(pack):
-    report = MineralReport(pack)
-    report.build()
+def createReport(pack, tmp_path):
+    report = MineralReport(pack, tmp_path)
+    report.write()
     yield report
 
 
 # Tests ############################################################################################
 
-def test_report(report):
-    assert str(report) == textwrap.dedent("""
+def test_report(tmp_path, report):
+    path = tmp_path / "testModPack" / "reports" / "minerals.md"
+
+    assert path.read_text() == textwrap.dedent("""
         # Mineral: copper
 
           * #minecraft:stone_replaceables => minecraft:copper_ore
@@ -50,4 +52,5 @@ def test_report(report):
 
           * #minecraft:stone_replaceables => minecraft:iron_ore
           * #minecraft:deepslate_replaceables => minecraft:deepslate_iron_ore
-    """).strip()
+
+    """).lstrip()

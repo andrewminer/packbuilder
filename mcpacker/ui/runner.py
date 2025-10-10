@@ -1,8 +1,11 @@
-from mcpacker.emit.markdown.reportwriter import ReportWriter
-from mcpacker.emit.markdown.biomereport import BiomeReport
-from mcpacker.emit.markdown.mineralreport import MineralReport
-from mcpacker.emit.markdown.mobreport import MobReport
-from mcpacker.model.modpack import ModPack
+from mcpacker.model.modpack                 import ModPack
+from mcpacker.write.incontrol.spawnerwriter import SpawnerWriter
+from mcpacker.write.markdown.biomereport    import BiomeReport
+from mcpacker.write.markdown.mineralreport  import MineralReport
+from mcpacker.write.markdown.mobspawnreport import MobSpawnReport
+from mcpacker.write.markdown.reportwriter   import ReportWriter
+from mcpacker.write.writer                  import CompositeWriter
+from pathlib                                import Path
 
 import inspect
 import os
@@ -11,15 +14,16 @@ import sys
 
 # Constants ########################################################################################
 
-OUTPUT_PATH = "output"
+OUTPUT_PATH = Path("output")
 
 
 # Class ############################################################################################
 
 class Runner:
 
-    def __init__(self, pack:ModPack|None=None):
+    def __init__(self, pack:ModPack|None=None, outputDir:Path=OUTPUT_PATH):
         self.pack = pack or ModPack("untitled")
+        self.outputDir = outputDir
 
     def abort(self, message:str, status:int=-1):
         print(message)
@@ -40,9 +44,15 @@ class Runner:
     # Commands #################################################################
 
     def _command_writeReports(self):
-        writer = ReportWriter([
-            BiomeReport(self.pack),
-            MineralReport(self.pack),
-            MobReport(self.pack),
+        writer = CompositeWriter(self.pack, self.outputDir, [
+            BiomeReport,
+            MineralReport,
+            MobSpawnReport,
         ])
-        writer.write(os.path.join(OUTPUT_PATH, self.pack.name, "markdown"))
+        writer.write()
+
+    def _command_writeModPack(self):
+        writer = CompositeWriter(self.pack, self.outputDir, [
+            SpawnerWriter,
+        ])
+        writer.write()

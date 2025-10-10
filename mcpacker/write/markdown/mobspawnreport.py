@@ -1,22 +1,23 @@
-from mcpacker.emit.markdown.report          import Report
 from mcpacker.model.core.ecology.biometrait import BiomeTrait
 from mcpacker.model.modpack                 import ModPack
+from mcpacker.write.markdown.markdownwriter import MarkdownWriter
+from pathlib                                import Path
 
 
 # Class ############################################################################################
 
-class MobReport(Report):
+class MobSpawnReport(MarkdownWriter):
 
-    def __init__(self, pack:ModPack):
-        super().__init__("mobs.md", pack)
+    def __init__(self, pack:ModPack, outputDir:Path):
+        super().__init__("mobspawns.md", pack, outputDir)
 
-    def build(self):
-        for placement in self.pack.world.mobs:
-            self.line(f"# Mob: {placement.gameId}")
+    def compose(self):
+        for spawn in self.pack.world.mobSpawns:
+            self.line(f"# Mob: {spawn.gameId}")
             self.line()
 
             self.indent()
-            for index, habitat in enumerate(placement.habitats, start=1):
+            for index, habitat in enumerate(spawn.habitats, start=1):
                 self.text("* habitat ").line(index)
                 self.indent()
                 self.text("* altitude: ").line(habitat.altitude)

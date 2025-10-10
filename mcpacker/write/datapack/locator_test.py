@@ -1,4 +1,4 @@
-import mcpacker.emit.markdown.reportwriter
+import mcpacker.write.datapack.locator
 
 
 # Tests ############################################################################################

@@ -36,4 +36,4 @@ def test_str(squid):
     assert str(squid) == "minecraft:squid"
 
 def test_repr(cow):
-    assert repr(cow) == "Mob<minecraft:cow>{active:(Active<day>{start:0, end:12000},)}"
+    assert repr(cow) == "Mob<minecraft:cow>{active:[Active<day>{start:0, end:12000}]}"

@@ -6,7 +6,6 @@ from mcpacker.model.core.geology.mineral     import Mineral
 from mcpacker.model.core.geology.replacement import Replacement
 from mcpacker.model.core.habitat             import Habitat
 from mcpacker.model.modpack                  import ModPack
-from mcpacker.ui.runner                      import Runner
 from mcpacker.write.incontrol.spawnerwriter  import SpawnerWriter
 from pathlib                                 import Path
 from pytest                                  import fixture
@@ -76,24 +75,31 @@ def createPack(addBiomes, addMobs, addMobSpawns):
     pack.augment(addMobSpawns)
     yield pack
 
-@fixture(name="modPackRunner")
-def createModPackRunner(tmp_path:Path):
-    runner = Runner(ModPack("testModPack"), tmp_path)
-    runner._command_writeModPack()
-    yield runner
+@fixture(name="writer")
+def createWriter(pack, tmp_path):
+    writer = SpawnerWriter(pack, tmp_path)
+    writer.write()
+    yield writer
 
-@fixture(name="reportRunner")
-def createReportRunner(tmp_path:Path):
-    runner = Runner(ModPack("testModPack"), tmp_path)
-    runner._command_writeReports()
-    yield runner
 
 # Tests ############################################################################################
 
-def test_writeModPack(tmp_path:Path, modPackRunner:Runner):
-    assert (tmp_path/"testModPack"/"config"/"incontrol"/"spawner.json").exists()
+def test_write(writer:SpawnerWriter, tmp_path:Path):
+    path = tmp_path / "testModPack" / "config" / "incontrol" / "spawner.json"
+    text = path.read_text()
+    data = json.loads(text)
 
-def test_writeReports(tmp_path:Path, reportRunner:Runner):
-    assert (tmp_path/"testModPack"/"reports"/"biomes.md").exists()
-    assert (tmp_path/"testModPack"/"reports"/"minerals.md").exists()
-    assert (tmp_path/"testModPack"/"reports"/"mobspawns.md").exists()
+    assert len(data) == 4
+
+    rule = data[0]
+    assert rule["mob"] == "minecraft:chicken"
+    assert rule["amount"]["maximum"] == 6
+    assert abs(rule["persecond"] - 0.2) < 0.001
+    assert rule["conditions"]["and"]["biome"] == ["minecraft:jungle"]
+    assert rule["conditions"]["and"]["summer"]
+
+    rule = data[1]
+    assert abs(rule["persecond"] - 0.066) < 0.001
+    assert rule["conditions"]["and"]["spring"]
+
+

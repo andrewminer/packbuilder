@@ -12,14 +12,11 @@ class Mob:
     """
 
     def __init__(self, gameId:str, active:Active|Iterable[Active]=AC.DIURNAL):
+        if isinstance(active, Active):
+            active = [active]
+
         self.gameId = gameId
         self.active = active
-
-        if not self.active:
-            self.active = AC.DIURNAL
-
-        if isinstance(self.active, Active):
-            self.active = (self.active,)
 
     def __eq__(self, other) -> bool:
         if type(self) != type(other): return False

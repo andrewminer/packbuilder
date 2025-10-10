@@ -43,4 +43,4 @@ def createCatalog():
 # Tests ############################################################################################
 
 def test_findJungles(catalog, jungles):
-    assert [b.city for b in catalog.matching(jungles)] == ["singapore"]
+    assert [b.city for b in catalog.filter(lambda b: jungles.accepts(b))] == ["singapore"]

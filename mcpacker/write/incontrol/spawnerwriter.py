@@ -15,6 +15,7 @@ import mcpacker.model.core.dimension      as DI
 import mcpacker.model.core.fauna.location as LO
 import mcpacker.model.core.scarcity       as SC
 import mcpacker.model.time                as TI
+import os
 
 
 # Class ############################################################################################
@@ -26,7 +27,7 @@ class SpawnerWriter(Writer):
 
     def write(self):
         path = self.outputDir / self.pack.name / INCONTROL_CONFIG_DIR / "spawner.json"
-        path.parent.mkdir(parents=True)
+        self.resetOutputFile(path)
         path.write_text(json.dumps(self._makeAllRules(), indent=json.INDENT))
 
     # Private Functions ########################################################

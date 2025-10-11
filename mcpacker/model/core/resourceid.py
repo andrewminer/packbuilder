@@ -12,11 +12,14 @@ class ResourceId:
         return str(resourceId)
 
     @staticmethod
-    def canonical(text:str):
+    def canonical(text:str) -> str:
         return str(ResourceId.parse(text))
 
     @staticmethod
-    def parse(text:str):
+    def parse(text:"ResourceId|str") -> "ResourceId":
+        if isinstance(text, ResourceId):
+            return text
+
         isTag = False
         if text.startswith("#"):
             isTag = True

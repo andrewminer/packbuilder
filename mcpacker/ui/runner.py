@@ -4,7 +4,8 @@ from mcpacker.write.markdown.biomereport    import BiomeReport
 from mcpacker.write.markdown.mineralreport  import MineralReport
 from mcpacker.write.markdown.mobspawnreport import MobSpawnReport
 from mcpacker.write.markdown.reportwriter   import ReportWriter
-from mcpacker.write.writer                  import CompositeWriter
+from mcpacker.write.compositewriter         import CompositeWriter
+from mcpacker.write.staticwriter            import StaticWriter
 from pathlib                                import Path
 
 import inspect
@@ -44,15 +45,14 @@ class Runner:
     # Commands #################################################################
 
     def _command_writeReports(self):
-        writer = CompositeWriter(self.pack, self.outputDir, [
+        CompositeWriter(self.pack, self.outputDir, [
             BiomeReport,
             MineralReport,
             MobSpawnReport,
-        ])
-        writer.write()
+        ]).write()
 
     def _command_writeModPack(self):
-        writer = CompositeWriter(self.pack, self.outputDir, [
+        CompositeWriter(self.pack, self.outputDir, [
+            StaticWriter,
             SpawnerWriter,
-        ])
-        writer.write()
+        ]).write()

@@ -21,8 +21,12 @@ class DataPack:
         self._mods[mod.name] = mod
         return self
 
-    def get(self, name:str) -> ModData|None:
-        return self._mods.get(name, None)
+    def get(self, name:str) -> ModData:
+        result = self._mods.get(name, None)
+        if not result:
+            result = self._mods[name] = ModData(name)
+
+        return result
 
     @property
     def defaultMod(self) -> ModData|None:

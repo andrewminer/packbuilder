@@ -6,6 +6,7 @@ from mcpacker.pack.mysteriousisland.adddeposits     import addDeposits
 from mcpacker.pack.mysteriousisland.additems        import addItems
 from mcpacker.pack.mysteriousisland.addminerals     import addMinerals
 from mcpacker.pack.mysteriousisland.addmobs         import addMobs
+from mcpacker.pack.mysteriousisland.addmobspawns    import addMobSpawns
 from mcpacker.pack.mysteriousisland.addresourcepack import addResourcePack
 
 
@@ -21,6 +22,7 @@ def buildModPack():
     pack.augment(addMinerals)
     pack.augment(addDeposits)
     pack.augment(addMobs)
+    pack.augment(addMobSpawns)
     pack.augment(addResourcePack)
     pack.augment(addDataPack)
 

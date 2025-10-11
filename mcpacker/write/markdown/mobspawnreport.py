@@ -35,7 +35,7 @@ class MobSpawnReport(MarkdownWriter):
                             line(", ".join([t.name for t in trait]))
 
                 for trait in habitat.biomeFilter.prohibited:
-                    category = type(trait[0]).__name__
+                    category = type(trait).__name__
                     self.text("* ").text(category).text(": not: ").line(trait.name)
 
                 self.outdent()

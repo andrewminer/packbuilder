@@ -1,4 +1,5 @@
 from collections.abc import Iterable
+from collections.abc import Iterator
 from mcpacker.model.resourcepack.modresource import ModResource
 
 
@@ -18,11 +19,15 @@ class ResourcePack:
         if not self._defaultMod:
             self._defaultMod = mod
 
-        self._mods[mod.name] = mod
+        self._mods[mod.mod] = mod
         return self
 
-    def get(self, name:str) -> ModResource|None:
-        return self._mods.get(name, None)
+    def get(self, name:str) -> ModResource:
+        result = self._mods.get(name, None)
+        if not result:
+            result = self._mods[name] = ModResource(name)
+
+        return result
 
     @property
     def defaultMod(self) -> ModResource|None:
@@ -31,11 +36,15 @@ class ResourcePack:
     @defaultMod.setter
     def defaultMod(self, mod:ModResource):
         if mod:
-            existingMod = self.get(mod.name)
+            existingMod = self.get(mod.mod)
             if not existingMod:
                 self.add(mod)
             elif existingMod != mod:
-                raise Exception(f"Resourcepack already has a mod named {mod.name}")
+                raise Exception(f"Resourcepack already has a mod named {mod.mod}")
 
         self._defaultMod = mod
 
+    @property
+    def mods(self) -> Iterator[ModResource]:
+        for mod in self._mods.values():
+            yield mod

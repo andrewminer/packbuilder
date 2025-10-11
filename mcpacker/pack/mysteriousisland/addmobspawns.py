@@ -21,7 +21,7 @@ import mcpacker.model.core.season           as SE
 
 # Constants ########################################################################################
 
-def addMobs(pack:ModPack):
+def addMobSpawns(pack:ModPack):
     mobs = pack.world.mobs
     spawns = pack.world.mobSpawns
 
@@ -202,7 +202,7 @@ def addMobs(pack:ModPack):
             ).derive(
                 altitude = AL.LOWLANDS,
                 seasons = [SE.AUTUMN, SE.WINTER],
-                groups = GR.TROUP,
+                group = GR.TROUP,
                 scarcity = SC.SPARSE,
             )
         )

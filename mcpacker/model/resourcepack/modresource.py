@@ -1,9 +1,13 @@
+from mcpacker.model.resourcepack.blockstate import BlockState
+from mcpacker.model.resourcepack.model import Model
+
+
 # Class ############################################################################################
 
 class ModResource:
 
-    def __init__(self, name:str):
-        self.name = name
-        self.blockStates:list[str] = []
-        self.models:list[str] = []
-        self.textures:list[str] = []
+    def __init__(self, mod:str):
+        self.mod = mod
+        self.blockStates:list[BlockState] = []
+        self.blockModels:list[Model] = []
+        self.itemModels:list[Model] = []

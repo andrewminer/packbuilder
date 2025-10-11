@@ -70,30 +70,31 @@ def defineAddMobSpawnss():
 
 @fixture(name="pack")
 def createPack(addBiomes, addMobs, addMobSpawns):
-    pack = ModPack("testModPack")
+    pack = ModPack("testpack")
     pack.augment(addBiomes)
     pack.augment(addMobs)
     pack.augment(addMobSpawns)
     yield pack
 
 @fixture(name="modPackRunner")
-def createModPackRunner(tmp_path:Path):
-    runner = Runner(ModPack("testModPack"), tmp_path)
+def createModPackRunner(tmp_path:Path, pack:ModPack):
+    runner = Runner(pack, tmp_path)
     runner._command_writeModPack()
     yield runner
 
 @fixture(name="reportRunner")
-def createReportRunner(tmp_path:Path):
-    runner = Runner(ModPack("testModPack"), tmp_path)
+def createReportRunner(tmp_path:Path, pack:ModPack):
+    runner = Runner(pack, tmp_path)
     runner._command_writeReports()
     yield runner
 
 # Tests ############################################################################################
 
 def test_writeModPack(tmp_path:Path, modPackRunner:Runner):
-    assert (tmp_path/"testModPack"/"config"/"incontrol"/"spawner.json").exists()
+    assert (tmp_path/"testpack"/"config"/"incontrol"/"spawner.json").exists()
+    assert (tmp_path/"testpack"/"test.md").exists()
 
 def test_writeReports(tmp_path:Path, reportRunner:Runner):
-    assert (tmp_path/"testModPack"/"reports"/"biomes.md").exists()
-    assert (tmp_path/"testModPack"/"reports"/"minerals.md").exists()
-    assert (tmp_path/"testModPack"/"reports"/"mobspawns.md").exists()
+    assert (tmp_path/"testpack"/"reports"/"biomes.md").exists()
+    assert (tmp_path/"testpack"/"reports"/"minerals.md").exists()
+    assert (tmp_path/"testpack"/"reports"/"mobspawns.md").exists()

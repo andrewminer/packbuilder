@@ -4,12 +4,9 @@ import subprocess
 
 def test_typeCompliance():
     command = [
-        "mypy",
-        #"--allow-untyped-defs",
-        #"--follow-imports", "skip",
-        #"--ignore-missing-imports",
-        #"--no-check-untyped-defs",
-        "--python-version", "3.10",
+        "./.venv/bin/mypy",
+        "--check-untyped-defs",
+        "--python-version", "3.13",
         "--show-error-codes",
         "mcpacker"
     ]

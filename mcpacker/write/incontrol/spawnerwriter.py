@@ -22,11 +22,8 @@ import os
 
 class SpawnerWriter(Writer):
 
-    def __init__(self, pack:ModPack, outputDir:Path):
-        super().__init__(pack, outputDir)
-
-    def write(self):
-        path = self.outputDir / self.pack.name / INCONTROL_CONFIG_DIR / "spawner.json"
+    def doWrite(self):
+        path = self.locator.inc_config()/"spawner.json"
         self.resetOutputFile(path)
         path.write_text(json.dumps(self._makeAllRules(), indent=json.INDENT))
 

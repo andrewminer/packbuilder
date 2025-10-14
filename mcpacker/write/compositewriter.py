@@ -15,8 +15,11 @@ class CompositeWriter(Writer):
         writers:Iterable[Writer]|None=None
     ):
         super().__init__(pack, outputDir)
-        self._writers:list[Writer] = list(w for w in writers or [])
 
-    def write(self):
+        self._writers:list[Writer] = []
+        for writer in (writers or []):
+            self._writers.append(writer)
+
+    def doWrite(self):
         for writer in self._writers:
             writer.write()

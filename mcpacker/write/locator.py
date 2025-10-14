@@ -21,9 +21,9 @@ class Locator:
       * Thirst Was Taken
     """
 
-    def __init__(self, pack:ModPack, outputDir:Path):
-        self._pack = pack
-        self._outputDir = outputDir
+    def __init__(self, pack:ModPack, outputDir:Path|None=None):
+        self.pack = pack
+        self.outputDir = outputDir
 
     def biomeModifiers(self, modName:str|None=None, dataPackName:str|None=None) -> Path:
         return self.dataPackMod(modName, dataPackName) / "neoforge" / "biome_modifier"
@@ -38,10 +38,10 @@ class Locator:
         return self.dataPackMod(modName, dataPackName) / "worldgen" / "configured_feature"
 
     def dataPack(self, dataPackName:str|None=None):
-        return self.dataPacks() / (dataPackName or f"{self._pack.name}_override")
+        return self.dataPacks() / (dataPackName or f"{self.pack.name}_override")
 
     def dataPackMod(self, modName:str|None=None, dataPackName:str|None=None):
-        return self.dataPack(dataPackName) / "data" / (modName or self._pack.name)
+        return self.dataPack(dataPackName) / "data" / (modName or self.pack.name)
 
     def dataPacks(self) -> Path:
         return self.root() / "datapacks"
@@ -65,16 +65,19 @@ class Locator:
         return self.dataPackMod(modName, dataPackName) / "recipes"
 
     def resourcePack(self, resourcePackName:str|None=None) -> Path:
-        return self.resourcePacks() / (resourcePackName or f"{self._pack.name}_override")
+        return self.resourcePacks() / (resourcePackName or f"{self.pack.name}_override")
 
     def resourcePackMod(self, modName:str|None=None, resourcePackName:str|None=None) -> Path:
-        return self.resourcePack(resourcePackName) / "assets" / (modName or self._pack.name)
+        return self.resourcePack(resourcePackName) / "assets" / (modName or self.pack.name)
 
     def resourcePacks(self) -> Path:
         return self.root() / "resourcepacks"
 
     def root(self) -> Path:
-        return self._outputDir / self._pack.name
+        if self.outputDir == None:
+            raise RuntimeError("outputDir must be set before using the locator")
+
+        return self.outputDir / self.pack.name
 
     def structures(self, modName:str|None=None, dataPackName:str|None=None) -> Path:
         return self.dataPackMod(modName, dataPackName) / "structure"
@@ -131,7 +134,12 @@ class Locator:
     def lod_vanilla(self) -> Path:
         return self.lod_config() / "Vanilla"
 
-    # ThirstWasTaken ###########################################################
+    # MCPacker Mixins ##########################################################
+
+    def mcp_reports(self) -> Path:
+        return self.root() / "reports"
+
+    # ThirstWasTaken Mixins ####################################################
 
     def twt_config(self) -> Path:
         return self.config() / "thirst"

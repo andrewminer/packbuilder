@@ -8,8 +8,8 @@ from pytest                 import fixture
 
 class SampleWriter(Writer):
 
-    def write(self):
-        path = self.outputDir/self.pack.name/"samplewriter.md"
+    def doWrite(self):
+        path = self.locator.root() / "samplewriter.md"
         self.resetOutputFile(path)
         path.write_text("alpha bravo charlie")
 

@@ -20,8 +20,8 @@ class ReportWriter(Writer):
         self.composerClass = composerClass
         self.name = Path(name)
 
-    def write(self) -> Self:
-        path = self.outputDir/self.pack.name/"reports"/self.name
+    def doWrite(self) -> Self:
+        path = self.locator.mcp_reports() / self.name
         self.resetOutputFile(path)
 
         composer = self.composerClass(self.pack)

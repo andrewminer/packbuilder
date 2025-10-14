@@ -17,7 +17,7 @@ class StaticWriter(Writer):
     def __init__(self, pack:ModPack, outputDir:Path):
         super().__init__(pack, outputDir)
 
-    def write(self):
+    def doWrite(self):
         sourcePath = SOURCE_BASE / self.pack.name / "static"
-        targetPath = self.outputDir / self.pack.name
+        targetPath = self.locator.root()
         shutil.copytree(sourcePath, targetPath, dirs_exist_ok=True)

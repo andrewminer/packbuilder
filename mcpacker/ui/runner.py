@@ -3,6 +3,8 @@ from mcpacker.format.report.mineralreport import MineralReport
 from mcpacker.format.report.mobspawnreport import MobSpawnReport
 from mcpacker.model.modpack import ModPack
 from mcpacker.write.compositewriter import CompositeWriter
+from mcpacker.write.datapack.metawriter import MetaWriter
+from mcpacker.write.datapack.writer import DataPackWriter
 from mcpacker.write.incontrol.spawnerwriter import SpawnerWriter
 from mcpacker.write.report.writer import ReportWriter
 from mcpacker.write.staticwriter import StaticWriter
@@ -54,4 +56,7 @@ class Runner:
         CompositeWriter(self.pack, self.outputDir, [
             StaticWriter(self.pack, self.outputDir),
             SpawnerWriter(self.pack, self.outputDir),
+            DataPackWriter(self.pack, self.outputDir, [
+                MetaWriter(self.pack, self.outputDir),
+            ]),
         ]).write()

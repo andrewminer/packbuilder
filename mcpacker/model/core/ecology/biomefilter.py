@@ -1,4 +1,4 @@
-from collections.abc import Iterable
+from collections.abc import Sequence
 from mcpacker.model.core.ecology.biome import Biome
 from mcpacker.model.core.ecology.biometrait import BiomeTrait
 
@@ -26,8 +26,8 @@ class BiomeFilter:
 
     def __init__(
         self,
-        required:Iterable[BiomeTrait|Iterable[BiomeTrait]]|None=None,
-        prohibited:Iterable[BiomeTrait]|None=None,
+        required:Sequence[BiomeTrait|Sequence[BiomeTrait]]|None=None,
+        prohibited:Sequence[BiomeTrait]|None=None,
     ):
         self.required = required or []
         self.prohibited = prohibited or []

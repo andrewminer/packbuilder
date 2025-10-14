@@ -5,6 +5,11 @@ from mcpacker.model.datapack.moddata import ModData
 # Class ############################################################################################
 
 class DataPack:
+    """
+    A collection of data used to configure a Minecraft instance.
+
+    see: https://minecraft.wiki/w/Data_pack
+    """
 
     def __init__(self, name:str, mods:Iterable[ModData]|None=None):
         self.name = name

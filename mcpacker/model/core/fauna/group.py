@@ -39,14 +39,14 @@ ALL = [SOLO, PAIR, FAMILY, TROUP, HERD]
 
 # Helper Functions #################################################################################
 
-def merge(*groups):
+def merge(*groups:Group):
     if not groups: return SOLO
 
     smallest = ALL[-1].largest
-    smallestGroup = None
+    smallestGroup = ALL[-1]
 
     largest = ALL[0].smallest
-    largestGroup = None
+    largestGroup = ALL[0]
 
     for group in groups:
         if group.smallest < smallest:

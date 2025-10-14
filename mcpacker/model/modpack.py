@@ -1,9 +1,15 @@
-from collections.abc             import Iterable
-from mcpacker.model.core.world   import World
-from mcpacker.model.datapack     import DataPack
-from mcpacker.model.mod          import Mod
+from collections.abc import Iterable
+from mcpacker.model.core.world import World
+from mcpacker.model.datapack import DataPack
+from mcpacker.model.mod import Mod
 from mcpacker.model.resourcepack import ResourcePack
-from typing                      import Callable
+from typing import Callable
+from typing import Self
+
+
+# Type Helpers #####################################################################################
+
+type AugmentFunc = Callable[[ModPack], None]
 
 
 # Class ############################################################################################
@@ -27,6 +33,6 @@ class ModPack:
         for mod in (mods or []):
             self._mods[mod.name] = mod
 
-    def augment(self, doAugment:"Callable[[ModPack], None]") -> "ModPack":
+    def augment(self, doAugment:AugmentFunc) -> Self:
         doAugment(self)
         return self

@@ -39,7 +39,7 @@ class Habitat:
         self.location = location
         self.scarcity = scarcity
 
-        self._source = None
+        self._source:Habitat|None = None
 
     def __str__(self) -> str:
         return "".join([str(p) for p in [
@@ -63,17 +63,24 @@ class Habitat:
             "}"
         ]])
 
-    def derive(self, **kwargs):
-        kwargs = {
-            "altitude": self.altitude,
-            "biomeFilter": self.biomeFilter,
-            "seasons": self.seasons,
-            "group": self.group,
-            "location": self.location,
-            "scarcity": self.scarcity
-        } | kwargs
-
-        result = Habitat(**kwargs)
+    def derive(
+        self,
+        *,
+        altitude:Altitude|None=None,
+        biomeFilter:BiomeFilter|None=None,
+        seasons:Iterable[Season]|Season|None=None,
+        group:Group|None=None,
+        location:Location|None=None,
+        scarcity:Scarcity|None=None,
+    ):
+        result = Habitat(
+            altitude    or self.altitude,
+            biomeFilter or self.biomeFilter,
+            seasons     or self.seasons,
+            group       or self.group,
+            location    or self.location,
+            scarcity    or self.scarcity
+        )
         result._source = self
 
         return result

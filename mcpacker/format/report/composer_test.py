@@ -1,4 +1,4 @@
-import mcpacker.write.markdown.reportwriter
+import mcpacker.format.report.composer
 
 
 # Tests ############################################################################################

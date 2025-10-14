@@ -1,7 +1,9 @@
-from mcpacker.write.markdown.biomereport import BiomeReport
-from mcpacker.model.core.ecology.biome  import Biome
-from mcpacker.model.modpack             import ModPack
-from pytest                             import fixture
+from mcpacker.format.report.biomereport import BiomeReport
+from mcpacker.model.core.ecology.biome import Biome
+from mcpacker.model.modpack import AugmentFunc
+from mcpacker.model.modpack import ModPack
+from pytest import fixture
+from typing import Callable
 
 import mcpacker.model.core.ecology.flora    as F
 import mcpacker.model.core.ecology.geology  as G
@@ -32,22 +34,20 @@ def defineAddBiomes():
     return addBiomes
 
 @fixture(name="pack")
-def createPack(addBiomes):
+def createPack(addBiomes:AugmentFunc):
     pack = ModPack("testModPack")
     pack.augment(addBiomes)
     yield pack
 
 @fixture(name="report")
-def createReport(pack, tmp_path):
-    report = BiomeReport(pack, tmp_path)
-    report.write()
-    yield report
+def createReport(pack:ModPack):
+    yield BiomeReport(pack).compose()
+
 
 # Tests ############################################################################################
 
-def test_report(tmp_path, report):
-    path = tmp_path / "testModPack" / "reports" / "biomes.md"
-    assert path.read_text() == textwrap.dedent("""
+def test_report(report):
+    assert str(report).strip() == textwrap.dedent("""
         # Biome: minecraft:plains (kansascity)
 
           * Flora: field
@@ -65,5 +65,4 @@ def test_report(tmp_path, report):
           * Humidity: dry
           * Soil: sandy
           * Water: inland
-
-    """).lstrip()
+    """).strip()

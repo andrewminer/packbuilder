@@ -1,16 +1,13 @@
-from mcpacker.write.markdown.markdownwriter import MarkdownWriter
-from mcpacker.model.modpack                 import ModPack
-from pathlib                                import Path
+from mcpacker.model.modpack import ModPack
+from mcpacker.format.report.composer import ReportComposer
+from pathlib import Path
 
 
 # Class ############################################################################################
 
-class BiomeReport(MarkdownWriter):
+class BiomeReport(ReportComposer):
 
-    def __init__(self, pack:ModPack, outputDir:Path):
-        super().__init__("biomes.md", pack, outputDir)
-
-    def compose(self):
+    def doCompose(self):
         for biome in self.pack.world.biomes:
             self.line(f"# Biome: {biome.gameId} ({biome.city})")
             self.line()

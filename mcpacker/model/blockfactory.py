@@ -3,6 +3,7 @@ from mcpacker.model.resourcepack.variant import Variant
 from mcpacker.model.resourcepack.model import Model
 from mcpacker.model.modpack import ModPack
 from mcpacker.model.core.resourceid import ResourceId
+from mcpacker.model.datapack.recipe.shapedrecipe import ShapedRecipe
 
 
 # Class ############################################################################################
@@ -23,4 +24,3 @@ class BlockFactory:
         resource.blockStates.append(BlockState(Variant(blockId)))
 
         data = self.pack.dataPack.get(gameId.mod)
-

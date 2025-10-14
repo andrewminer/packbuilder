@@ -1,16 +1,7 @@
-from collections.abc        import Iterable
+from collections.abc import Iterable
 from mcpacker.model.modpack import ModPack
-from mcpacker.write.writer  import Writer
-from pathlib                import Path
-from typing                 import TypeVar
-
-import os
-import shutil
-
-
-# Type Support #####################################################################################
-
-WriterSubclass = TypeVar("WriterSubclass", bound=Writer)
+from mcpacker.write.writer import Writer
+from pathlib import Path
 
 
 # Class ############################################################################################
@@ -21,16 +12,10 @@ class CompositeWriter(Writer):
         self,
         pack:ModPack,
         outputDir:Path,
-        writers:Iterable[type[WriterSubclass]]|None=None
+        writers:Iterable[Writer]|None=None
     ):
         super().__init__(pack, outputDir)
-
-        self._writers:list[Writer] = []
-        for writerClass in (writers or []):
-            self.add(writerClass)
-
-    def add(self, writerClass:type[WriterSubclass]):
-        self._writers.append(writerClass(self.pack, self.outputDir))
+        self._writers:list[Writer] = list(w for w in writers or [])
 
     def write(self):
         for writer in self._writers:

@@ -1,17 +1,14 @@
+from mcpacker.format.report.composer import ReportComposer
 from mcpacker.model.core.ecology.biometrait import BiomeTrait
-from mcpacker.model.modpack                 import ModPack
-from mcpacker.write.markdown.markdownwriter import MarkdownWriter
-from pathlib                                import Path
+from mcpacker.model.modpack import ModPack
+from pathlib import Path
 
 
 # Class ############################################################################################
 
-class MobSpawnReport(MarkdownWriter):
+class MobSpawnReport(ReportComposer):
 
-    def __init__(self, pack:ModPack, outputDir:Path):
-        super().__init__("mobspawns.md", pack, outputDir)
-
-    def compose(self):
+    def doCompose(self):
         for spawn in self.pack.world.mobSpawns:
             self.line(f"# Mob: {spawn.gameId}")
             self.line()

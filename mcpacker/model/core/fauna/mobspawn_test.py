@@ -4,19 +4,20 @@ from mcpacker.model.core.fauna.mobspawn import MobSpawn
 from mcpacker.model.core.habitat import Habitat
 from pytest import fixture
 
-import mcpacker.model.core.ecology.flora as F
-import mcpacker.model.core.ecology.heat as E
+import mcpacker.model.core.fauna.active as AC
+import mcpacker.model.core.ecology.flora as FL
+import mcpacker.model.core.ecology.heat as HE
 
 
 # Fixtures #########################################################################################
 
 @fixture(name="cow")
 def createCow():
-    yield Mob("cow", "minecraft:cow")
+    yield Mob("minecraft:cow", AC.DIURNAL)
 
 @fixture(name="fields")
 def createFieldsHabitat():
-    yield Habitat(biomeFilter=BiomeFilter([F.FIELD, E.TEMPERATE]))
+    yield Habitat(biomeFilter=BiomeFilter([FL.FIELD, HE.TEMPERATE]))
 
 @fixture(name="spawn")
 def createMobSpawn(cow, fields):

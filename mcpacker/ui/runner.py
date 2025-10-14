@@ -1,15 +1,14 @@
-from mcpacker.model.modpack                 import ModPack
+from mcpacker.format.report.biomereport import BiomeReport
+from mcpacker.format.report.mineralreport import MineralReport
+from mcpacker.format.report.mobspawnreport import MobSpawnReport
+from mcpacker.model.modpack import ModPack
+from mcpacker.write.compositewriter import CompositeWriter
 from mcpacker.write.incontrol.spawnerwriter import SpawnerWriter
-from mcpacker.write.markdown.biomereport    import BiomeReport
-from mcpacker.write.markdown.mineralreport  import MineralReport
-from mcpacker.write.markdown.mobspawnreport import MobSpawnReport
-from mcpacker.write.markdown.reportwriter   import ReportWriter
-from mcpacker.write.compositewriter         import CompositeWriter
-from mcpacker.write.staticwriter            import StaticWriter
-from pathlib                                import Path
+from mcpacker.write.report.writer import ReportWriter
+from mcpacker.write.staticwriter import StaticWriter
+from pathlib import Path
 
 import inspect
-import os
 import sys
 
 
@@ -46,13 +45,13 @@ class Runner:
 
     def _command_writeReports(self):
         CompositeWriter(self.pack, self.outputDir, [
-            BiomeReport,
-            MineralReport,
-            MobSpawnReport,
+            ReportWriter(self.pack, BiomeReport, self.outputDir, "biomes.md"),
+            ReportWriter(self.pack, MineralReport, self.outputDir, "minerals.md"),
+            ReportWriter(self.pack, MobSpawnReport, self.outputDir, "mobspawns.md"),
         ]).write()
 
     def _command_writeModPack(self):
         CompositeWriter(self.pack, self.outputDir, [
-            StaticWriter,
-            SpawnerWriter,
+            StaticWriter(self.pack, self.outputDir),
+            SpawnerWriter(self.pack, self.outputDir),
         ]).write()

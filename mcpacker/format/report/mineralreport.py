@@ -1,16 +1,13 @@
-from mcpacker.write.markdown.markdownwriter import MarkdownWriter
-from mcpacker.model.modpack                 import ModPack
-from pathlib                                import Path
+from mcpacker.format.report.composer import ReportComposer
+from mcpacker.model.modpack import ModPack
+from pathlib import Path
 
 
 # Class ############################################################################################
 
-class MineralReport(MarkdownWriter):
+class MineralReport(ReportComposer):
 
-    def __init__(self, pack:ModPack, outputDir:Path):
-        super().__init__("minerals.md", pack, outputDir)
-
-    def compose(self):
+    def doCompose(self):
         for mineral in self.pack.world.minerals:
             self.line(f"# Mineral: {mineral.name}")
             self.line()

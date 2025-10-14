@@ -1,3 +1,6 @@
+from collections.abc import Iterable
+
+
 # Class ############################################################################################
 
 class Altitude:
@@ -24,6 +27,7 @@ class Altitude:
 
     def __repr__(self) -> str:
         return f"{self.name} <{self.bottom} to {self.top}>"
+
 
 # Constants ########################################################################################
 
@@ -61,17 +65,18 @@ OVERGROUND  = (DUNES, LOWLANDS, UPLANDS, HILLS, ALPINE, CRAGS, PEAKS, SUMMIT, SK
 UNDERGROUND = (SOIL, SUBSTRATE, OVERBURDEN, CRUST, MANTLE, PLUTONIC)
 UNDERWATER  = (SURFACE, SHALLOWS, DEEPS, ABYSS)
 
+
 # Helper Functions #################################################################################
 
-def span(*altitudes):
+def span(*altitudes:Altitude):
     if not altitudes: return ANYWHERE
     result = Altitude("", ANYWHERE.top, ANYWHERE.bottom)
 
     bottom = OVERGROUND[-1].top
-    bottomAltitude = None
+    bottomAltitude = OVERGROUND[-1]
 
     top = UNDERGROUND[-1].bottom
-    topAltitude = None
+    topAltitude = UNDERGROUND[-1]
 
     for altitude in altitudes:
         if altitude.bottom < bottom:

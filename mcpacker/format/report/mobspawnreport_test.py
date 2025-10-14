@@ -1,25 +1,26 @@
+from mcpacker.format.report.mobspawnreport import MobSpawnReport
 from mcpacker.model.core.ecology.biomefilter import BiomeFilter as BF
-from mcpacker.model.core.fauna.mob           import Mob
-from mcpacker.model.core.fauna.mobspawn      import MobSpawn
-from mcpacker.model.core.geology.mineral     import Mineral
+from mcpacker.model.core.fauna.mob import Mob
+from mcpacker.model.core.fauna.mobspawn import MobSpawn
+from mcpacker.model.core.geology.mineral import Mineral
 from mcpacker.model.core.geology.replacement import Replacement
-from mcpacker.model.core.habitat             import Habitat
-from mcpacker.model.modpack                  import ModPack
-from mcpacker.write.markdown.mobspawnreport  import MobSpawnReport
-from pytest                                  import fixture
+from mcpacker.model.core.habitat import Habitat
+from mcpacker.model.modpack import AugmentFunc
+from mcpacker.model.modpack import ModPack
+from pytest import fixture
 
-import mcpacker.model.core.altitude         as AL
-import mcpacker.model.core.ecology.flora    as FL
-import mcpacker.model.core.ecology.geology  as GE
-import mcpacker.model.core.ecology.heat     as HE
+import mcpacker.model.core.altitude as AL
+import mcpacker.model.core.ecology.flora as FL
+import mcpacker.model.core.ecology.geology as GE
+import mcpacker.model.core.ecology.heat as HE
 import mcpacker.model.core.ecology.humidity as HU
-import mcpacker.model.core.ecology.soil     as SO
-import mcpacker.model.core.ecology.water    as WA
-import mcpacker.model.core.fauna.active     as AC
-import mcpacker.model.core.fauna.group      as GR
-import mcpacker.model.core.fauna.location   as LO
-import mcpacker.model.core.scarcity         as SC
-import mcpacker.model.core.season           as SE
+import mcpacker.model.core.ecology.soil as SO
+import mcpacker.model.core.ecology.water as WA
+import mcpacker.model.core.fauna.active as AC
+import mcpacker.model.core.fauna.group as GR
+import mcpacker.model.core.fauna.location as LO
+import mcpacker.model.core.scarcity as SC
+import mcpacker.model.core.season as SE
 import textwrap
 
 
@@ -56,23 +57,18 @@ def defineAddMobSpawnss():
     yield addMobSpawns
 
 @fixture(name="pack")
-def createPack(addMobs, addMobSpawns):
-    pack = ModPack("testModPack")
-    pack.augment(addMobs)
-    pack.augment(addMobSpawns)
-    yield pack
+def createPack(addMobs:AugmentFunc, addMobSpawns:AugmentFunc):
+    yield ModPack("testModPack").augment(addMobs).augment(addMobSpawns)
 
 @fixture(name="report")
-def createReport(pack, tmp_path):
-    report = MobSpawnReport(pack, tmp_path)
-    report.write()
-    yield report
+def createReport(pack:ModPack):
+    yield MobSpawnReport(pack).compose()
+
 
 # Tests ############################################################################################
 
-def test_write(report, tmp_path):
-    path = tmp_path / "testModPack" / "reports" / "mobspawns.md"
-    assert path.read_text() == textwrap.dedent("""
+def test_write(report:MobSpawnReport):
+    assert str(report).strip() == textwrap.dedent("""
         # Mob: minecraft:chicken
 
           * habitat 1
@@ -95,5 +91,4 @@ def test_write(report, tmp_path):
             * group: troup
             * location: outside
             * scarcity: uncommon
-
-    """).lstrip()
+    """).strip()

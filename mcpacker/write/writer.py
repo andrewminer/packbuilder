@@ -1,5 +1,6 @@
 from mcpacker.model.modpack import ModPack
-from pathlib                import Path
+from pathlib import Path
+from typing import Self
 
 import os
 import shutil
@@ -18,5 +19,5 @@ class Writer:
             os.remove(file)
         file.parent.mkdir(parents=True, exist_ok=True)
 
-    def write(self):
+    def write(self) -> Self:
         raise NotImplementedError()

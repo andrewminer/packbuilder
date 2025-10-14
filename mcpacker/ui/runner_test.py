@@ -1,29 +1,29 @@
-from mcpacker.model.core.ecology.biome       import Biome
+from mcpacker.model.core.ecology.biome import Biome
 from mcpacker.model.core.ecology.biomefilter import BiomeFilter as BF
-from mcpacker.model.core.fauna.mob           import Mob
-from mcpacker.model.core.fauna.mobspawn      import MobSpawn
-from mcpacker.model.core.geology.mineral     import Mineral
+from mcpacker.model.core.fauna.mob import Mob
+from mcpacker.model.core.fauna.mobspawn import MobSpawn
+from mcpacker.model.core.geology.mineral import Mineral
 from mcpacker.model.core.geology.replacement import Replacement
-from mcpacker.model.core.habitat             import Habitat
-from mcpacker.model.modpack                  import ModPack
-from mcpacker.ui.runner                      import Runner
-from mcpacker.write.incontrol.spawnerwriter  import SpawnerWriter
-from pathlib                                 import Path
-from pytest                                  import fixture
+from mcpacker.model.core.habitat import Habitat
+from mcpacker.model.modpack import ModPack
+from mcpacker.ui.runner import Runner
+from mcpacker.write.incontrol.spawnerwriter import SpawnerWriter
+from pathlib import Path
+from pytest import fixture
 
-import mcpacker.json                        as json
-import mcpacker.model.core.altitude         as AL
-import mcpacker.model.core.ecology.flora    as FL
-import mcpacker.model.core.ecology.geology  as GE
-import mcpacker.model.core.ecology.heat     as HE
+import mcpacker.json as json
+import mcpacker.model.core.altitude as AL
+import mcpacker.model.core.ecology.flora as FL
+import mcpacker.model.core.ecology.geology as GE
+import mcpacker.model.core.ecology.heat as HE
 import mcpacker.model.core.ecology.humidity as HU
-import mcpacker.model.core.ecology.soil     as SO
-import mcpacker.model.core.ecology.water    as WA
-import mcpacker.model.core.fauna.active     as AC
-import mcpacker.model.core.fauna.group      as GR
-import mcpacker.model.core.fauna.location   as LO
-import mcpacker.model.core.scarcity         as SC
-import mcpacker.model.core.season           as SE
+import mcpacker.model.core.ecology.soil as SO
+import mcpacker.model.core.ecology.water as WA
+import mcpacker.model.core.fauna.active as AC
+import mcpacker.model.core.fauna.group as GR
+import mcpacker.model.core.fauna.location as LO
+import mcpacker.model.core.scarcity as SC
+import mcpacker.model.core.season as SE
 import textwrap
 
 

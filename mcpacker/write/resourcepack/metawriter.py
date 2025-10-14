@@ -4,8 +4,8 @@ from pathlib import Path
 
 # Class ############################################################################################
 
-class DataPackMetaWriter(PackMetaWriter):
+class ResourcePackMetaWriter(PackMetaWriter):
 
     @property
     def packRoot(self) -> Path:
-        return self.locator.dataPack()
+        return self.locator.resourcePack()

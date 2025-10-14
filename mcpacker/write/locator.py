@@ -1,8 +1,6 @@
 from mcpacker.model.modpack import ModPack
 from pathlib import Path
-from typing import Protocol
-from typing import TypeVar
-from typing import TypeAlias
+from tempfile import TemporaryDirectory
 
 
 # Class ############################################################################################
@@ -24,6 +22,26 @@ class Locator:
     def __init__(self, pack:ModPack, outputDir:Path|None=None):
         self.pack = pack
         self.outputDir = outputDir
+
+    def inTempDir(self):
+        locator = self
+
+        class Context:
+            def __init__(self):
+                self.tempDir = TemporaryDirectory()
+                self.originalDir:Path|None = None
+
+            def __enter__(self):
+                self.originalDir = locator.outputDir
+                locator.outputDir = Path(self.tempDir.name)
+                return self
+
+            def __exit__(self, errorType, errorValue, trackback):
+                locator.outputDir = self.originalDir
+                self.tempDir.cleanup()
+                return False
+
+        return Context()
 
     def biomeModifiers(self, modName:str|None=None, dataPackName:str|None=None) -> Path:
         return self.dataPackMod(modName, dataPackName) / "neoforge" / "biome_modifier"

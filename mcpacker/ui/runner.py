@@ -3,10 +3,12 @@ from mcpacker.format.report.mineralreport import MineralReport
 from mcpacker.format.report.mobspawnreport import MobSpawnReport
 from mcpacker.model.modpack import ModPack
 from mcpacker.write.compositewriter import CompositeWriter
-from mcpacker.write.datapack.metawriter import MetaWriter
+from mcpacker.write.datapack.metawriter import DataPackMetaWriter
 from mcpacker.write.datapack.writer import DataPackWriter
 from mcpacker.write.incontrol.spawnerwriter import SpawnerWriter
 from mcpacker.write.report.writer import ReportWriter
+from mcpacker.write.resourcepack.metawriter import ResourcePackMetaWriter
+from mcpacker.write.resourcepack.writer import ResourcePackWriter
 from mcpacker.write.staticwriter import StaticWriter
 from pathlib import Path
 
@@ -57,6 +59,9 @@ class Runner:
             StaticWriter(self.pack, self.outputDir),
             SpawnerWriter(self.pack, self.outputDir),
             DataPackWriter(self.pack, self.outputDir, [
-                MetaWriter(self.pack, self.outputDir),
+                DataPackMetaWriter(self.pack, self.outputDir, 48),
+            ]),
+            ResourcePackWriter(self.pack, self.outputDir, [
+                ResourcePackMetaWriter(self.pack, self.outputDir, 34),
             ]),
         ]).write()

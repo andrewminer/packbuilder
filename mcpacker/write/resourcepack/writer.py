@@ -4,12 +4,12 @@ from pathlib import Path
 
 # Class ############################################################################################
 
-class DataPackWriter(ZipWriter):
+class ResourcePackWriter(ZipWriter):
 
     @property
     def archiveFile(self) -> Path:
-        return self.locator.dataPacks() / f"{self.pack.name}.jar"
+        return self.locator.resourcePacks() / f"{self.pack.name}.jar"
 
     @property
     def gatherFromDir(self) -> Path:
-        return self.locator.dataPack()
+        return self.locator.resourcePack()

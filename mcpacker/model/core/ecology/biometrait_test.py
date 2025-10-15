@@ -49,10 +49,10 @@ def test_hash(green, blue, traitMap):
     assert traitMap[blue] == "sapphire"
 
 def test_repr(green):
-    assert repr(green) == "BiomeTrait<green>"
+    assert repr(green) == "BiomeTrait(name='green')"
 
 def test_str(green):
-    assert str(green) == "BiomeTrait: green"
+    assert str(green) == "green"
 
 def test_within(traitList, green, yellow, orange):
     assert biomeTrait.within(traitList, green, orange) == [green, yellow, orange]

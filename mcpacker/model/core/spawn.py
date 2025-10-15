@@ -18,7 +18,7 @@ class Spawn:
 
     def __repr__(self) -> str:
         return (
-            "Spawn{" +
-                f"habitats: [{', '.join([repr(h) for h in self.habitats])}]" +
-            "}"
+            "Spawn(" +
+                f"habitats=[{', '.join([repr(h) for h in self.habitats])}]" +
+            ")"
         )

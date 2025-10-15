@@ -1,5 +1,5 @@
 from mcpacker.model.core.ecology.biomefilter import BiomeFilter
-from mcpacker.model.core.geology.deposit.metaldeposit import MetalDeposit
+from mcpacker.model.core.geology.deposit.mineraldeposit import MineralDeposit
 from mcpacker.model.core.geology.inclusion import Inclusion
 from mcpacker.model.core.geology.mineral import Mineral
 from mcpacker.model.core.geology.replacement import Replacement
@@ -15,23 +15,17 @@ import mcpacker.model.core.scarcity           as SC
 
 @fixture(name="quartz")
 def createQuartz():
-    yield Mineral("quartz", [
-        Replacement("#minecraft:stone_replaceables", "minecraft:quartz_ore"),
-        Replacement("#minecraft:deepslate_replaceables", "minecraft:deepslate_quartz_ore")
-    ])
+    yield Mineral("quartz", [])
 
 @fixture(name="iron")
 def createIron():
-    yield Mineral("iron", [
-        Replacement("#minecraft:stone_replaceables", "minecraft:iron_ore"),
-        Replacement("#minecraft:deepslate_replaceables", "minecraft:deepslate_iron_ore")
-    ])
+    yield Mineral("iron", [])
 
 @fixture(name="bifIron")
 def createBifIron(iron, quartz):
-    yield MetalDeposit(
+    yield MineralDeposit(
         name = "bifiron",
-        biomeFilter = BiomeFilter([FL.FOREST]),
+        biomeFilters = BiomeFilter([FL.FOREST]),
         bulk = BU.LARGE,
         inclusions = [Inclusion(iron, 60), Inclusion(quartz, 40)],
         proportion = PR.LENS,
@@ -42,14 +36,16 @@ def createBifIron(iron, quartz):
 
 def test_repr(bifIron):
     assert repr(bifIron) == (
-        "MetalDeposit<bifiron>{" +
-            "scarcity: Scarcity<common>, " +
-            "biomeFilter: must:[Flora: forest], not:[], " +
-            "inclusions: [" +
-                "Inclusion{mineral: iron, weight: 60}, " +
-                "Inclusion{mineral: quartz, weight: 40}" +
+        "MineralDeposit(" +
+            "name='bifiron', " +
+            "altitude=Altitude(name=anywhere, bottom=-64, top=320), " +
+            "biomeFilters=[BiomeFilter(required=[Flora(name='forest')], prohibited=[])], " +
+            "bulk=Bulk(name='large', smallest=1250, largest=1500), " +
+            "inclusions=[" +
+                "Inclusion(mineral=Mineral(name='iron', replacements=[]), weight=60), " +
+                "Inclusion(mineral=Mineral(name='quartz', replacements=[]), weight=40)" +
             "], " +
-            "bulk: Bulk<small>{smallest: 1000, largest: 2000}, " +
-            "proportion: Proportion<lens>{ratio: 0.4}" +
-        "}"
+            "proportion=Proportion(name='lens', ratio=0.4), " +
+            "scarcity=Scarcity(name='common')" +
+        ")"
     )

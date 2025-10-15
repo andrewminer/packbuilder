@@ -20,10 +20,10 @@ class Group:
         return hash((self.smallest, self.largest))
 
     def __str__(self) -> str:
-        return self.name
+        return f"{self.name} ({self.smallest} to {self.largest})"
 
     def __repr__(self) -> str:
-        return str(self) + f"<{self.smallest} to {self.largest}>"
+        return f"Group(name='{self.name}', smallest={self.smallest}, largest={self.largest})"
 
 
 # Constants ########################################################################################
@@ -57,4 +57,4 @@ def merge(*groups:Group):
             largest = group.largest
             largestGroup = group
 
-    return Group(f"{smallestGroup.name}-{largestGroup.name}", smallest, largest)
+    return Group(f"{smallestGroup.name} to {largestGroup.name}", smallest, largest)

@@ -95,6 +95,6 @@ def test_writeModPack(tmp_path:Path, modPackRunner:Runner):
     assert (tmp_path/"testpack"/"test.md").exists()
 
 def test_writeReports(tmp_path:Path, reportRunner:Runner):
-    assert (tmp_path/"testpack"/"reports"/"biomes.md").exists()
-    assert (tmp_path/"testpack"/"reports"/"minerals.md").exists()
-    assert (tmp_path/"testpack"/"reports"/"mobspawns.md").exists()
+    assert (tmp_path/"testpack"/"reports"/"biomes.txt").exists()
+    assert (tmp_path/"testpack"/"reports"/"minerals.txt").exists()
+    assert (tmp_path/"testpack"/"reports"/"mobspawns.txt").exists()

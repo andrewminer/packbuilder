@@ -17,8 +17,8 @@ class Inclusion:
 
     def __repr__(self) -> str:
         return "".join([str(p) for p in [
-            "Inclusion{",
-                "mineral: ", self.mineral.name, ", ",
-                "weight: ", self.weight,
-            "}"
+            "Inclusion(",
+                "mineral=", repr(self.mineral), ", ",
+                "weight=", repr(self.weight),
+            ")"
         ]])

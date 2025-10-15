@@ -1,4 +1,5 @@
 from mcpacker.format.report.biomereport import BiomeReport
+from mcpacker.format.report.depositreport import DepositReport
 from mcpacker.format.report.mineralreport import MineralReport
 from mcpacker.format.report.mobspawnreport import MobSpawnReport
 from mcpacker.model.modpack import ModPack
@@ -49,9 +50,10 @@ class Runner:
 
     def _command_writeReports(self):
         CompositeWriter(self.pack, self.outputDir, [
-            ReportWriter(self.pack, BiomeReport, self.outputDir, "biomes.md"),
-            ReportWriter(self.pack, MineralReport, self.outputDir, "minerals.md"),
-            ReportWriter(self.pack, MobSpawnReport, self.outputDir, "mobspawns.md"),
+            ReportWriter(self.pack, BiomeReport, self.outputDir, "biomes.txt"),
+            ReportWriter(self.pack, DepositReport, self.outputDir, "deposits.txt"),
+            ReportWriter(self.pack, MineralReport, self.outputDir, "minerals.txt"),
+            ReportWriter(self.pack, MobSpawnReport, self.outputDir, "mobspawns.txt"),
         ]).write()
 
     def _command_writeModPack(self):

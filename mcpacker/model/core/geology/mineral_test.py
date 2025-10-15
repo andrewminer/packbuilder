@@ -19,10 +19,19 @@ def createIron():
 
 def test_repr(iron):
     assert repr(iron) == (
-        "Mineral<iron>{" +
-            "replacements: [" +
-                "#minecraft:stone_ore_replaceables => minecraft:iron_ore, " +
-                "#minecraft:deepslate_ore_replaceables => minecraft:deepslate_iron_ore" +
+        "Mineral(" +
+            "name='iron', " +
+            "replacements=[" +
+                "Replacement(" +
+                    "source='#minecraft:stone_ore_replaceables', " +
+                    "target='minecraft:iron_ore', " +
+                    "weight=100" +
+                "), " +
+                "Replacement(" +
+                    "source='#minecraft:deepslate_ore_replaceables', " +
+                    "target='minecraft:deepslate_iron_ore', " +
+                    "weight=100" +
+                ")"
             "]" +
-        "}"
+        ")"
     )

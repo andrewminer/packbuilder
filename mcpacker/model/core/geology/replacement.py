@@ -32,9 +32,9 @@ class Replacement:
 
     def __repr__(self) -> str:
         return "".join([str(p) for p in [
-            "Replacement{" +
-                "source: ", self.source, ", ",
-                "target: ", self.target, ", ",
-                "weight: ", self.weight,
-            "}"
+            "Replacement(" +
+                "source=", repr(self.source), ", ",
+                "target=", repr(self.target), ", ",
+                "weight=", repr(self.weight),
+            ")"
         ]])

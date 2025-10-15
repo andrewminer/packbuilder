@@ -32,6 +32,14 @@ class BiomeFilter:
         self.required = required or []
         self.prohibited = prohibited or []
 
+    def __repr__(self) -> str:
+        return (
+            "BiomeFilter(" +
+                f"required={repr(self.required)}, " +
+                f"prohibited={repr(self.prohibited)}" +
+            ")"
+        )
+
     def __str__(self) -> str:
         required = []
         for trait in self.required:
@@ -39,25 +47,22 @@ class BiomeFilter:
                 required.append(str(trait))
             else:
                 required.append("(" +
-                    ", ".join([str(option) for option in trait]) +
+                    " or ".join([str(option) for option in trait]) +
                 ")")
 
         prohibited = []
         for trait in self.prohibited:
             prohibited.append(str(trait))
 
-        result = "".join([
-            "must:[",
-            ", ".join(required),
-            "], not:[",
-            ", ".join(prohibited),
-            "]"
-        ])
+        if not prohibited:
+            result = " and ".join(required)
+        else:
+            result = "".join([
+                "must:[", " and ".join(required), "], ",
+                "not:[", " and ".join(prohibited), "]",
+            ])
 
         return result
-
-    def __repr__(self) -> str:
-        return f"BiomeFilter([{repr(self.required)}], [{repr(self.prohibited)}])"
 
     def accepts(self, biome: Biome) -> bool:
         biomeTraits = biome.traits()

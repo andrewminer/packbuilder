@@ -17,9 +17,8 @@ class Mineral:
 
     def __repr__(self) -> str:
         return "".join([str(p) for p in [
-            f"Mineral<{self.name}>", "{",
-                "replacements: [",
-                    ", ".join([str(r) for r in self.replacements]),
-                "]",
-            "}"
+            f"Mineral(" +
+                "name=", repr(self.name), ", ",
+                "replacements=", repr(self.replacements),
+            ")"
         ]])

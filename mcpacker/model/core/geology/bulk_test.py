@@ -16,5 +16,5 @@ def scaleBulk(bulk):
 # Fixture ##########################################################################################
 
 def test_repr(bulk, scaledBulk):
-    assert repr(bulk) == "Bulk<chunk>{smallest: 64, largest: 128}"
-    assert repr(scaledBulk) == "Bulk<chunk>{smallest: 128, largest: 256}"
+    assert repr(bulk) == "Bulk(name='chunk', smallest=64, largest=128)"
+    assert repr(scaledBulk) == "Bulk(name='chunk', smallest=128, largest=256)"

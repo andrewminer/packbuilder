@@ -1,13 +1,12 @@
-from mcpacker.model.core.ecology.biome       import Biome
-from mcpacker.model.core.ecology.biomefilter import BiomeFilter
-from mcpacker.model.modpack                  import ModPack
+from mcpacker.model.core.ecology.biome import Biome
+from mcpacker.model.modpack import ModPack
 
-import mcpacker.model.core.ecology.flora    as FL
-import mcpacker.model.core.ecology.geology  as GE
-import mcpacker.model.core.ecology.heat     as HE
+import mcpacker.model.core.ecology.flora as FL
+import mcpacker.model.core.ecology.geology as GE
+import mcpacker.model.core.ecology.heat as HE
 import mcpacker.model.core.ecology.humidity as HU
-import mcpacker.model.core.ecology.soil     as SO
-import mcpacker.model.core.ecology.water    as WA
+import mcpacker.model.core.ecology.soil as SO
+import mcpacker.model.core.ecology.water as WA
 
 
 # Functions ########################################################################################
@@ -40,14 +39,14 @@ def addBiomes(pack:ModPack):
     ))
 
     biomes.add(Biome("calcutta", "minecraft:mangrove_swamp",
-        FL.FOREST, GE.SEDIMENTARY, HE.SUBTROPICAL, HU.WET, SO.CLAYEY, WA.INLAND
+        FL.FOREST, GE.SEDIMENTARY, HE.TROPICAL, HU.WET, SO.CLAYEY, WA.SWAMP
     ))
 
     biomes.add(Biome("cornwall", "minecraft:windswept_hills",
         FL.BARREN, GE.METAMORPHIC, HE.BOREAL, HU.DAMP, SO.ROCKY, WA.INLAND
     ))
 
-    biomes.add(Biome("dallas", "minecraft:savanna",
+    biomes.add(Biome("dakar", "minecraft:savanna",
         FL.FIELD, GE.SEDIMENTARY, HE.SUBTROPICAL, HU.DRY, SO.SANDY, WA.INLAND
     ))
 
@@ -55,7 +54,7 @@ def addBiomes(pack:ModPack):
         FL.BARREN, GE.SEDIMENTARY, HE.FROZEN, HU.WET, SO.SANDY, WA.RIVER
     ))
 
-    biomes.add(Biome("durango", "minecraft:savanna_plateau",
+    biomes.add(Biome("khartoum", "minecraft:savanna_plateau",
         FL.FIELD, GE.IGNEOUS, HE.SUBTROPICAL, HU.DRY, SO.SANDY, WA.INLAND
     ))
 
@@ -83,16 +82,16 @@ def addBiomes(pack:ModPack):
         FL.BARREN, GE.SEDIMENTARY, HE.SUBTROPICAL, HU.WET, SO.SANDY, WA.OCEAN
     ))
 
-    biomes.add(Biome("hilo", "minecraft:mushroom_fields",
-        FL.CLEARING, GE.IGNEOUS, HE.SUBTROPICAL, HU.WET, SO.FUNGAL, WA.INLAND
+    biomes.add(Biome("tahiti", "minecraft:mushroom_fields",
+        FL.CLEARING, GE.IGNEOUS, HE.TROPICAL, HU.WET, SO.FUNGAL, WA.INLAND
     ))
 
     biomes.add(Biome("honolulu", "minecraft:deep_ocean",
-        FL.BARREN, GE.SEDIMENTARY, HE.TEMPERATE, HU.WET, SO.SANDY, WA.OCEAN
+        FL.BARREN, GE.IGNEOUS, HE.TEMPERATE, HU.WET, SO.SANDY, WA.OCEAN
     ))
 
-    biomes.add(Biome("innnesbruk", "minecraft:meadow",
-        FL.FIELD, GE.SEDIMENTARY, HE.BOREAL, HU.DAMP, SO.PEATY, WA.INLAND
+    biomes.add(Biome("innsbruck", "minecraft:meadow",
+        FL.FIELD, GE.IGNEOUS, HE.BOREAL, HU.DAMP, SO.LOAMY, WA.INLAND
     ))
 
     biomes.add(Biome("irkutsk", "minecraft:taiga",
@@ -140,7 +139,7 @@ def addBiomes(pack:ModPack):
     ))
 
     biomes.add(Biome("moscow", "minecraft:snowy_plains",
-        FL.FIELD, GE.SEDIMENTARY, HE.FROZEN, HU.DAMP, SO.LOAMY, WA.INLAND
+        FL.FIELD, GE.SEDIMENTARY, HE.FROZEN, HU.DAMP, SO.PEATY, WA.INLAND
     ))
 
     biomes.add(Biome("nassau", "minecraft:warm_ocean",
@@ -159,7 +158,7 @@ def addBiomes(pack:ModPack):
         FL.FOREST, GE.METAMORPHIC, HE.BOREAL, HU.DAMP, SO.ACIDIC, WA.INLAND
     ))
 
-    biomes.add(Biome("phoenix", "minecraft:desert",
+    biomes.add(Biome("timbuktu", "minecraft:desert",
         FL.BARREN, GE.SEDIMENTARY, HE.TROPICAL, HU.DRY, SO.SANDY, WA.INLAND
     ))
 
@@ -167,7 +166,7 @@ def addBiomes(pack:ModPack):
         FL.BARREN, GE.METAMORPHIC, HE.TEMPERATE, HU.DAMP, SO.ROCKY, WA.COAST
     ))
 
-    biomes.add(Biome("portland", "minecraft:forest",
+    biomes.add(Biome("sherwood", "minecraft:forest",
         FL.FOREST, GE.SEDIMENTARY, HE.TEMPERATE, HU.DAMP, SO.LOAMY, WA.INLAND
     ))
 
@@ -176,7 +175,7 @@ def addBiomes(pack:ModPack):
     ))
 
     biomes.add(Biome("rangoon", "minecraft:bamboo_jungle",
-        FL.BARREN, GE.SEDIMENTARY, HE.SUBTROPICAL, HU.DRY, SO.LOAMY, WA.INLAND
+        FL.FOREST, GE.SEDIMENTARY, HE.TROPICAL, HU.WET, SO.ACIDIC, WA.INLAND
     ))
 
     biomes.add(Biome("sanfrancisco", "minecraft:ocean",
@@ -195,7 +194,7 @@ def addBiomes(pack:ModPack):
         FL.BARREN, GE.SEDIMENTARY, HE.SUBTROPICAL, HU.DRY, SO.CLAYEY, WA.INLAND
     ))
 
-    biomes.add(Biome("topeka", "minecraft:sunflower_plains",
+    biomes.add(Biome("stlouis", "minecraft:sunflower_plains",
         FL.FIELD, GE.SEDIMENTARY, HE.TEMPERATE, HU.DAMP, SO.LOAMY, WA.INLAND
     ))
 

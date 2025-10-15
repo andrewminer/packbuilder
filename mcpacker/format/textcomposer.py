@@ -24,6 +24,14 @@ class TextComposer:
     def doCompose(self):
         raise NotImplementedError()
 
+    def include(self, composer:"TextComposer") -> Self:
+        composer.reset()
+        composer.compose()
+        for line in composer._lines:
+            self._lines.append(line)
+
+        return self
+
     def indent(self) -> Self:
         self._indent += 1
         self._lineBuffer.insert(0, self._indentText)
@@ -32,7 +40,7 @@ class TextComposer:
     def line(self, text:Any="") -> Self:
         self.text(text)
 
-        self._lines.append("".join(self._lineBuffer))
+        self._lines.append("".join(self._lineBuffer).rstrip())
         self._lineBuffer = []
         while len(self._lineBuffer) < self._indent:
             self._lineBuffer.append(self._indentText)

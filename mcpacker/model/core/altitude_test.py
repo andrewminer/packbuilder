@@ -13,6 +13,6 @@ def mergeRange():
 # Tests ############################################################################################
 
 def test_span(merged):
-    assert merged.name == "lowlands-uplands"
+    assert merged.name == "lowlands to uplands"
     assert merged.bottom == A.LOWLANDS.bottom
     assert merged.top == A.UPLANDS.top

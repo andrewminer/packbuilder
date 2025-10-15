@@ -12,7 +12,7 @@ class Scarcity:
         return self.name
 
     def __repr__(self) -> str:
-        return f"Scarcity<{self.name}>"
+        return f"Scarcity(name='{self.name}')"
 
 
 # Constants ########################################################################################

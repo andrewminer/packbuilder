@@ -38,13 +38,13 @@ def createReport(pack:ModPack):
 
 def test_report(report:MineralReport):
     assert str(report).strip() == textwrap.dedent("""
-        # Mineral: copper
+        Mineral: copper
 
-          * #minecraft:stone_replaceables => minecraft:copper_ore
-          * #minecraft:deepslate_replaceables => minecraft:deepslate_copper_ore
+            #minecraft:stone_replaceables => minecraft:copper_ore
+            #minecraft:deepslate_replaceables => minecraft:deepslate_copper_ore
 
-        # Mineral: iron
+        Mineral: iron
 
-          * #minecraft:stone_replaceables => minecraft:iron_ore
-          * #minecraft:deepslate_replaceables => minecraft:deepslate_iron_ore
+            #minecraft:stone_replaceables => minecraft:iron_ore
+            #minecraft:deepslate_replaceables => minecraft:deepslate_iron_ore
     """).strip()

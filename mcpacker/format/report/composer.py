@@ -6,6 +6,6 @@ from mcpacker.model.modpack import ModPack
 
 class ReportComposer(TextComposer):
 
-    def __init__(self, pack:ModPack, indentText:str="  "):
-        super().__init__(indentText)
+    def __init__(self, pack:ModPack):
+        super().__init__()
         self.pack = pack

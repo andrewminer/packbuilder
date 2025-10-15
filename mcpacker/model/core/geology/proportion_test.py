@@ -6,7 +6,7 @@ import mcpacker.model.core.geology.proportion as proportion
 # Tests ############################################################################################
 
 def test_str():
-    assert str(proportion.LENS) == "lens"
+    assert str(proportion.LENS) == "lens (0.4)"
 
 def test_repr():
-    assert repr(proportion.LENS) == "Proportion<lens>{ratio: 0.4}"
+    assert repr(proportion.LENS) == "Proportion(name='lens', ratio=0.4)"

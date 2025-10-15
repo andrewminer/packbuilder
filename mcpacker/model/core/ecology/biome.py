@@ -45,18 +45,18 @@ class Biome(object):
         return hash((self.gameId, self.city))
 
     def __str__(self) -> str:
-        return f"{self.city}<{self.gameId}>"
+        return f"{self.gameId} ({self.city})"
 
     def __repr__(self) -> str:
         return "".join([str(p) for p in [
-            str(self), "{",
-                repr(self.flora), ", ",
-                repr(self.geology), ", ",
-                repr(self.heat), ", ",
-                repr(self.humidity), ", ",
-                repr(self.soil), ", ",
-                repr(self.water),
-            "}"
+            "Biome(",
+                "flora=", repr(self.flora), ", ",
+                "geology=", repr(self.geology), ", ",
+                "heat=", repr(self.heat), ", ",
+                "humidity=", repr(self.humidity), ", ",
+                "soil=", repr(self.soil), ", ",
+                "water=", repr(self.water),
+            ")"
         ]])
 
     def traits(self) -> list[BiomeTrait]:

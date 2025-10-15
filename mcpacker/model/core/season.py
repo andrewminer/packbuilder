@@ -12,7 +12,7 @@ class Season:
         return self.name
 
     def __repr__(self) -> str:
-        return f"Season<{self.name}>"
+        return f"Season(name='{self.name}')"
 
 
 # Constants ########################################################################################

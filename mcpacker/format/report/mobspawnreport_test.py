@@ -69,26 +69,21 @@ def createReport(pack:ModPack):
 
 def test_write(report:MobSpawnReport):
     assert str(report).strip() == textwrap.dedent("""
-        # Mob: minecraft:chicken
+        Mob: minecraft:chicken
 
-          * habitat 1
-            * altitude: lowlands-uplands
-            * biomeFilter:
-              * Heat: tropical
-              * Humidity: wet
-              * Flora: any of: canopy, forest, clearing
-            * seasons: summer
-            * group: troup
-            * location: outside
-            * scarcity: common
-          * habitat 2
-            * altitude: lowlands-uplands
-            * biomeFilter:
-              * Heat: tropical
-              * Humidity: wet
-              * Flora: any of: canopy, forest, clearing
-            * seasons: spring, autumn, winter
-            * group: troup
-            * location: outside
-            * scarcity: uncommon
+            Habitat 1
+                altitude: lowlands to uplands (70 to 124)
+                biomeFilter: tropical and wet and (canopy or forest or clearing)
+                seasons: summer
+                group: troup (3 to 6)
+                location: outside
+                scarcity: common
+
+            Habitat 2
+                altitude: lowlands to uplands (70 to 124)
+                biomeFilter: tropical and wet and (canopy or forest or clearing)
+                seasons: spring, autumn, winter
+                group: troup (3 to 6)
+                location: outside
+                scarcity: uncommon
     """).strip()

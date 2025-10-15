@@ -53,14 +53,14 @@ class Habitat:
 
     def __repr__(self) -> str:
         return "".join([str(p) for p in [
-            "Habitat{",
-                "altitude: ", repr(self.altitude), ", ",
-                "biomeFilter: ", repr(self.biomeFilter), ", ",
-                "seasons: [", ", ".join([repr(s) for s in self.seasons]), "], ",
-                "group: ", repr(self.group), ", ",
-                "location: ", repr(self.location), ", ",
-                "scarcity: ", repr(self.scarcity),
-            "}"
+            "Habitat(",
+                "altitude=", repr(self.altitude), ", ",
+                "biomeFilter=", repr(self.biomeFilter), ", ",
+                "seasons=[", ", ".join([repr(s) for s in self.seasons]), "], ",
+                "group=", repr(self.group), ", ",
+                "location=", repr(self.location), ", ",
+                "scarcity=", repr(self.scarcity),
+            ")"
         ]])
 
     def derive(

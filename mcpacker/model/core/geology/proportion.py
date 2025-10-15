@@ -15,10 +15,10 @@ class Proportion:
         return hash(self.name)
 
     def __str__(self) -> str:
-        return self.name
+        return f"{self.name} ({self.ratio})"
 
     def __repr__(self) -> str:
-        return f"Proportion<{self.name}>{{ratio: {self.ratio}}}"
+        return f"Proportion(name='{self.name}', ratio={self.ratio})"
 
 
 # Constants ########################################################################################

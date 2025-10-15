@@ -30,13 +30,13 @@ def makeOreMineral(name:str) -> Mineral:
 def makeImmersiveEngineeringOreMineral(name:str) -> Mineral:
     return Mineral(name, [
         Replacement.inStone(f"{IE}:ore_{name}"),
-        Replacement.inDeepslate("{IE}:deepslate_ore_{name}")
+        Replacement.inDeepslate(f"{IE}:deepslate_ore_{name}")
     ])
 
 def makeRailcraftOreMineral(name:str) -> Mineral:
     return Mineral(name, [
         Replacement.inStone(f"{RC}:{name}_ore"),
-        Replacement.inDeepslate("{RC}:deepslate_{name}_ore")
+        Replacement.inDeepslate(f"{RC}:deepslate_{name}_ore")
     ])
 
 
@@ -102,7 +102,7 @@ def addMinerals(pack:ModPack):
     minerals.add(makeImmersiveEngineeringOreMineral("uranium"))
 
     # Railcraft Ores
-    minerals.add(Mineral("saltpeter", [
+    minerals.add(Mineral("nitrate", [
         Replacement("sand", f"{RC}:saltpeter_ore"),
         Replacement("sandstone", f"{RC}:saltpeter_ore"),
     ]))

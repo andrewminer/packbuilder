@@ -17,10 +17,10 @@ def createWeightedReplacement():
 
 def test_repr(replacement, weightedReplacement):
     assert repr(replacement) == (
-        "Replacement{source: #minecraft:stone, target: minecraft:iron_ore, weight: 100}"
+        "Replacement(source='#minecraft:stone', target='minecraft:iron_ore', weight=100)"
     )
     assert repr(weightedReplacement) == (
-        "Replacement{source: #minecraft:dirt, target: minecraft:gravel, weight: 25}"
+        "Replacement(source='#minecraft:dirt', target='minecraft:gravel', weight=25)"
     )
 
 def test_str(replacement, weightedReplacement):

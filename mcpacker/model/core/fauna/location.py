@@ -15,7 +15,7 @@ class Location:
         return self.name
 
     def __repr__(self) -> str:
-        return f"Location<{self.name}>"
+        return f"Location(name='{self.name}')"
 
 
 # Constants ########################################################################################

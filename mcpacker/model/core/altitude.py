@@ -23,10 +23,10 @@ class Altitude:
         return hash((self.bottom, self.top))
 
     def __str__(self) -> str:
-        return self.name
+        return f"{self.name} ({self.bottom} to {self.top})"
 
     def __repr__(self) -> str:
-        return f"{self.name} <{self.bottom} to {self.top}>"
+        return f"Altitude(name={self.name}, bottom={self.bottom}, top={self.top})"
 
 
 # Constants ########################################################################################
@@ -43,7 +43,7 @@ LOWLANDS   = Altitude("lowlands", 70,  92)
 DUNES      = Altitude("dunes",    62,  70)
 
 # Transition
-EVAPORATES = Altitude("evaporates",  60,  64)
+EVAPORITES = Altitude("evaporites",  60,  64)
 ANYWHERE   = Altitude("anywhere",   -64, 320)
 
 # Underground
@@ -64,6 +64,8 @@ ABYSS      = Altitude("abyss",   -32,   0)
 OVERGROUND  = (DUNES, LOWLANDS, UPLANDS, HILLS, ALPINE, CRAGS, PEAKS, SUMMIT, SKY)
 UNDERGROUND = (SOIL, SUBSTRATE, OVERBURDEN, CRUST, MANTLE, PLUTONIC)
 UNDERWATER  = (SURFACE, SHALLOWS, DEEPS, ABYSS)
+
+ALL = OVERGROUND + UNDERGROUND + UNDERWATER
 
 
 # Helper Functions #################################################################################
@@ -87,5 +89,8 @@ def span(*altitudes:Altitude):
             top = altitude.top
             topAltitude = altitude
 
-    result = Altitude(f"{bottomAltitude.name}-{topAltitude.name}", bottom, top)
+    if bottomAltitude == topAltitude:
+        return bottomAltitude
+
+    result = Altitude(f"{bottomAltitude.name} to {topAltitude.name}", bottom, top)
     return result

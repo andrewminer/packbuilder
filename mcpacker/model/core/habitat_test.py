@@ -34,12 +34,20 @@ def test_derive(derivedHabitats):
 
 def test_repr(fields):
     assert repr(fields) == (
-        "Habitat{" +
-            "altitude: anywhere <-64 to 320>, " +
-            "biomeFilter: BiomeFilter([[Flora<field>, Heat<temperate>]], [[]]), " +
-            "seasons: [Season<spring>, Season<summer>, Season<autumn>, Season<winter>], " +
-            "group: solo<1 to 1>, " +
-            "location: Location<outside>, " +
-            "scarcity: Scarcity<sparse>" +
-        "}"
+        "Habitat(" +
+            "altitude=Altitude(name=anywhere, bottom=-64, top=320), " +
+            "biomeFilter=BiomeFilter(" +
+                "required=[Flora(name='field'), Heat(name='temperate')], " +
+                "prohibited=[]"
+            "), " +
+            "seasons=[" +
+                "Season(name='spring'), " +
+                "Season(name='summer'), " +
+                "Season(name='autumn'), " +
+                "Season(name='winter')" +
+            "], " +
+            "group=Group(name='solo', smallest=1, largest=1), " +
+            "location=Location(name='outside'), " +
+            "scarcity=Scarcity(name='sparse')" +
+        ")"
     )

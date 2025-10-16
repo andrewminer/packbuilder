@@ -1,4 +1,5 @@
 from mcpacker.format.datapack.configuredfeature import ConfiguredFeature
+from mcpacker.json import JsonBlob
 from typing import Any
 from typing import TYPE_CHECKING
 
@@ -13,7 +14,7 @@ class RandomPatch(ConfiguredFeature):
     def __init__(
         self,
         gameId:str,
-        feature:PlacedFeature,
+        feature:"PlacedFeature",
         tries:int=128,
         xzSpread:int=7,
         ySpread:int=3,
@@ -25,7 +26,7 @@ class RandomPatch(ConfiguredFeature):
         self.xzSpread = xzSpread
         self.ySpread = ySpread
 
-    def asData(self) -> dict[str,Any]:
+    def asJsonBlob(self) -> JsonBlob:
         return {
             "type": self.gameId,
             "feature": self.feature.gameId,

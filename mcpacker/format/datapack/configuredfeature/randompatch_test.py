@@ -1,6 +1,7 @@
 from mcpacker.format.datapack.blockstate import BlockState
+from mcpacker.format.datapack.placedfeature import PlacedFeature
 from mcpacker.format.datapack.blockstateprovider.simplestateprovider import SimpleStateProvider
-from mcpacker.format.datapack.configuredfeature.simpleblock import SimpleBlock
+from mcpacker.format.datapack.configuredfeature.randompatch import RandomPatch
 from pytest import fixture
 
 
@@ -14,25 +15,22 @@ def createBlockState():
 def createProvider(state:BlockState):
     return SimpleStateProvider(state)
 
+@fixture(name="placedFeature")
+def createPlacedFeature():
+    return PlacedFeature("noop", [])
+
 @fixture(name="feature")
-def createSimpleBlockFeature(provider:SimpleStateProvider):
-    return SimpleBlock(provider)
+def createFeature(placedFeature:PlacedFeature):
+    return RandomPatch("test", placedFeature)
 
 
 # Tests ############################################################################################
 
-def test_asData(feature:SimpleBlock):
+def test_asJsonBlob(feature:RandomPatch):
     assert feature.asJsonBlob() == {
-        "type": "minecraft:simple_block",
-        "config": {
-            "to_place": {
-                "type": "minecraft:simple_state_provider",
-                "state": {
-                    "Name": "minecraft:button",
-                    "Properties": {
-                        "waterlogged": "true"
-                    }
-                }
-            }
-        }
+        "type": "minecraft:random_patch",
+        "feature": "noop",
+        "tries": 128,
+        "xz_spread": 7,
+        "y_spread": 3,
     }

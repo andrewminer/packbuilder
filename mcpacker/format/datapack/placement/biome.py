@@ -7,7 +7,3 @@ class Biome(Placement):
 
     def __init__(self):
         super().__init__("minecraft:biome")
-
-    def asData(self) -> dict[str,Any]:
-        return { "type": self.gameId }
-

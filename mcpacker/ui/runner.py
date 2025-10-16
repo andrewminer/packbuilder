@@ -4,6 +4,7 @@ from mcpacker.format.report.mineralreport import MineralReport
 from mcpacker.format.report.mobspawnreport import MobSpawnReport
 from mcpacker.model.modpack import ModPack
 from mcpacker.write.compositewriter import CompositeWriter
+from mcpacker.write.datapack.disablefeaturewriter import DisableFeatureWriter
 from mcpacker.write.datapack.disablespawnwriter import DisableSpawnWriter
 from mcpacker.write.datapack.metawriter import DataPackMetaWriter
 from mcpacker.write.datapack.writer import DataPackWriter
@@ -69,6 +70,7 @@ class Runner:
             SpawnerWriter(p, o),
             DataPackWriter(p, o, [
                 DataPackMetaWriter(p, o, 48),
+                DisableFeatureWriter(p, o),
                 DisableSpawnWriter(p, o),
             ]),
             ResourcePackWriter(p, o, [

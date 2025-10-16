@@ -13,7 +13,7 @@ def createPlacement():
 # Tests ############################################################################################
 
 def test_asData(placement):
-    assert placement.asData() == {
+    assert placement.asJsonBlob() == {
         "type": "minecraft:heightmap",
         "heightmap": "WORLD_SURFACE"
     }

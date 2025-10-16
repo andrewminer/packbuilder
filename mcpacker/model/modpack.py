@@ -1,6 +1,7 @@
 from collections.abc import Iterable
-from mcpacker.model.core.world import World
 from mcpacker.format.datapack import DataPack
+from mcpacker.model.core.resourceid import ResourceId
+from mcpacker.model.core.world import World
 from mcpacker.model.mod import Mod
 from mcpacker.model.resourcepack import ResourcePack
 from typing import Callable
@@ -23,15 +24,15 @@ class ModPack:
         world:World|None=None,
         dataPack:DataPack|None=None,
         resourcePack:ResourcePack|None=None,
+        disabledFeatures:Iterable[ResourceId]|None=None
     ):
-        self.name         = name
-        self.world        = world or World()
-        self.dataPack     = dataPack or DataPack(self.name)
-        self.resourcePack = resourcePack or ResourcePack(self.name)
+        self.name = name
 
-        self._mods = {}
-        for mod in (mods or []):
-            self._mods[mod.name] = mod
+        self.dataPack = dataPack or DataPack(self.name)
+        self.mods = {mod.name: mod for mod in (mods or [])}
+        self.disabledFeatures = list(disabledFeatures or [])
+        self.resourcePack = resourcePack or ResourcePack(self.name)
+        self.world = world or World()
 
     def augment(self, doAugment:AugmentFunc) -> Self:
         doAugment(self)

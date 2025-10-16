@@ -1,4 +1,4 @@
-from mcpacker.model.datapack.placement.insquare import InSquare
+from mcpacker.format.datapack.placement.biome import Biome
 from pytest import fixture
 
 
@@ -6,13 +6,13 @@ from pytest import fixture
 
 @fixture(name="placement")
 def createPlacement():
-    yield InSquare()
+    yield Biome()
 
 
 # Tests ############################################################################################
 
 def test_asData(placement):
     assert placement.asData() == {
-        "type": "minecraft:in_square",
+        "type": "minecraft:biome",
     }
 

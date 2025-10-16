@@ -1,5 +1,5 @@
 from mcpacker.model.modpack  import ModPack
-from mcpacker.model.datapack import DataPack
+from mcpacker.format.datapack import DataPack
 
 
 # Functions ########################################################################################

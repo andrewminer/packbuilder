@@ -1,9 +1,9 @@
-from mcpacker.model.datapack.configuredfeature import ConfiguredFeature
+from mcpacker.format.datapack.configuredfeature import ConfiguredFeature
 from typing import Any
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from mcpacker.model.datapack.placedfeature import PlacedFeature
+    from mcpacker.format.datapack.placedfeature import PlacedFeature
 
 
 # Class ############################################################################################

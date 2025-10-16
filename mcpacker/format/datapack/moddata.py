@@ -1,5 +1,5 @@
-from mcpacker.model.datapack.configuredfeature import ConfiguredFeature
-from mcpacker.model.datapack.placedfeature import PlacedFeature
+from mcpacker.format.datapack.configuredfeature import ConfiguredFeature
+from mcpacker.format.datapack.placedfeature import PlacedFeature
 from typing import Any
 
 

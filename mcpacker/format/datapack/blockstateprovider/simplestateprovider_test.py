@@ -1,5 +1,5 @@
-from mcpacker.model.datapack.blockstate import BlockState
-from mcpacker.model.datapack.blockstateprovider.simplestateprovider import SimpleStateProvider
+from mcpacker.format.datapack.blockstate import BlockState
+from mcpacker.format.datapack.blockstateprovider.simplestateprovider import SimpleStateProvider
 from pytest import fixture
 
 

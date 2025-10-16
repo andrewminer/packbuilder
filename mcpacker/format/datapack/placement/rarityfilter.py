@@ -1,4 +1,4 @@
-from mcpacker.model.datapack.placement import Placement
+from mcpacker.format.datapack.placement import Placement
 from typing import Any
 
 # Class ############################################################################################

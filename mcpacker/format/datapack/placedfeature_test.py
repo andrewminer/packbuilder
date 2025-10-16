@@ -1,4 +1,4 @@
-from mcpacker.model.datapack.heightmaptype import HeightMapType
+from mcpacker.format.datapack.placedfeature import PlacedFeature
 
 
 # Tests ############################################################################################

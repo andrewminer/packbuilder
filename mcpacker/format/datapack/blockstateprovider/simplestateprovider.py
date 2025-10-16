@@ -1,6 +1,6 @@
 from mcpacker.json                              import JsonBlob
-from mcpacker.model.datapack.blockstate         import BlockState
-from mcpacker.model.datapack.blockstateprovider import BlockStateProvider
+from mcpacker.format.datapack.blockstate         import BlockState
+from mcpacker.format.datapack.blockstateprovider import BlockStateProvider
 from typing                                     import Any
 
 

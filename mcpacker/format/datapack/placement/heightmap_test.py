@@ -1,4 +1,5 @@
-from mcpacker.model.datapack.placement.rarityfilter import RarityFilter
+from mcpacker.format.datapack.heightmaptype import WORLD_SURFACE
+from mcpacker.format.datapack.placement.heightmap import HeightMap
 from pytest import fixture
 
 
@@ -6,14 +7,14 @@ from pytest import fixture
 
 @fixture(name="placement")
 def createPlacement():
-    yield RarityFilter(4)
+    yield HeightMap(WORLD_SURFACE)
 
 
 # Tests ############################################################################################
 
 def test_asData(placement):
     assert placement.asData() == {
-        "type": "minecraft:rarity_filter",
-        "chance": 4
+        "type": "minecraft:heightmap",
+        "heightmap": "WORLD_SURFACE"
     }
 

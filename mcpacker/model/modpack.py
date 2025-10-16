@@ -1,6 +1,6 @@
 from collections.abc import Iterable
 from mcpacker.model.core.world import World
-from mcpacker.model.datapack import DataPack
+from mcpacker.format.datapack import DataPack
 from mcpacker.model.mod import Mod
 from mcpacker.model.resourcepack import ResourcePack
 from typing import Callable

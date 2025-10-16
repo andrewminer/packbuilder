@@ -1,4 +1,4 @@
-from mcpacker.model.datapack.blockstate import BlockState
+from mcpacker.format.datapack.blockstate import BlockState
 from pytest import fixture
 
 

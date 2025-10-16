@@ -1,5 +1,5 @@
 from pytest import fixture
-from mcpacker.model.datapack.recipe.shapedrecipe import ShapedRecipe
+from mcpacker.format.datapack.recipe.shapedrecipe import ShapedRecipe
 
 
 # Fixtures #########################################################################################

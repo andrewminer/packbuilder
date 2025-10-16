@@ -1,7 +1,8 @@
-from mcpacker.model.datapack.placedfeature import PlacedFeature
+import mcpacker.format.datapack
 
 
 # Tests ############################################################################################
 
 def test_syntax():
     pass
+

@@ -1,5 +1,5 @@
-from mcpacker.model.datapack.heightmaptype import HeightMapType
-from mcpacker.model.datapack.placement import Placement
+from mcpacker.format.datapack.heightmaptype import HeightMapType
+from mcpacker.format.datapack.placement import Placement
 from typing import Any
 
 # Class ############################################################################################

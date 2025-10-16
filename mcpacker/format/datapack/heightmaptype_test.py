@@ -1,4 +1,4 @@
-import mcpacker.model.datapack.moddata
+from mcpacker.format.datapack.heightmaptype import HeightMapType
 
 
 # Tests ############################################################################################

@@ -14,9 +14,6 @@ SOURCE_BASE = Path("mcpacker") / "pack"
 
 class StaticWriter(Writer):
 
-    def __init__(self, pack:ModPack, outputDir:Path):
-        super().__init__(pack, outputDir)
-
     def doWrite(self):
         sourcePath = SOURCE_BASE / self.pack.name / "static"
         targetPath = self.locator.root()

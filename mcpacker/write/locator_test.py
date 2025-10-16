@@ -17,7 +17,7 @@ def test_blockStates(locator:Locator):
     assert (
         locator.blockStates() ==
         Path(
-            "output/testPack/resourcepacks/testPack_override/" +
+            "output/testPack/resourcepacks/testPack/" +
             "assets/testPack/blockstates"
         )
     )
@@ -26,7 +26,7 @@ def test_configuredFeatures(locator:Locator):
     assert (
         locator.configuredFeatures() ==
         Path(
-            "output/testPack/datapacks/testPack_override/" +
+            "output/testPack/datapacks/testPack/" +
             "data/testPack/worldgen/configured_feature"
         )
     )
@@ -44,7 +44,7 @@ def test_configuredFeaturesSpecificMod(locator:Locator):
     assert (
         locator.configuredFeatures("farmersdelight") ==
         Path(
-            "output/testPack/datapacks/testPack_override/" +
+            "output/testPack/datapacks/testPack/" +
             "data/farmersdelight/worldgen/configured_feature"
         )
     )

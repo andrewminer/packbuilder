@@ -1,5 +1,6 @@
 from collections.abc import Iterable
 from mcpacker.model.modpack import ModPack
+from mcpacker.write.locator import Locator
 from mcpacker.write.writer import Writer
 from pathlib import Path
 
@@ -12,13 +13,10 @@ class CompositeWriter(Writer):
         self,
         pack:ModPack,
         outputDir:Path,
-        writers:Iterable[Writer]|None=None
+        writers:Iterable[Writer]|None=None,
     ):
         super().__init__(pack, outputDir)
-
-        self._writers:list[Writer] = []
-        for writer in (writers or []):
-            self._writers.append(writer)
+        self._writers:list[Writer] = list(writers or [])
 
     def doWrite(self):
         for writer in self._writers:

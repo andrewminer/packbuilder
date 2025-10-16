@@ -56,7 +56,7 @@ class Locator:
         return self.dataPackMod(modName, dataPackName) / "worldgen" / "configured_feature"
 
     def dataPack(self, dataPackName:str|None=None):
-        return self.dataPacks() / (dataPackName or f"{self.pack.name}_override")
+        return self.dataPacks() / (dataPackName or f"{self.pack.name}")
 
     def dataPackMod(self, modName:str|None=None, dataPackName:str|None=None):
         return self.dataPack(dataPackName) / "data" / (modName or self.pack.name)
@@ -83,7 +83,7 @@ class Locator:
         return self.dataPackMod(modName, dataPackName) / "recipes"
 
     def resourcePack(self, resourcePackName:str|None=None) -> Path:
-        return self.resourcePacks() / (resourcePackName or f"{self.pack.name}_override")
+        return self.resourcePacks() / (resourcePackName or f"{self.pack.name}")
 
     def resourcePackMod(self, modName:str|None=None, resourcePackName:str|None=None) -> Path:
         return self.resourcePack(resourcePackName) / "assets" / (modName or self.pack.name)

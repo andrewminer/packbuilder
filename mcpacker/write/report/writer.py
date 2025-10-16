@@ -14,7 +14,7 @@ class ReportWriter(Writer):
         pack:ModPack,
         composerClass:type[ReportComposer],
         outputDir:Path,
-        name:str|Path
+        name:str|Path,
     ):
         super().__init__(pack, outputDir)
         self.composerClass = composerClass

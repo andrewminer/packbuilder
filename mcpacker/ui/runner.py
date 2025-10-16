@@ -4,6 +4,7 @@ from mcpacker.format.report.mineralreport import MineralReport
 from mcpacker.format.report.mobspawnreport import MobSpawnReport
 from mcpacker.model.modpack import ModPack
 from mcpacker.write.compositewriter import CompositeWriter
+from mcpacker.write.datapack.disablespawnwriter import DisableSpawnWriter
 from mcpacker.write.datapack.metawriter import DataPackMetaWriter
 from mcpacker.write.datapack.writer import DataPackWriter
 from mcpacker.write.incontrol.spawnerwriter import SpawnerWriter
@@ -49,21 +50,28 @@ class Runner:
     # Commands #################################################################
 
     def _command_writeReports(self):
-        CompositeWriter(self.pack, self.outputDir, [
-            ReportWriter(self.pack, BiomeReport, self.outputDir, "biomes.txt"),
-            ReportWriter(self.pack, DepositReport, self.outputDir, "deposits.txt"),
-            ReportWriter(self.pack, MineralReport, self.outputDir, "minerals.txt"),
-            ReportWriter(self.pack, MobSpawnReport, self.outputDir, "mobspawns.txt"),
+        p = self.pack
+        o = self.outputDir
+
+        CompositeWriter(p, o, [
+            ReportWriter(p, BiomeReport, o, "biomes.txt"),
+            ReportWriter(p, DepositReport, o, "deposits.txt"),
+            ReportWriter(p, MineralReport, o, "minerals.txt"),
+            ReportWriter(p, MobSpawnReport, o, "mobspawns.txt"),
         ]).write()
 
     def _command_writeModPack(self):
-        CompositeWriter(self.pack, self.outputDir, [
-            StaticWriter(self.pack, self.outputDir),
-            SpawnerWriter(self.pack, self.outputDir),
-            DataPackWriter(self.pack, self.outputDir, [
-                DataPackMetaWriter(self.pack, self.outputDir, 48),
+        p = self.pack
+        o = self.outputDir
+
+        CompositeWriter(p, o, [
+            StaticWriter(p, o),
+            SpawnerWriter(p, o),
+            DataPackWriter(p, o, [
+                DataPackMetaWriter(p, o, 48),
+                DisableSpawnWriter(p, o),
             ]),
-            ResourcePackWriter(self.pack, self.outputDir, [
-                ResourcePackMetaWriter(self.pack, self.outputDir, 34),
+            ResourcePackWriter(p, o, [
+                ResourcePackMetaWriter(p, o, 34),
             ]),
         ]).write()

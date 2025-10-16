@@ -92,9 +92,11 @@ def createReportRunner(tmp_path:Path, pack:ModPack):
 
 def test_writeModPack(tmp_path:Path, modPackRunner:Runner):
     assert (tmp_path/"testpack"/"config"/"incontrol"/"spawner.json").exists()
+    assert (tmp_path/"testpack"/"datapacks"/"testpack.jar").exists()
     assert (tmp_path/"testpack"/"test.md").exists()
 
 def test_writeReports(tmp_path:Path, reportRunner:Runner):
     assert (tmp_path/"testpack"/"reports"/"biomes.txt").exists()
+    assert (tmp_path/"testpack"/"reports"/"deposits.txt").exists()
     assert (tmp_path/"testpack"/"reports"/"minerals.txt").exists()
     assert (tmp_path/"testpack"/"reports"/"mobspawns.txt").exists()

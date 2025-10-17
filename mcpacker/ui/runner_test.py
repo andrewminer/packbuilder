@@ -10,6 +10,7 @@ from mcpacker.ui.runner import Runner
 from mcpacker.write.incontrol.spawnerwriter import SpawnerWriter
 from pathlib import Path
 from pytest import fixture
+from zipfile import ZipFile
 
 import mcpacker.json as json
 import mcpacker.model.core.altitude as AL
@@ -92,8 +93,11 @@ def createReportRunner(tmp_path:Path, pack:ModPack):
 
 def test_writeModPack(tmp_path:Path, modPackRunner:Runner):
     assert (tmp_path/"testpack"/"config"/"incontrol"/"spawner.json").exists()
-    assert (tmp_path/"testpack"/"datapacks"/"testpack.jar").exists()
     assert (tmp_path/"testpack"/"test.md").exists()
+
+    with ZipFile(tmp_path/"testpack"/"datapacks"/"testpack.jar") as archive:
+        nameList = archive.namelist()
+        assert "testpack/pack.mcmeta" in nameList
 
 def test_writeReports(tmp_path:Path, reportRunner:Runner):
     assert (tmp_path/"testpack"/"reports"/"biomes.txt").exists()

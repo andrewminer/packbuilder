@@ -1,4 +1,4 @@
-import mcpacker.model.core.geology.deposit
+import mcpacker.format.composer
 
 
 # Tests ############################################################################################

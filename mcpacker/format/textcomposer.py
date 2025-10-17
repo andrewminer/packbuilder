@@ -1,10 +1,11 @@
+from mcpacker.format.composer import Composer
 from typing import Any
 from typing import Self
 
 
 # Class ############################################################################################
 
-class TextComposer:
+class TextComposer(Composer):
 
     def __init__(self, indentText:str="    "):
         self._indent = 0
@@ -14,10 +15,6 @@ class TextComposer:
 
     def __str__(self) -> str:
         return "\n".join(self._lines)
-
-    def compose(self) -> Self:
-        self.doCompose()
-        return self
 
     # Helper Methods ###########################################################
 

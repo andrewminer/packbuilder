@@ -1,4 +1,4 @@
-from mcpacker.format.textcomposer import TextComposer
+from mcpacker.format.composer import Composer
 from mcpacker.model.modpack import ModPack
 from mcpacker.write.writer import Writer
 from pathlib import Path
@@ -8,7 +8,7 @@ from pathlib import Path
 
 class TextWriter(Writer):
 
-    def __init__(self, pack:ModPack, outputDir:Path, filePath:Path, composer:TextComposer):
+    def __init__(self, pack:ModPack, outputDir:Path, filePath:Path, composer:Composer):
         super().__init__(pack, outputDir)
         self.composer = composer
         self.filePath = filePath

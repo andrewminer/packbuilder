@@ -30,7 +30,7 @@ class MineralDeposit(Deposit):
         super().__init__(name, altitude, biomeFilters, scarcity)
 
         self.bulk = bulk
-        self.inclusions = inclusions or []
+        self.inclusions = list(inclusions or [])
         self.proportion = proportion
 
     def __repr__(self) -> str:

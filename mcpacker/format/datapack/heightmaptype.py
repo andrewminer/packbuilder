@@ -7,11 +7,17 @@ class HeightMapType:
     see: https://minecraft.wiki/w/Heightmap
     """
 
-    def __init__(self, gameId:str):
-        self.gameId = gameId
+    def __init__(self, name:str):
+        self.name = name
+
+    def __repr__(self) -> str:
+        return f"HeightMapType(name={self.name})"
+
+    def __str__(self) -> str:
+        return self.name
 
     def asData(self) -> str:
-        return self.gameId
+        return self.name
 
 
 # Constants ########################################################################################

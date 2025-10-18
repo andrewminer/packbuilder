@@ -16,5 +16,5 @@ class MobSpawn(Spawn):
         self.mob = mob
 
     @property
-    def gameId(self) -> str:
-        return self.mob.gameId
+    def name(self) -> str:
+        return self.mob.name

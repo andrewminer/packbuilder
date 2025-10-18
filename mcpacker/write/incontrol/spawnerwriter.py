@@ -31,7 +31,7 @@ class SpawnerWriter(Writer):
 
     def _computeBiomeNames(self, biomeFilter:BiomeFilter) -> JsonBlob:
         return list(
-            b.gameId for b in self.pack.world.biomes.filter(
+            str(b.gameId) for b in self.pack.world.biomes.filter(
                 lambda b: biomeFilter.accepts(b)
             )
         )
@@ -93,7 +93,7 @@ class SpawnerWriter(Writer):
 
     def _makeRule(self, spawn:MobSpawn, habitat:Habitat, season:Season, active:Active,) -> JsonBlob:
         return {
-            "mob": spawn.mob.gameId,
+            "mob": str(spawn.mob.gameId),
             "amount": {
                 "minimum": habitat.group.smallest,
                 "maximum": habitat.group.largest,

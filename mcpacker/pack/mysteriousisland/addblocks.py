@@ -16,7 +16,7 @@ def addBlocks(pack:ModPack):
 
     blocks.add(Block(
         gameId    = "kubejs:peat_block",
-        loot      = LootTable(Loot.of(items.get("kubejs:peat_chunk"), 2, 9)),
+        loot      = LootTable(Loot.of(items["kubejs:peat_chunk"], 2, 9)),
         name      = "Peat Block",
         soundType = SO.DIRT,
         tags      = ["minecraft:mineable/shovel"],

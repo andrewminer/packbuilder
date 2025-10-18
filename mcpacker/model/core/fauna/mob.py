@@ -1,5 +1,6 @@
 from collections.abc import Iterable
 from mcpacker.model.core.fauna.active import Active
+from mcpacker.model.core.resourceid import ResourceId
 
 import mcpacker.model.core.fauna.active as AC
 
@@ -11,11 +12,11 @@ class Mob:
     A creature which may appear in the game world.
     """
 
-    def __init__(self, gameId:str, active:Active|Iterable[Active]=AC.DIURNAL):
+    def __init__(self, gameId:ResourceId|str, active:Active|Iterable[Active]=AC.DIURNAL):
         if isinstance(active, Active):
             active = [active]
 
-        self.gameId = gameId
+        self.gameId = ResourceId.parse(gameId)
         self.active = active
 
     def __eq__(self, other) -> bool:
@@ -27,7 +28,11 @@ class Mob:
         return hash(self.gameId)
 
     def __str__(self) -> str:
-        return self.gameId
+        return str(self.gameId)
 
     def __repr__(self) -> str:
         return f"Mob<{self.gameId}>{{active:{self.active}}}"
+
+    @property
+    def name(self) -> str:
+        return str(self.gameId)

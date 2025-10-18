@@ -1,20 +1,20 @@
 from collections.abc import Iterable
-from typing          import Any
-from typing          import Callable
-from typing          import Generic
-from typing          import Iterator
-from typing          import Protocol
-from typing          import TypeVar
+from typing import Any
+from typing import Callable
+from typing import Generic
+from typing import Iterator
+from typing import Protocol
+from typing import TypeVar
 
 
 # Type Support #####################################################################################
 
-class HasGameId(Protocol):
+class HasName(Protocol):
 
     @property
-    def gameId(self) -> str: ...
+    def name(self) -> str: ...
 
-CatalogItem = TypeVar("CatalogItem", bound=HasGameId)
+CatalogItem = TypeVar("CatalogItem", bound=HasName)
 
 MapTarget = TypeVar("MapTarget")
 
@@ -29,39 +29,34 @@ class Catalog(Generic[CatalogItem]):
         for item in (items or []):
             self.add(item)
 
-    def __contains__(self, gameId:str) -> bool:
-        return gameId in self._items
+    def __contains__(self, name:str) -> bool:
+        return name in self._items
 
-    def __delitem__(self, gameId:str):
-        del self._items[gameId]
+    def __delitem__(self, name:str):
+        del self._items[name]
 
-    def __eq__(self, other:Any) -> bool:
-        if type(self) != type(other): return False
-        if self._items != other._items: return False
-        return True
-
-    def __getitem__(self, gameId:str) -> CatalogItem:
-        return self._items[gameId]
+    def __getitem__(self, name:str) -> CatalogItem:
+        return self._items[name]
 
     def __iter__(self) -> Iterator[CatalogItem]:
-        for gameId in sorted([i.gameId for i in self._items.values()]):
-            yield self._items[gameId]
+        for name in sorted([i.name for i in self._items.values()]):
+            yield self._items[name]
 
     def __len__(self) -> int:
         return len(self._items)
 
     def __repr__(self) -> str:
         return "".join(str(p) for p in [
-            self.__class__.__name__, "[",
-                ", ".join(str(i) for i in self),
-            "]"
+            type(self).__name__, "(",
+                "items=", repr(self._items),
+            ")"
         ])
 
     def add(self, item:CatalogItem) -> "Catalog[CatalogItem]":
-        if item.gameId in self._items:
-            raise Exception(f"Catalog already contains {item.gameId}")
+        if item.name in self._items:
+            raise Exception(f"Catalog already contains {item.name}")
 
-        self._items[item.gameId] = item
+        self._items[item.name] = item
         return self
 
     def filter(self, isAllowed:Callable[[CatalogItem], bool]) -> Iterator[CatalogItem]:

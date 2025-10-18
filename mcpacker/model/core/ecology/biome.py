@@ -5,19 +5,20 @@ from mcpacker.model.core.ecology.heat import Heat
 from mcpacker.model.core.ecology.humidity import Humidity
 from mcpacker.model.core.ecology.soil import Soil
 from mcpacker.model.core.ecology.water import Water
+from mcpacker.model.core.resourceid import ResourceId
 
 
 ####################################################################################################
 
-class Biome(object):
+class Biome:
     """
     A region of the world defined by a unique combination of geology, topography, and ecology.
     """
 
     def __init__(
         self,
-        city:str,
-        gameId:str,
+        name:str,
+        gameId:ResourceId|str,
         flora:Flora,
         geology:Geology,
         heat:Heat,
@@ -25,8 +26,8 @@ class Biome(object):
         soil:Soil,
         water:Water,
     ):
-        self.city = city
-        self.gameId = gameId
+        self.name = name
+        self.gameId = ResourceId.parse(gameId)
 
         self.flora = flora
         self.geology = geology
@@ -38,14 +39,14 @@ class Biome(object):
     def __eq__(self, other) -> bool:
         if type(self) != type(other): return False
         if self.gameId != other.gameId: return False
-        if self.city != other.city: return False
+        if self.name != other.name: return False
         return True
 
     def __hash__(self) -> int:
-        return hash((self.gameId, self.city))
+        return hash((self.gameId, self.name))
 
     def __str__(self) -> str:
-        return f"{self.gameId} ({self.city})"
+        return f"{self.gameId} ({self.name})"
 
     def __repr__(self) -> str:
         return "".join([str(p) for p in [

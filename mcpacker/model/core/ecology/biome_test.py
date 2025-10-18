@@ -21,5 +21,5 @@ def createDesert():
 # Tests ############################################################################################
 
 def test_createBiome(desert):
-    assert desert.city == "phoenix"
+    assert desert.name == "phoenix"
     assert desert.soil == S.SANDY

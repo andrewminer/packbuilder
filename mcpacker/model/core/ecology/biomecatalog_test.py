@@ -22,7 +22,7 @@ def createCatalog():
         Biome("dallas", "minecraft:savanna",
             F.FIELD, G.SEDIMENTARY, E.SUBTROPICAL, U.DRY, S.SANDY, W.INLAND
         ),
-        Biome("kansascity", "minecraft:plains",
+        Biome("kansasname", "minecraft:plains",
             F.FIELD, G.SEDIMENTARY, E.TEMPERATE, U.DAMP, S.LOAMY, W.INLAND
         ),
         Biome("mobile", "minecraft:swamp",
@@ -43,4 +43,4 @@ def createCatalog():
 # Tests ############################################################################################
 
 def test_findJungles(catalog, jungles):
-    assert [b.city for b in catalog.filter(lambda b: jungles.accepts(b))] == ["singapore"]
+    assert [b.name for b in catalog.filter(lambda b: jungles.accepts(b))] == ["singapore"]

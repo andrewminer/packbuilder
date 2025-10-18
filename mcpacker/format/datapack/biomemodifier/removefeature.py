@@ -1,6 +1,6 @@
 from collections.abc import Iterable
 from mcpacker.format.datapack.biomemodifier import BiomeModifier
-from mcpacker.format.datapack.biomemodifier.generationstep import GenerationStep
+from mcpacker.format.datapack.generationstep import GenerationStep
 from mcpacker.json import JsonBlob
 
 

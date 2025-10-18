@@ -10,7 +10,7 @@ class MobSpawnReport(ReportComposer):
 
     def doCompose(self):
         for spawn in self.pack.world.mobSpawns:
-            self.line(f"Mob: {spawn.gameId}")
+            self.line(f"Mob: {spawn.name}")
             self.line()
 
             self.indent()

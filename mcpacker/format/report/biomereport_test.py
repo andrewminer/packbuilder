@@ -48,16 +48,16 @@ def createReport(pack:ModPack):
 
 def test_report(report):
     assert str(report).strip() == textwrap.dedent("""
-        Biome: minecraft:plains (kansascity)
+        Biome: minecraft:savanna (dallas)
 
-            Traits: field, sedimentary, temperate, damp, loamy, inland
+            Traits: field, sedimentary, subtropical, dry, sandy, inland
 
             Deposits:
                 <no deposits>
 
-        Biome: minecraft:savanna (dallas)
+        Biome: minecraft:plains (kansascity)
 
-            Traits: field, sedimentary, subtropical, dry, sandy, inland
+            Traits: field, sedimentary, temperate, damp, loamy, inland
 
             Deposits:
                 <no deposits>

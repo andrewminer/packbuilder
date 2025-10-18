@@ -7,14 +7,14 @@ from typing import Any
 
 class SampleItem:
 
-    def __init__(self, gameId:str):
-        self.gameId = gameId
+    def __init__(self, name:str):
+        self.name = name
 
     def __eq__(self, other:Any):
-        return self.gameId == other.gameId
+        return self.name == other.name
 
     def __repr__(self) -> str:
-        return self.gameId
+        return self.name
 
 
 # Fixtures #########################################################################################
@@ -44,11 +44,11 @@ def buildAlmostEmptyCatalog(empty):
 
 @fixture(name="filtered")
 def buildFilteredList(full):
-    yield list(full.filter(lambda x: x.gameId.endswith("a")))
+    yield list(full.filter(lambda x: x.name.endswith("a")))
 
 @fixture(name="mapped")
 def buildMappedList(full):
-    yield list(full.map(lambda x: x.gameId))
+    yield list(full.map(lambda x: x.name))
 
 
 # Tests ############################################################################################
@@ -63,18 +63,14 @@ def test_contains(empty, full):
 def test_del(almostFull):
     assert "bravo" not in almostFull
 
-def test_eq():
-    assert Catalog([SampleItem("alpha")]) == Catalog([SampleItem("alpha")])
-    assert Catalog([SampleItem("alpha")]) != Catalog([SampleItem("bravo")])
-
 def test_filter(filtered):
-    assert [a.gameId for a in filtered] == ["alpha", "delta"]
+    assert [a.name for a in filtered] == ["alpha", "delta"]
 
 def test_getitem(full):
-    assert full["bravo"].gameId == "bravo"
+    assert full["bravo"].name == "bravo"
 
 def test_iter(full):
-    assert [s.gameId for s in full] == ["alpha", "bravo", "charlie", "delta"]
+    assert [s.name for s in full] == ["alpha", "bravo", "charlie", "delta"]
 
 def test_len(empty, full):
     assert len(empty) == 0
@@ -84,5 +80,7 @@ def test_map(mapped):
     assert mapped == ["alpha", "bravo", "charlie", "delta"]
 
 def test_repr(empty, full):
-    assert repr(empty) == "Catalog[]"
-    assert repr(full) == "Catalog[alpha, bravo, charlie, delta]"
+    assert repr(empty) == "Catalog(items={})"
+    assert repr(full) == (
+        "Catalog(items={'alpha': alpha, 'bravo': bravo, 'charlie': charlie, 'delta': delta})"
+    )

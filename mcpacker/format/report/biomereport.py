@@ -9,7 +9,7 @@ class BiomeReport(ReportComposer):
 
     def doCompose(self):
         for biome in self.pack.world.biomes:
-            self.line(f"Biome: {biome.gameId} ({biome.city})")
+            self.line(f"Biome: {biome.gameId} ({biome.name})")
             self.line()
 
             self.indent()

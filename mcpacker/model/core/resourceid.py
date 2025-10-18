@@ -1,4 +1,10 @@
 from collections.abc import Callable
+from typing import Any
+
+
+# Typing Support ###################################################################################
+
+type NameTransformFunc = Callable[[str],str]
 
 
 # Class ############################################################################################
@@ -6,7 +12,7 @@ from collections.abc import Callable
 class ResourceId:
 
     @staticmethod
-    def alterName(text:str, doTransform:Callable[[str],str]) -> str:
+    def alterName(text:str, doTransform:NameTransformFunc) -> str:
         resourceId = ResourceId.parse(text)
         resourceId.name = doTransform(resourceId.name)
         return str(resourceId)
@@ -43,17 +49,40 @@ class ResourceId:
         self.mod = mod
         self.name = name
 
-    def __str__(self) -> str:
-        if not self.isTag:
-            return f"{self.mod}:{self.name}"
+    def __eq__(self, other:Any) -> bool:
+        if type(self) != type(other): return False
+        if self.isTag != other.isTag: return False
+        if self.mod != other.mod: return False
+        if self.name != other.name: return False
+        return True
 
-        return f"#{self.mod}:{self.name}"
+    def __hash__(self) -> int:
+        return hash((self.isTag, self.mod, self.name))
+
+    def __lt__(self, other:Any) -> bool:
+        if type(self) != type(other): raise TypeError()
+
+        if self.isTag != other.isTag:
+            return self.isTag
+        if self.mod != other.mod:
+            return self.mod < other.mod
+        if self.name != other.name:
+            return self.name < other.name
+
+        return False
+
+    def __str__(self) -> str:
+        if self.isTag:
+            return f"#{self.mod}:{self.name}"
+
+        return f"{self.mod}:{self.name}"
+
 
     def __repr__(self) -> str:
-        return "".join([str(p) for p in [
-            "ResourceId{",
-                "isTag: ", ("True" if self.isTag else "False"), ", ",
-                "mod: ", self.mod, ", ",
-                "name: ", self.name,
-            "}"
-        ]])
+        return (
+            "ResourceId(" +
+                f"isTag={repr(self.isTag)}, " +
+                f"mod={repr(self.mod)}, " +
+                f"name={repr(self.name)}" +
+            ")"
+        )

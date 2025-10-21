@@ -1,5 +1,6 @@
 from collections.abc import Iterable
 from mcpacker.model.core.blockstate import BlockState
+from mcpacker.model.core.flora.companion import Companion
 from mcpacker.model.core.flora.density import Density
 from mcpacker.model.core.flora.immersion import Immersion
 from mcpacker.model.core.flora.plant import Plant
@@ -22,18 +23,26 @@ class Patch(Plant):
         density:Density=DE.THICK,
         radius:int=4,
         substrates:Iterable[ResourceId]|Iterable[str]|ResourceId|str|None=None,
+        companions:Iterable[Companion]|Companion|None=None,
         immersion:Immersion=IM.DRY,
     ):
         super().__init__(name)
 
         if isinstance(blocks, str) or isinstance(blocks, BlockState):
             blocks = [blocks]
+
+        if not companions:
+            companions = []
+        if isinstance(companions, Companion):
+            companions = [companions]
+
         if not substrates:
             substrates = ["#minecraft:dirt"]
         if not isinstance(substrates, Iterable):
             substrates = [substrates]
 
         self.blocks = [BlockState.parse(b) for b in blocks]
+        self.companions = list(companions)
         self.density = density
         self.immersion = immersion
         self.radius = radius
@@ -43,6 +52,7 @@ class Patch(Plant):
         return (
             "Patch("
                 f"blocks={self.blocks!r}, "
+                f"companions={self.companions!r}, "
                 f"density={self.density!r}, "
                 f"immersion={self.immersion!r}, "
                 f"radius={self.radius!r}, "
@@ -56,8 +66,8 @@ class Patch(Plant):
 
         The value models repeated random placement within a circular area until the expected
         fraction of successful placements (`coverage`) for the patch's density is reached.  It
-        accounts for both failed placements (controlled by `successRate`) and duplicate hits on
-        already–filled blocks.
+        accounts for both for the presumed rate of successful placements (controlled by
+        `successRate`) and duplicate hits on already–filled blocks.
 
         The relationship is derived from the expected coverage equation:
 

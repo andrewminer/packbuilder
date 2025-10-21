@@ -1,5 +1,5 @@
 from collections.abc import Iterable
-from mcpacker.model.core.resourceid import ResourceId
+from mcpacker.model.resourceid import ResourceId
 from mcpacker.json import JsonBlob
 
 import mcpacker.format.datapack.heightmaptype as HM

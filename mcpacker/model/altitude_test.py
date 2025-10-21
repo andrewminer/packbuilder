@@ -1,0 +1,18 @@
+from pytest import fixture
+
+import mcpacker.model.altitude as A
+
+
+# Fixtures #########################################################################################
+
+@fixture(name="merged")
+def mergeRange():
+    yield A.span(A.UPLANDS, A.LOWLANDS)
+
+
+# Tests ############################################################################################
+
+def test_span(merged):
+    assert merged.name == "lowlands to uplands"
+    assert merged.bottom == A.LOWLANDS.bottom
+    assert merged.top == A.UPLANDS.top

@@ -1,19 +1,19 @@
-from mcpacker.json                           import JsonBlob
-from mcpacker.model.core.ecology.biomefilter import BiomeFilter
-from mcpacker.model.core.fauna.active        import Active
-from mcpacker.model.core.fauna.mobspawn      import MobSpawn
-from mcpacker.model.core.habitat             import Habitat
-from mcpacker.model.core.scarcity            import Scarcity
-from mcpacker.model.core.season              import Season
-from mcpacker.model.modpack                  import ModPack
-from mcpacker.write.incontrol                import INCONTROL_CONFIG_DIR
-from mcpacker.write.writer                   import Writer
-from pathlib                                 import Path
+from mcpacker.json import JsonBlob
+from mcpacker.model.ecology.biomefilter import BiomeFilter
+from mcpacker.model.fauna.active import Active
+from mcpacker.model.fauna.mobspawn import MobSpawn
+from mcpacker.model.habitat import Habitat
+from mcpacker.model.scarcity import Scarcity
+from mcpacker.model.season import Season
+from mcpacker.model.modpack import ModPack
+from mcpacker.write.incontrol import INCONTROL_CONFIG_DIR
+from mcpacker.write.writer import Writer
+from pathlib import Path
 
 import mcpacker.json                      as json
-import mcpacker.model.core.dimension      as DI
-import mcpacker.model.core.fauna.location as LO
-import mcpacker.model.core.scarcity       as SC
+import mcpacker.model.dimension      as DI
+import mcpacker.model.fauna.location as LO
+import mcpacker.model.scarcity       as SC
 import mcpacker.model.time                as TI
 import os
 

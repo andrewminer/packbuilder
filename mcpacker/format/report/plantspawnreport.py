@@ -1,7 +1,7 @@
-from mcpacker.model.core.flora.patch import Patch
-from mcpacker.model.core.flora.tree import Tree
+from mcpacker.model.flora.patch import Patch
+from mcpacker.model.flora.tree import Tree
 from mcpacker.format.report.composer import ReportComposer
-from mcpacker.model.core.ecology.biometrait import BiomeTrait
+from mcpacker.model.ecology.biometrait import BiomeTrait
 from mcpacker.model.modpack import ModPack
 from pathlib import Path
 

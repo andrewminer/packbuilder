@@ -1,5 +1,5 @@
 from mcpacker.format.report.composer import ReportComposer
-from mcpacker.model.core.geology.deposit.mineraldeposit import MineralDeposit
+from mcpacker.model.geology.deposit.mineraldeposit import MineralDeposit
 from mcpacker.model.modpack import ModPack
 from pathlib import Path
 

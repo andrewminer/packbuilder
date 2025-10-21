@@ -1,5 +1,5 @@
 from mcpacker.format.report.composer import ReportComposer
-from mcpacker.model.core.ecology.biometrait import BiomeTrait
+from mcpacker.model.ecology.biometrait import BiomeTrait
 from mcpacker.model.modpack import ModPack
 from pathlib import Path
 

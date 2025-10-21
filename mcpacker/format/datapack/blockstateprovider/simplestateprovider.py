@@ -1,7 +1,7 @@
-from mcpacker.json                              import JsonBlob
-from mcpacker.format.datapack.blockstate         import BlockState
+from mcpacker.json import JsonBlob
+from mcpacker.format.datapack.blockstate import BlockState
 from mcpacker.format.datapack.blockstateprovider import BlockStateProvider
-from typing                                     import Any
+from typing import Any
 
 
 # Class ############################################################################################

@@ -1,7 +1,0 @@
-import mcpacker.model.core.geology.mineralcatalog
-
-
-# Tests ############################################################################################
-
-def test_syntax():
-    pass

@@ -1,7 +1,7 @@
-from mcpacker.model.core.fauna.mob import Mob
-from mcpacker.model.modpack        import ModPack
+from mcpacker.model.fauna.mob import Mob
+from mcpacker.model.modpack import ModPack
 
-import mcpacker.model.core.fauna.active as AC
+import mcpacker.model.fauna.active as AC
 
 
 # Constants ########################################################################################

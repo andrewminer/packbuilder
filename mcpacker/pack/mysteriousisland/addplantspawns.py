@@ -1,17 +1,17 @@
-from mcpacker.model.core.altitude import Altitude
-from mcpacker.model.core.ecology.biomefilter import BiomeFilter as BF
-from mcpacker.model.core.flora.plantspawn import PlantSpawn
-from mcpacker.model.core.resourceid import ResourceId
+from mcpacker.model.altitude import Altitude
+from mcpacker.model.ecology.biomefilter import BiomeFilter as BF
+from mcpacker.model.flora.plantspawn import PlantSpawn
+from mcpacker.model.resourceid import ResourceId
 from mcpacker.model.modpack import ModPack
 
-import mcpacker.model.core.altitude as AL
-import mcpacker.model.core.ecology.flora as FL
-import mcpacker.model.core.ecology.geology as GE
-import mcpacker.model.core.ecology.heat as HE
-import mcpacker.model.core.ecology.humidity as HU
-import mcpacker.model.core.ecology.soil as SO
-import mcpacker.model.core.ecology.water as WA
-import mcpacker.model.core.scarcity as SC
+import mcpacker.model.altitude as AL
+import mcpacker.model.ecology.flora as FL
+import mcpacker.model.ecology.geology as GE
+import mcpacker.model.ecology.heat as HE
+import mcpacker.model.ecology.humidity as HU
+import mcpacker.model.ecology.soil as SO
+import mcpacker.model.ecology.water as WA
+import mcpacker.model.scarcity as SC
 
 
 # Functions ########################################################################################

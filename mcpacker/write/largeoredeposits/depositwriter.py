@@ -1,5 +1,5 @@
 from mcpacker.format.largeoredeposit.mineraldepositcomposer import MineralDepositComposer
-from mcpacker.model.core.geology.deposit.mineraldeposit import MineralDeposit
+from mcpacker.model.geology.deposit.mineraldeposit import MineralDeposit
 from mcpacker.model.modpack import ModPack
 from mcpacker.write.writer import Writer
 from pathlib import Path

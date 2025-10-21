@@ -1,12 +1,12 @@
-from mcpacker.model.core.blockstate import BlockState
-from mcpacker.model.core.flora.patch import Patch
-from mcpacker.model.core.flora.tree import Tree
+from mcpacker.model.blockstate import BlockState
+from mcpacker.model.flora.patch import Patch
+from mcpacker.model.flora.tree import Tree
 from mcpacker.model.modpack import ModPack
 
-import mcpacker.model.core.flora.canopyshape as CA
-import mcpacker.model.core.flora.density as DE
-import mcpacker.model.core.flora.immersion as IM
-import mcpacker.model.core.flora.trunkshape as TR
+import mcpacker.model.flora.canopyshape as CA
+import mcpacker.model.flora.density as DE
+import mcpacker.model.flora.immersion as IM
+import mcpacker.model.flora.trunkshape as TR
 
 
 # Constants ########################################################################################

@@ -1,19 +1,19 @@
-from mcpacker.model.core.ecology.biomefilter import BiomeFilter as BF
-from mcpacker.model.core.geology.deposit.geodedeposit import GeodeDeposit
-from mcpacker.model.core.geology.deposit.mineraldeposit import MineralDeposit
-from mcpacker.model.core.geology.inclusion import Inclusion as I
+from mcpacker.model.ecology.biomefilter import BiomeFilter as BF
+from mcpacker.model.geology.deposit.geodedeposit import GeodeDeposit
+from mcpacker.model.geology.deposit.mineraldeposit import MineralDeposit
+from mcpacker.model.geology.inclusion import Inclusion as I
 from mcpacker.model.modpack import ModPack
 
-import mcpacker.model.core.altitude as AL
-import mcpacker.model.core.ecology.flora as FL
-import mcpacker.model.core.ecology.geology as GE
-import mcpacker.model.core.ecology.heat as HE
-import mcpacker.model.core.ecology.humidity as HU
-import mcpacker.model.core.ecology.soil as SO
-import mcpacker.model.core.ecology.water as WA
-import mcpacker.model.core.geology.bulk as BU
-import mcpacker.model.core.geology.proportion as PR
-import mcpacker.model.core.scarcity as SC
+import mcpacker.model.altitude as AL
+import mcpacker.model.ecology.flora as FL
+import mcpacker.model.ecology.geology as GE
+import mcpacker.model.ecology.heat as HE
+import mcpacker.model.ecology.humidity as HU
+import mcpacker.model.ecology.soil as SO
+import mcpacker.model.ecology.water as WA
+import mcpacker.model.geology.bulk as BU
+import mcpacker.model.geology.proportion as PR
+import mcpacker.model.scarcity as SC
 
 
 # Catalog ##########################################################################################

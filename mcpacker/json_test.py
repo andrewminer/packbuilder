@@ -1,6 +1,6 @@
 from mcpacker.json import JsonBlob
-from pytest        import fixture
-from typing        import cast
+from pytest import fixture
+from typing import cast
 
 import mcpacker.json as json
 

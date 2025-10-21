@@ -1,8 +1,8 @@
 from collections.abc import Iterator
 from collections.abc import Mapping
-from mcpacker.model.core.geology.inclusion import Inclusion
+from mcpacker.model.geology.inclusion import Inclusion
 from mcpacker.format.templatecomposer import TemplateComposer
-from mcpacker.model.core.geology.deposit.mineraldeposit import MineralDeposit
+from mcpacker.model.geology.deposit.mineraldeposit import MineralDeposit
 
 
 # Constants ########################################################################################

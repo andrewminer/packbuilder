@@ -1,11 +1,11 @@
-from mcpacker.model.core.material.block         import Block
-from mcpacker.model.core.material.blockcatalog  import BlockCatalog
-from mcpacker.model.core.material.item          import Item
-from mcpacker.model.core.material.loottable     import LootTable
-from mcpacker.model.core.material.loot          import Loot
-from mcpacker.model.modpack                     import ModPack
+from mcpacker.model.material.block import Block
+from mcpacker.model.material.blockcatalog import BlockCatalog
+from mcpacker.model.material.item import Item
+from mcpacker.model.material.loottable import LootTable
+from mcpacker.model.material.loot import Loot
+from mcpacker.model.modpack import ModPack
 
-import mcpacker.model.core.material.soundtype as SO
+import mcpacker.model.material.soundtype as SO
 
 
 # Functions ########################################################################################

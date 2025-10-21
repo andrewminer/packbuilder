@@ -1,7 +1,7 @@
-from mcpacker.model.core.geology.mineral        import Mineral
-from mcpacker.model.core.geology.mineralcatalog import MineralCatalog
-from mcpacker.model.core.geology.replacement    import Replacement
-from mcpacker.model.modpack                     import ModPack
+from mcpacker.model.geology.mineral import Mineral
+from mcpacker.model.geology.mineralcatalog import MineralCatalog
+from mcpacker.model.geology.replacement import Replacement
+from mcpacker.model.modpack import ModPack
 
 
 # Constants ########################################################################################

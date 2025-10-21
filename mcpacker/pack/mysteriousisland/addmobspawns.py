@@ -1,23 +1,23 @@
-from mcpacker.model.core.ecology.biomefilter import BiomeFilter as BF
-from mcpacker.model.core.fauna.mob import Mob
-from mcpacker.model.core.fauna.mobcatalog import MobCatalog
-from mcpacker.model.core.fauna.mobspawn import MobSpawn
-from mcpacker.model.core.habitat import Habitat
-from mcpacker.model.core.resourceid import ResourceId
+from mcpacker.model.ecology.biomefilter import BiomeFilter as BF
+from mcpacker.model.fauna.mob import Mob
+from mcpacker.model.fauna.mobcatalog import MobCatalog
+from mcpacker.model.fauna.mobspawn import MobSpawn
+from mcpacker.model.habitat import Habitat
+from mcpacker.model.resourceid import ResourceId
 from mcpacker.model.modpack import ModPack
 
-import mcpacker.model.core.altitude as AL
-import mcpacker.model.core.ecology.flora as FL
-import mcpacker.model.core.ecology.geology as GE
-import mcpacker.model.core.ecology.heat as HE
-import mcpacker.model.core.ecology.humidity as HU
-import mcpacker.model.core.ecology.soil as SO
-import mcpacker.model.core.ecology.water as WA
-import mcpacker.model.core.fauna.active as AC
-import mcpacker.model.core.fauna.group as GR
-import mcpacker.model.core.fauna.location as LO
-import mcpacker.model.core.scarcity as SC
-import mcpacker.model.core.season as SE
+import mcpacker.model.altitude as AL
+import mcpacker.model.ecology.flora as FL
+import mcpacker.model.ecology.geology as GE
+import mcpacker.model.ecology.heat as HE
+import mcpacker.model.ecology.humidity as HU
+import mcpacker.model.ecology.soil as SO
+import mcpacker.model.ecology.water as WA
+import mcpacker.model.fauna.active as AC
+import mcpacker.model.fauna.group as GR
+import mcpacker.model.fauna.location as LO
+import mcpacker.model.scarcity as SC
+import mcpacker.model.season as SE
 
 
 # Constants ########################################################################################

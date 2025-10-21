@@ -1,6 +1,6 @@
 from mcpacker.format.datapack.structure import Structure
-from mcpacker.model.core.geology.deposit import Deposit
-from mcpacker.model.core.resourceid import ResourceId
+from mcpacker.model.geology.deposit import Deposit
+from mcpacker.model.resourceid import ResourceId
 from mcpacker.write.writer import Writer
 
 import mcpacker.json as json

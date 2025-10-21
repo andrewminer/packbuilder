@@ -1,5 +1,5 @@
-from mcpacker.model.modpack      import ModPack
-from mcpacker.model.resourcepack import ResourcePack
+from mcpacker.model.modpack import ModPack
+from mcpacker.format.resourcepack import ResourcePack
 
 
 # Functions ########################################################################################

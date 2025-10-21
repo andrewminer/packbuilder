@@ -1,8 +1,8 @@
-from mcpacker.model.resourcepack.blockstate import BlockState
-from mcpacker.model.resourcepack.variant import Variant
-from mcpacker.model.resourcepack.model import Model
+from mcpacker.format.resourcepack.blockstate import BlockState
+from mcpacker.format.resourcepack.variant import Variant
+from mcpacker.format.resourcepack.model import Model
 from mcpacker.model.modpack import ModPack
-from mcpacker.model.core.resourceid import ResourceId
+from mcpacker.model.resourceid import ResourceId
 from mcpacker.format.datapack.recipe.shapedrecipe import ShapedRecipe
 
 

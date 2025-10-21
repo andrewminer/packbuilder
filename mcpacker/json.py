@@ -1,7 +1,7 @@
-from json   import dump
-from json   import dumps
-from json   import load
-from json   import loads
+from json import dump
+from json import dumps
+from json import load
+from json import loads
 from typing import TypeAlias
 
 

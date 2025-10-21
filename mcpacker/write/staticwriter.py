@@ -1,6 +1,6 @@
 from mcpacker.model.modpack import ModPack
-from mcpacker.write.writer  import Writer
-from pathlib                import Path
+from mcpacker.write.writer import Writer
+from pathlib import Path
 
 import shutil
 

@@ -1,4 +1,4 @@
-from mcpacker.model.modpack  import ModPack
+from mcpacker.model.modpack import ModPack
 from mcpacker.format.datapack import DataPack
 
 

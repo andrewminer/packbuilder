@@ -1,7 +1,7 @@
-from mcpacker.json                              import JsonBlob
+from mcpacker.json import JsonBlob
 from mcpacker.format.datapack.blockstateprovider import BlockStateProvider
-from mcpacker.format.datapack.configuredfeature  import ConfiguredFeature
-from typing                                     import Any
+from mcpacker.format.datapack.configuredfeature import ConfiguredFeature
+from typing import Any
 
 
 # Class ############################################################################################

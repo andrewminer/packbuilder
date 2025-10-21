@@ -1,9 +1,9 @@
 from collections.abc import Iterable
 from mcpacker.format.datapack import DataPack
-from mcpacker.model.core.resourceid import ResourceId
-from mcpacker.model.core.world import World
+from mcpacker.model.resourceid import ResourceId
+from mcpacker.model.world import World
 from mcpacker.model.mod import Mod
-from mcpacker.model.resourcepack import ResourcePack
+from mcpacker.format.resourcepack import ResourcePack
 from typing import Callable
 from typing import Self
 

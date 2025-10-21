@@ -1,4 +1,4 @@
-from mcpacker.model.core.resourceid import ResourceId
+from mcpacker.model.resourceid import ResourceId
 from mcpacker.model.modpack import ModPack
 
 # Helper Functions #################################################################################

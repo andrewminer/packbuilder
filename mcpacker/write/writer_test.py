@@ -1,7 +1,7 @@
-from mcpacker.write.writer  import Writer
+from mcpacker.write.writer import Writer
 from mcpacker.model.modpack import ModPack
-from pathlib                import Path
-from pytest                 import fixture
+from pathlib import Path
+from pytest import fixture
 
 
 # Helpers ##########################################################################################

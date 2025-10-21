@@ -1,16 +1,16 @@
 from mcpacker.format.report.biomereport import BiomeReport
-from mcpacker.model.core.ecology.biome import Biome
+from mcpacker.model.ecology.biome import Biome
 from mcpacker.model.modpack import AugmentFunc
 from mcpacker.model.modpack import ModPack
 from pytest import fixture
 from typing import Callable
 
-import mcpacker.model.core.ecology.flora as F
-import mcpacker.model.core.ecology.geology as G
-import mcpacker.model.core.ecology.heat as E
-import mcpacker.model.core.ecology.humidity as U
-import mcpacker.model.core.ecology.soil as S
-import mcpacker.model.core.ecology.water as W
+import mcpacker.model.ecology.flora as F
+import mcpacker.model.ecology.geology as G
+import mcpacker.model.ecology.heat as E
+import mcpacker.model.ecology.humidity as U
+import mcpacker.model.ecology.soil as S
+import mcpacker.model.ecology.water as W
 import textwrap
 
 

@@ -1,6 +1,6 @@
 from collections.abc import Iterable
 from mcpacker.format.datapack.biomemodifier import BiomeModifier
-from mcpacker.model.core.resourceid import ResourceId
+from mcpacker.model.resourceid import ResourceId
 from mcpacker.json import JsonBlob
 
 

@@ -1,10 +1,10 @@
 from mcpacker.model.modpack import ModPack
-from mcpacker.model.core.ecology.biome import Biome
+from mcpacker.model.ecology.biome import Biome
 from mcpacker.format.report.composer import ReportComposer
 from pathlib import Path
 
-import mcpacker.model.core.altitude as AL
-import mcpacker.model.core.fauna.location as LO
+import mcpacker.model.altitude as AL
+import mcpacker.model.fauna.location as LO
 
 
 # Class ############################################################################################

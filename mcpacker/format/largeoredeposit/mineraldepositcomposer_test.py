@@ -1,17 +1,17 @@
-from mcpacker.model.core.ecology.biomefilter import BiomeFilter
-from mcpacker.model.core.geology.deposit.mineraldeposit import MineralDeposit
-from mcpacker.model.core.geology.inclusion import Inclusion
-from mcpacker.model.core.geology.mineral import Mineral
-from mcpacker.model.core.geology.replacement import Replacement
+from mcpacker.model.ecology.biomefilter import BiomeFilter
+from mcpacker.model.geology.deposit.mineraldeposit import MineralDeposit
+from mcpacker.model.geology.inclusion import Inclusion
+from mcpacker.model.geology.mineral import Mineral
+from mcpacker.model.geology.replacement import Replacement
 from pytest import fixture
 from mcpacker.format.largeoredeposit.mineraldepositcomposer import MineralDepositComposer
 from pytest import fixture
 
-import mcpacker.model.core.altitude as AL
-import mcpacker.model.core.ecology.flora as FL
-import mcpacker.model.core.geology.bulk as BU
-import mcpacker.model.core.geology.proportion as PR
-import mcpacker.model.core.scarcity as SC
+import mcpacker.model.altitude as AL
+import mcpacker.model.ecology.flora as FL
+import mcpacker.model.geology.bulk as BU
+import mcpacker.model.geology.proportion as PR
+import mcpacker.model.scarcity as SC
 import textwrap
 
 

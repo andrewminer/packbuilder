@@ -1,7 +1,7 @@
 from collections.abc import Iterable
 from collections.abc import Mapping
 from mcpacker.format.datapack.recipe import Recipe
-from mcpacker.model.core.resourceid import ResourceId
+from mcpacker.model.resourceid import ResourceId
 
 
 # Class ############################################################################################

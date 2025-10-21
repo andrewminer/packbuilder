@@ -5,13 +5,12 @@ from mcpacker.model.modpack import ModPack
 from pytest import fixture
 from typing import Callable
 
-import mcpacker.model.core.ecology.flora    as F
-import mcpacker.model.core.ecology.geology  as G
-import mcpacker.model.core.ecology.heat     as E
+import mcpacker.model.core.ecology.flora as F
+import mcpacker.model.core.ecology.geology as G
+import mcpacker.model.core.ecology.heat as E
 import mcpacker.model.core.ecology.humidity as U
-import mcpacker.model.core.ecology.soil     as S
-import mcpacker.model.core.ecology.water    as W
-
+import mcpacker.model.core.ecology.soil as S
+import mcpacker.model.core.ecology.water as W
 import textwrap
 
 
@@ -47,18 +46,30 @@ def createReport(pack:ModPack):
 # Tests ############################################################################################
 
 def test_report(report):
-    assert str(report).strip() == textwrap.dedent("""
+ assert str(report).strip() == textwrap.dedent("""
         Biome: minecraft:savanna (dallas)
 
             Traits: field, sedimentary, subtropical, dry, sandy, inland
 
-            Deposits:
+            Geology:
                 <no deposits>
+
+            Flora:
+                <no flora>
+
+            Fauna:
+                <no fauna>
 
         Biome: minecraft:plains (kansascity)
 
             Traits: field, sedimentary, temperate, damp, loamy, inland
 
-            Deposits:
+            Geology:
                 <no deposits>
+
+            Flora:
+                <no flora>
+
+            Fauna:
+                <no fauna>
     """).strip()

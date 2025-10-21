@@ -1,16 +1,17 @@
-from collections.abc                         import Iterable
-from mcpacker.model.core.altitude            import Altitude
+from collections.abc import Iterable
+from mcpacker.model.core.altitude import Altitude
+from mcpacker.model.core.ecology.biome import Biome
 from mcpacker.model.core.ecology.biomefilter import BiomeFilter
-from mcpacker.model.core.fauna.group         import Group
-from mcpacker.model.core.fauna.location      import Location
-from mcpacker.model.core.scarcity            import Scarcity
-from mcpacker.model.core.season              import Season
+from mcpacker.model.core.fauna.group import Group
+from mcpacker.model.core.fauna.location import Location
+from mcpacker.model.core.scarcity import Scarcity
+from mcpacker.model.core.season import Season
 
-import mcpacker.model.core.altitude       as A
-import mcpacker.model.core.fauna.group    as G
+import mcpacker.model.core.altitude as A
+import mcpacker.model.core.fauna.group as G
 import mcpacker.model.core.fauna.location as L
-import mcpacker.model.core.scarcity       as C
-import mcpacker.model.core.season         as E
+import mcpacker.model.core.scarcity as C
+import mcpacker.model.core.season as E
 
 
 # Class ############################################################################################
@@ -63,6 +64,19 @@ class Habitat:
             ")"
         ]])
 
+    def accepts(self, biome:Biome) -> bool:
+        return self.biomeFilter.accepts(biome)
+
+    def collect(self) -> "Iterable[Habitat]":
+        stack:list[Habitat] = []
+        current:Habitat|None = self
+        while current:
+            stack.append(current)
+            current = current._source
+
+        while stack:
+            yield stack.pop()
+
     def derive(
         self,
         *,
@@ -84,13 +98,3 @@ class Habitat:
         result._source = self
 
         return result
-
-    def collect(self) -> "Iterable[Habitat]":
-        stack:list[Habitat] = []
-        current:Habitat|None = self
-        while current:
-            stack.append(current)
-            current = current._source
-
-        while stack:
-            yield stack.pop()

@@ -2,6 +2,7 @@ from mcpacker.format.report.biomereport import BiomeReport
 from mcpacker.format.report.depositreport import DepositReport
 from mcpacker.format.report.mineralreport import MineralReport
 from mcpacker.format.report.mobspawnreport import MobSpawnReport
+from mcpacker.format.report.plantspawnreport import PlantSpawnReport
 from mcpacker.model.modpack import ModPack
 from mcpacker.write.compositewriter import CompositeWriter
 from mcpacker.write.datapack.depositwriter import DepositWriter
@@ -61,6 +62,7 @@ class Runner:
             ReportWriter(p, DepositReport, o, "deposits.txt"),
             ReportWriter(p, MineralReport, o, "minerals.txt"),
             ReportWriter(p, MobSpawnReport, o, "mobspawns.txt"),
+            ReportWriter(p, PlantSpawnReport, o, "plantspawns.txt"),
         ]).write()
 
     def _command_writeModPack(self):

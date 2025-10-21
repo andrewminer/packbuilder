@@ -1,4 +1,5 @@
 from collections.abc import Sequence
+from mcpacker.model.core.resourceid import ResourceId
 from mcpacker.model.core.ecology.biome import Biome
 from mcpacker.model.core.ecology.biometrait import BiomeTrait
 
@@ -26,8 +27,8 @@ class BiomeFilter:
 
     def __init__(
         self,
-        required:Sequence[BiomeTrait|Sequence[BiomeTrait]]|None=None,
-        prohibited:Sequence[BiomeTrait]|None=None,
+        required:Sequence[BiomeTrait|ResourceId|Sequence[BiomeTrait]]|None=None,
+        prohibited:Sequence[BiomeTrait|ResourceId]|None=None,
     ):
         self.required = required or []
         self.prohibited = prohibited or []
@@ -45,6 +46,8 @@ class BiomeFilter:
         for trait in self.required:
             if isinstance(trait, BiomeTrait):
                 required.append(str(trait))
+            elif isinstance(trait, ResourceId):
+                required.append(str(trait))
             else:
                 required.append("(" +
                     " or ".join([str(option) for option in trait]) +
@@ -59,7 +62,7 @@ class BiomeFilter:
         else:
             result = "".join([
                 "must:[", " and ".join(required), "], ",
-                "not:[", " and ".join(prohibited), "]",
+                "not:[", " or ".join(prohibited), "]",
             ])
 
         return result
@@ -71,6 +74,8 @@ class BiomeFilter:
             if isinstance(condition, BiomeTrait):
                 trait = condition
                 if trait not in biomeTraits: return False
+            elif isinstance(condition, ResourceId):
+                if condition != biome.gameId: return False
             else:
                 traitOptions = condition
                 foundMatch = False
@@ -82,6 +87,9 @@ class BiomeFilter:
                 if not foundMatch: return False
 
         for prohibitedTrait in self.prohibited:
-            if prohibitedTrait in biomeTraits: return False
+            if isinstance(prohibitedTrait, ResourceId):
+                if prohibitedTrait == biome.gameId: return False
+            else:
+                if prohibitedTrait in biomeTraits: return False
 
         return True

@@ -9,6 +9,8 @@ from mcpacker.pack.mysteriousisland.addminerals import addMinerals
 from mcpacker.pack.mysteriousisland.addmobs import addMobs
 from mcpacker.pack.mysteriousisland.addmobspawns import addMobSpawns
 from mcpacker.pack.mysteriousisland.addresourcepack import addResourcePack
+from mcpacker.pack.mysteriousisland.addplants import addPlants
+from mcpacker.pack.mysteriousisland.addplantspawns import addPlantSpawns
 
 
 # Constants ########################################################################################
@@ -22,6 +24,8 @@ def buildModPack():
     pack.augment(addBlocks)
     pack.augment(addMinerals)
     pack.augment(addDeposits)
+    pack.augment(addPlants)
+    pack.augment(addPlantSpawns)
     pack.augment(addMobs)
     pack.augment(addMobSpawns)
     pack.augment(addDisabledFeatures)

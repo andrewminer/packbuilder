@@ -27,7 +27,7 @@ def createMobSpawn(cow, fields):
 # Tests ############################################################################################
 
 def test_cowsInFields(spawn):
-    assert str(spawn) == (
+    assert repr(spawn) == (
         "Spawn(" +
             "habitats=[" +
                 "Habitat(" +

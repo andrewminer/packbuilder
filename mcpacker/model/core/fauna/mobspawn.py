@@ -1,7 +1,8 @@
-from collections.abc               import Iterable
-from mcpacker.model.core.habitat   import Habitat
+from collections.abc import Iterable
+from mcpacker.model.core.ecology.biome import Biome
+from mcpacker.model.core.habitat import Habitat
 from mcpacker.model.core.fauna.mob import Mob
-from mcpacker.model.core.spawn     import Spawn
+from mcpacker.model.core.spawn import Spawn
 
 
 # Class ############################################################################################
@@ -12,9 +13,21 @@ class MobSpawn(Spawn):
     """
 
     def __init__(self, mob:Mob, habitats:Iterable[Habitat]|Habitat|None=None):
-        super().__init__(habitats)
         self.mob = mob
+        super().__init__(habitats)
+
+    def __str__(self) -> str:
+        return self.name
 
     @property
     def name(self) -> str:
         return self.mob.name
+
+    def acceptedBy(self, biome:Biome) -> list[Habitat]:
+        result = []
+
+        for habitat in self.habitats:
+            if habitat.accepts(biome):
+                result.append(habitat)
+
+        return result

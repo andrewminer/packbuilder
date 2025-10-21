@@ -1,5 +1,6 @@
 from mcpacker.model.core.ecology.biome import Biome
 from mcpacker.model.core.ecology.biomefilter import BiomeFilter
+from mcpacker.model.core.resourceid import ResourceId
 from pytest import fixture
 
 import mcpacker.model.core.ecology.flora as F
@@ -26,6 +27,14 @@ def createDesertBiome():
         "phoenix", "minecraft:desert",
         F.BARREN, G.SEDIMENTARY, E.TROPICAL, U.DRY, S.SANDY, W.INLAND
     )
+
+@fixture(name="inDesert")
+def createDesertFilter():
+    yield BiomeFilter([ResourceId.parse("minecraft:desert")])
+
+@fixture(name="notInDesert")
+def createNotDesertFilter():
+    yield BiomeFilter([], [ResourceId.parse("minecraft:desert")])
 
 @fixture(name="fertile")
 def createFertileFilter():
@@ -59,3 +68,11 @@ def test_requireOptions(fertile, desert, forest):
 
 def test_vetoed(barrenNotSandy, desert):
     assert not barrenNotSandy.accepts(desert)
+
+def test_requiredBiome(inDesert, desert, forest):
+    assert inDesert.accepts(desert)
+    assert not inDesert.accepts(forest)
+
+def test_prohibitedBiome(notInDesert, desert, forest):
+    assert not notInDesert.accepts(desert)
+    assert notInDesert.accepts(forest)

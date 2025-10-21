@@ -11,14 +11,10 @@ class Spawn:
 
     def __init__(self, habitats:Iterable[Habitat]|Habitat|None=None):
         if isinstance(habitats, Habitat):
-            habitats = habitats.collect()
+            habitats = list(habitats.collect())
 
-        self.habitats = habitats or []
-
+        self.habitats = list(habitats or [])
 
     def __repr__(self) -> str:
-        return (
-            "Spawn(" +
-                f"habitats=[{', '.join([repr(h) for h in self.habitats])}]" +
-            ")"
-        )
+        return f"Spawn(habitats={self.habitats!r})"
+

@@ -35,7 +35,7 @@ def addDeposits(pack:ModPack):
     deposits.add(GeodeDeposit(
         name = "geode_kimberlite",
         altitude = AL.span(AL.MANTLE, AL.CRUST),
-        biomeFilters = BF([GE.IGNEOUS]),
+        biomeFilters = BF([GE.IGNEOUS, SO.ROCKY, WA.INLAND]),
         scarcity = SC.SPARSE,
     ))
 
@@ -126,10 +126,7 @@ def addDeposits(pack:ModPack):
     deposits.add(MineralDeposit(
         name = "sedimentary_iron",
         altitude = AL.span(AL.OVERBURDEN, AL.SOIL),
-        biomeFilters = BF([
-            FL.within(FL.CANOPY, FL.CLEARING),
-            (HE.TEMPERATE, HE.BOREAL)
-        ]),
+        biomeFilters = BF([SO.PEATY]),
         bulk = BU.LARGE,
         inclusions = [I(minerals["iron"], 100)],
         proportion = PR.LODE,
@@ -139,7 +136,7 @@ def addDeposits(pack:ModPack):
     deposits.add(MineralDeposit(
         name = "serpentine_nickel",
         altitude = AL.span(AL.UPLANDS, AL.HILLS),
-        biomeFilters = BF([GE.METAMORPHIC, (HU.DAMP, HU.WET), (SO.ACIDIC, SO.ROCKY)]),
+        biomeFilters = BF([GE.METAMORPHIC, HU.DAMP, SO.ACIDIC]),
         bulk = BU.SMALL,
         inclusions = [I(minerals["nickel"], 70), I(minerals["iron"], 30)],
         proportion = PR.LENS,
@@ -171,7 +168,7 @@ def addDeposits(pack:ModPack):
     deposits.add(MineralDeposit(
         name = "fumarole_sulfur",
         altitude = AL.CRUST,
-        biomeFilters = BF([GE.IGNEOUS]),
+        biomeFilters = BF([GE.IGNEOUS, SO.ROCKY, WA.INLAND]),
         bulk = BU.MEDIUM,
         inclusions = [I(minerals["sulfur"], 100)],
         proportion = PR.VENT,
@@ -230,7 +227,6 @@ def addDeposits(pack:ModPack):
         name = "seam_bituminouscoal",
         altitude = AL.span(AL.CRUST, AL.OVERBURDEN),
         biomeFilters = [
-            BF([FL.FOREST, GE.SEDIMENTARY, HE.TEMPERATE]),
             BF([HE.BOREAL, GE.METAMORPHIC, (SO.ACIDIC, SO.ROCKY)]),
         ],
         bulk = BU.HUGE,

@@ -92,5 +92,13 @@ def span(*altitudes:Altitude):
     if bottomAltitude == topAltitude:
         return bottomAltitude
 
-    result = Altitude(f"{bottomAltitude.name} to {topAltitude.name}", bottom, top)
+    bottomName = bottomAltitude.name
+    if " to " in bottomName:
+        (bottomName, _) = bottomName.split(" to ")
+
+    topName = topAltitude.name
+    if " to " in topName:
+        (_, topName) = topName.split(" to ")
+
+    result = Altitude(f"{bottomName} to {topName}", bottom, top)
     return result

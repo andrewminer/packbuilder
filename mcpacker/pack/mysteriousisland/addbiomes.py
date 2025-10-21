@@ -111,7 +111,7 @@ def addBiomes(pack:ModPack):
     ))
 
     biomes.add(Biome("kola", "minecraft:snowy_taiga",
-        FL.BARREN, GE.METAMORPHIC, HE.FROZEN, HU.DAMP, SO.ACIDIC, WA.INLAND
+        FL.FOREST, GE.METAMORPHIC, HE.FROZEN, HU.DAMP, SO.ACIDIC, WA.INLAND
     ))
 
     biomes.add(Biome("kyoto", "minecraft:cherry_grove",
@@ -123,7 +123,7 @@ def addBiomes(pack:ModPack):
     ))
 
     biomes.add(Biome("memphis", "minecraft:river",
-        FL.CLEARING, GE.SEDIMENTARY, HE.TEMPERATE, HU.WET, SO.SANDY, WA.RIVER
+        FL.BARREN, GE.SEDIMENTARY, HE.TEMPERATE, HU.WET, SO.SANDY, WA.RIVER
     ))
 
     biomes.add(Biome("minsk", "minecraft:old_growth_birch_forest",

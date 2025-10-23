@@ -1,21 +1,17 @@
+from collections.abc import Iterable
 from mcpacker.json import JsonBlob
 from mcpacker.model.ecology.biomefilter import BiomeFilter
 from mcpacker.model.fauna.active import Active
 from mcpacker.model.fauna.mobspawn import MobSpawn
-from mcpacker.model.habitat import Habitat
 from mcpacker.model.scarcity import Scarcity
 from mcpacker.model.season import Season
-from mcpacker.model.modpack import ModPack
-from mcpacker.write.incontrol import INCONTROL_CONFIG_DIR
 from mcpacker.write.writer import Writer
-from pathlib import Path
 
-import mcpacker.json                      as json
-import mcpacker.model.dimension      as DI
+import mcpacker.json as json
+import mcpacker.model.dimension as DI
 import mcpacker.model.fauna.location as LO
-import mcpacker.model.scarcity       as SC
-import mcpacker.model.time                as TI
-import os
+import mcpacker.model.scarcity as SC
+import mcpacker.model.time as TI
 
 
 # Class ############################################################################################
@@ -27,13 +23,12 @@ class SpawnerWriter(Writer):
         self.resetOutputFile(path)
         path.write_text(json.dumps(self._makeAllRules(), indent=json.INDENT))
 
+
     # Private Functions ########################################################
 
-    def _computeBiomeNames(self, biomeFilter:BiomeFilter) -> JsonBlob:
+    def _computeBiomeNames(self, biomeFilters:Iterable[BiomeFilter]) -> JsonBlob:
         return list(
-            str(b.gameId) for b in self.pack.world.biomes.filter(
-                lambda b: biomeFilter.accepts(b)
-            )
+            str(b.gameId) for b in self.pack.world.biomes.find(biomeFilters)
         )
 
     def _computeSpawnRate(self, scarcity:Scarcity) -> float:
@@ -60,12 +55,12 @@ class SpawnerWriter(Writer):
             SC.CARPET: 32,
         }[scarcity]
 
-    def _makeAndCondition(self, habitat:Habitat, season:Season, active:Active) -> JsonBlob:
+    def _makeAndCondition(self, spawn:MobSpawn, season:Season, active:Active) -> JsonBlob:
         return {
-            "biome": self._computeBiomeNames(habitat.biomeFilter),
+            "biome": self._computeBiomeNames(spawn.habitat.biomeFilters),
             season.name: True,
-            "seesky": True if LO.OUTSIDE == habitat.location else None,
-            "cave": True if LO.CAVE == habitat.location else None,
+            "seesky": True if LO.OUTSIDE == spawn.ecotype.location else None,
+            "cave": True if LO.CAVE == spawn.ecotype.location else None,
             "mintime": active.start,
             "maxtime": active.end,
         }
@@ -74,33 +69,32 @@ class SpawnerWriter(Writer):
         result:list[JsonBlob] = []
 
         for spawn in self.pack.world.mobSpawns:
-            for habitat in spawn.habitats:
-                for season in habitat.seasons:
-                    for active in spawn.mob.active:
-                        result.append(self._makeRule(spawn, habitat, season, active))
+            for season in spawn.habitat.seasons:
+                for active in spawn.mob.active:
+                    result.append(self._makeRule(spawn, season, active))
 
         return json.removeEmptyObjects(json.removeNoneValues(result))
 
-    def _makeCondition(self, habitat:Habitat, season:Season, active:Active) -> JsonBlob:
+    def _makeCondition(self, spawn:MobSpawn, season:Season, active:Active) -> JsonBlob:
         return {
             "dimension": DI.OVERWORLD.name,
-            "minheight": habitat.altitude.bottom,
-            "maxheight": habitat.altitude.top,
-            "maxthis": habitat.group.largest * 2,
-            "inwater": LO.WATER == habitat.location,
-            "and": self._makeAndCondition(habitat, season, active),
+            "minheight": spawn.habitat.altitude.bottom,
+            "maxheight": spawn.habitat.altitude.top,
+            "maxthis": spawn.ecotype.group.largest * 2,
+            "inwater": LO.WATER == spawn.ecotype.location,
+            "and": self._makeAndCondition(spawn, season, active),
         }
 
-    def _makeRule(self, spawn:MobSpawn, habitat:Habitat, season:Season, active:Active,) -> JsonBlob:
+    def _makeRule(self, spawn:MobSpawn, season:Season, active:Active) -> JsonBlob:
         return {
             "mob": str(spawn.mob.gameId),
             "amount": {
-                "minimum": habitat.group.smallest,
-                "maximum": habitat.group.largest,
+                "minimum": spawn.ecotype.group.smallest,
+                "maximum": spawn.ecotype.group.largest,
                 "groupdistance": 4,
             },
-            "persecond": self._computeSpawnRate(habitat.scarcity),
-            "attempts": habitat.group.largest * 4,
-            "weights": [ self._computeWeight(habitat.scarcity) ],
-            "conditions": self._makeCondition(habitat, season, active),
+            "persecond": self._computeSpawnRate(spawn.ecotype.scarcity),
+            "attempts": spawn.ecotype.group.largest * 4,
+            "weights": [ self._computeWeight(spawn.ecotype.scarcity) ],
+            "conditions": self._makeCondition(spawn, season, active),
         }

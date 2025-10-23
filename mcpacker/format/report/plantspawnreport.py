@@ -44,15 +44,15 @@ class PlantSpawnReport(ReportComposer):
 
             self.line().line("Habitat:")
             self.indent() # habitat
-            self.text("altitude: ").line(spawn.altitude)
-            self.text("biomeFilters: ").line(" -OR- ".join(str(f) for f in spawn.biomeFilters))
-            self.text("scarcity: ").line(spawn.scarcity)
+            self.text("altitude: ").line(spawn.habitat.altitude)
+            self.text("biomeFilters: ")
+            self.line(" -OR- ".join(str(f) for f in spawn.habitat.biomeFilters))
+            self.text("scarcity: ").line(spawn.ecotype.scarcity)
             self.outdent() # habitat
 
             self.line().line("Biomes:")
             self.indent() # biomes
-            biomes = self.pack.world.biomes.filter(lambda b: spawn.acceptsBiome(b))
-            for biome in biomes:
+            for biome in self.pack.world.biomes.find(spawn.habitat.biomeFilters):
                 self.line(biome)
             self.outdent() # biomes
 

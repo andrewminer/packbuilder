@@ -39,26 +39,30 @@ class BiomeReport(ReportComposer):
     def _composeFaunaSection(self, biome:Biome):
         self.line().line("Fauna:").indent()
         faunaLineCount = 0
-        for spawn in self.pack.world.mobSpawns:
+
+        for mob in self.pack.world.mobs:
             altitude = None
-            for habitat in spawn.acceptedBy(biome):
-                if habitat.location == LO.CAVE: continue
-                altitude = AL.span(altitude or habitat.altitude, habitat.altitude)
+            for spawn in self.pack.world.mobSpawns:
+                if not spawn.habitat.accepts(biome): continue
+                if spawn.ecotype.location == LO.CAVE: continue
+
+                altitude = AL.span(altitude or spawn.habitat.altitude, spawn.habitat.altitude)
 
             if altitude != None:
-                self.line(f"{spawn.mob.name} @ {altitude}")
+                self.line(f"{mob.name} @ {altitude}")
                 faunaLineCount += 1
 
         if faunaLineCount == 0:
             self.line("<no fauna>")
+
         self.outdent() # fauna
 
     def _composeFloraSection(self, biome:Biome):
         self.line().line("Flora:").indent()
         floraLineCount = 0
         for spawn in self.pack.world.plantSpawns:
-            if not spawn.acceptsBiome(biome): continue
-            self.line(f"{spawn.plant.name} @ {spawn.altitude}")
+            if not spawn.habitat.accepts(biome): continue
+            self.line(f"{spawn.plant.name} @ {spawn.habitat.altitude}")
             floraLineCount += 1
 
         if floraLineCount == 0:

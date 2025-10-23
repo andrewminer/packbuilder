@@ -1,12 +1,9 @@
+from mcpacker.model.spawnable import Spawnable
+
+
 # Class ############################################################################################
 
-class Plant:
-
-    def __init__(self, name:str):
-        self.name = name
+class Plant(Spawnable):
 
     def __repr__(self) -> str:
-        return f"Plant(name={repr(self.name)})"
-
-    def __str__(self) -> str:
-        return self.name
+        return f"Plant(name={self.name!r})"

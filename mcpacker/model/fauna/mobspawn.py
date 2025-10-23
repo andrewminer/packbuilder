@@ -1,33 +1,19 @@
-from collections.abc import Iterable
-from mcpacker.model.ecology.biome import Biome
 from mcpacker.model.habitat import Habitat
 from mcpacker.model.fauna.mob import Mob
+from mcpacker.model.fauna.mobecotype import MobEcotype
 from mcpacker.model.spawn import Spawn
 
 
 # Class ############################################################################################
 
-class MobSpawn(Spawn):
+class MobSpawn(Spawn[Mob, MobEcotype]):
     """
-    A description of where a creature should appear in the world.
+    Describes a certain habitat for a particular animal with its local variations.
     """
 
-    def __init__(self, mob:Mob, habitats:Iterable[Habitat]|Habitat|None=None):
-        self.mob = mob
-        super().__init__(habitats)
-
-    def __str__(self) -> str:
-        return self.name
+    def __init__(self, name:str, habitat:Habitat, mob:Mob, ecotype:MobEcotype):
+        super().__init__(name, habitat, mob, ecotype)
 
     @property
-    def name(self) -> str:
-        return self.mob.name
-
-    def acceptedBy(self, biome:Biome) -> list[Habitat]:
-        result = []
-
-        for habitat in self.habitats:
-            if habitat.accepts(biome):
-                result.append(habitat)
-
-        return result
+    def mob(self) -> Mob:
+        return self.spawnable

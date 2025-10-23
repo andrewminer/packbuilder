@@ -6,3 +6,4 @@ from mcpacker.model.flora.plantspawn import PlantSpawn
 
 class PlantSpawnCatalog(Catalog[PlantSpawn]):
     pass
+

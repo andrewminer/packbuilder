@@ -2,10 +2,10 @@ from mcpacker.model.ecology.biomefilter import BiomeFilter
 from mcpacker.model.habitat import Habitat
 from pytest import fixture
 
+import mcpacker.model.altitude as AL
 import mcpacker.model.ecology.flora as FL
 import mcpacker.model.ecology.heat as HE
 import mcpacker.model.season as SE
-import mcpacker.model.scarcity as SC
 
 
 # Fixtures #########################################################################################
@@ -14,40 +14,20 @@ import mcpacker.model.scarcity as SC
 def createFieldsFilter():
     yield BiomeFilter([FL.FIELD, HE.TEMPERATE])
 
-@fixture(name="derivedHabitats")
-def createDerivedHabitat(fields):
-    yield (
-        Habitat(biomeFilter=fields, seasons=SE.SUMMER, scarcity=SC.COMMON)
-        .derive(seasons=SE.AUTUMN, scarcity=SC.UNCOMMON)
-        .derive(seasons=SE.WINTER, scarcity=SC.ABSENT)
-        .collect()
-    )
-
 @fixture(name="fields")
 def createFieldsHabitat(fields):
-    yield Habitat(biomeFilter=fields)
+    yield Habitat(AL.LOWLANDS, BiomeFilter([FL.FIELD, HE.TEMPERATE]), SE.HOT)
 
 # Tests ############################################################################################
 
-def test_derive(derivedHabitats):
-    assert [h.scarcity for h in derivedHabitats] == [SC.COMMON, SC.UNCOMMON, SC.ABSENT]
-
 def test_repr(fields):
     assert repr(fields) == (
-        "Habitat(" +
-            "altitude=Altitude(name=anywhere, bottom=-64, top=320), " +
-            "biomeFilter=BiomeFilter(" +
-                "required=[Flora(name='field'), Heat(name='temperate')], " +
+        "Habitat("
+            "altitude=Altitude(name=lowlands, bottom=70, top=92), "
+            "biomeFilters=[BiomeFilter("
+                "required=[Flora(name='field'), Heat(name='temperate')], "
                 "prohibited=[]"
-            "), " +
-            "seasons=[" +
-                "Season(name='spring'), " +
-                "Season(name='summer'), " +
-                "Season(name='autumn'), " +
-                "Season(name='winter')" +
-            "], " +
-            "group=Group(name='solo', smallest=1, largest=1), " +
-            "location=Location(name='outside'), " +
-            "scarcity=Scarcity(name='sparse')" +
+            ")], "
+            "seasons=[Season(name='summer')]"
         ")"
     )

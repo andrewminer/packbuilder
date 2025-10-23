@@ -2,6 +2,7 @@ from mcpacker.model.ecology.biome import Biome
 from mcpacker.model.ecology.biomefilter import BiomeFilter as BF
 from mcpacker.model.fauna.mob import Mob
 from mcpacker.model.fauna.mobspawn import MobSpawn
+from mcpacker.model.fauna.mobspawnbuilder import MobSpawnBuilder
 from mcpacker.model.geology.mineral import Mineral
 from mcpacker.model.geology.replacement import Replacement
 from mcpacker.model.habitat import Habitat
@@ -51,21 +52,19 @@ def defineAddMobSpawnss():
     def addMobSpawns(pack:ModPack):
         mobs = pack.world.mobs
         spawns = pack.world.mobSpawns
+        b = MobSpawnBuilder(pack.world.mobSpawns)
 
-        pack.world.mobSpawns.add(
-            MobSpawn(mobs["minecraft:chicken"],
-                Habitat(
-                    altitude    = AL.span(AL.LOWLANDS, AL.UPLANDS),
-                    biomeFilter = BF([HE.TROPICAL, HU.WET, FL.within(FL.CANOPY, FL.CLEARING)]),
-                    seasons     = SE.SUMMER,
-                    group       = GR.TROUP,
-                    scarcity    = SC.COMMON,
-                ).derive(
-                    seasons     = SE.exclude(SE.SUMMER),
-                    scarcity    = SC.UNCOMMON
-                )
-            )
-        )
+        b.start(mobs["minecraft:chicken"])
+        b.altitude = AL.span(AL.LOWLANDS, AL.UPLANDS)
+        b.biomeFilters = BF([HE.TROPICAL, HU.WET, FL.within(FL.CANOPY, FL.CLEARING)])
+        b.seasons = SE.SUMMER
+        b.group = GR.TROUP
+        b.scarcity = SC.COMMON
+        b.save("chicken-summer")
+
+        b.seasons = SE.exclude(SE.SUMMER)
+        b.scarcity = SC.UNCOMMON
+        b.save("chicken-normal")
 
     yield addMobSpawns
 

@@ -2,6 +2,7 @@ from mcpacker.model.ecology.biome import Biome
 from mcpacker.model.ecology.biomefilter import BiomeFilter as BF
 from mcpacker.model.fauna.mob import Mob
 from mcpacker.model.fauna.mobspawn import MobSpawn
+from mcpacker.model.fauna.mobspawnbuilder import MobSpawnBuilder
 from mcpacker.model.geology.mineral import Mineral
 from mcpacker.model.geology.replacement import Replacement
 from mcpacker.model.habitat import Habitat
@@ -10,19 +11,19 @@ from mcpacker.write.incontrol.spawnerwriter import SpawnerWriter
 from pathlib import Path
 from pytest import fixture
 
-import mcpacker.json                        as json
-import mcpacker.model.altitude         as AL
-import mcpacker.model.ecology.flora    as FL
-import mcpacker.model.ecology.geology  as GE
-import mcpacker.model.ecology.heat     as HE
+import mcpacker.json as json
+import mcpacker.model.altitude as AL
+import mcpacker.model.ecology.flora as FL
+import mcpacker.model.ecology.geology as GE
+import mcpacker.model.ecology.heat as HE
 import mcpacker.model.ecology.humidity as HU
-import mcpacker.model.ecology.soil     as SO
-import mcpacker.model.ecology.water    as WA
-import mcpacker.model.fauna.active     as AC
-import mcpacker.model.fauna.group      as GR
-import mcpacker.model.fauna.location   as LO
-import mcpacker.model.scarcity         as SC
-import mcpacker.model.season           as SE
+import mcpacker.model.ecology.soil as SO
+import mcpacker.model.ecology.water as WA
+import mcpacker.model.fauna.active as AC
+import mcpacker.model.fauna.group as GR
+import mcpacker.model.fauna.location as LO
+import mcpacker.model.scarcity as SC
+import mcpacker.model.season as SE
 import textwrap
 
 
@@ -49,21 +50,19 @@ def defineAddMobSpawnss():
     def addMobSpawns(pack:ModPack):
         mobs = pack.world.mobs
         spawns = pack.world.mobSpawns
+        b = MobSpawnBuilder(pack.world.mobSpawns)
 
-        pack.world.mobSpawns.add(
-            MobSpawn(mobs["minecraft:chicken"],
-                Habitat(
-                    altitude    = AL.span(AL.LOWLANDS, AL.UPLANDS),
-                    biomeFilter = BF([HE.TROPICAL, HU.WET, FL.within(FL.CANOPY, FL.CLEARING)]),
-                    seasons     = SE.SUMMER,
-                    group       = GR.TROUP,
-                    scarcity    = SC.COMMON,
-                ).derive(
-                    seasons     = SE.exclude(SE.SUMMER),
-                    scarcity    = SC.UNCOMMON
-                )
-            )
-        )
+        b.start(mobs["minecraft:chicken"])
+        b.altitude = AL.span(AL.LOWLANDS, AL.UPLANDS)
+        b.biomeFilters = BF([HE.TROPICAL, HU.WET, FL.within(FL.CANOPY, FL.CLEARING)])
+        b.seasons = SE.SUMMER
+        b.group = GR.TROUP
+        b.scarcity = SC.COMMON
+        b.save("chicken-summer")
+
+        b.seasons = SE.exclude(SE.SUMMER)
+        b.scarcity = SC.UNCOMMON
+        b.save("chicken-normal")
 
     yield addMobSpawns
 
@@ -92,14 +91,12 @@ def test_write(writer:SpawnerWriter, tmp_path:Path):
     assert len(data) == 4
 
     rule = data[0]
+    assert rule["conditions"]["and"]["spring"]
+    assert abs(rule["persecond"] - 0.066) < 0.001
+
+    rule = data[3]
     assert rule["mob"] == "minecraft:chicken"
     assert rule["amount"]["maximum"] == 6
-    assert abs(rule["persecond"] - 0.2) < 0.001
     assert rule["conditions"]["and"]["biome"] == ["minecraft:jungle"]
     assert rule["conditions"]["and"]["summer"]
-
-    rule = data[1]
-    assert abs(rule["persecond"] - 0.066) < 0.001
-    assert rule["conditions"]["and"]["spring"]
-
-
+    assert abs(rule["persecond"] - 0.2) < 0.001

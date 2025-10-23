@@ -9,24 +9,26 @@ from pathlib import Path
 class MobSpawnReport(ReportComposer):
 
     def doCompose(self):
-        for spawn in self.pack.world.mobSpawns:
-            self.line(f"Mob: {spawn.name}")
-            self.line()
-
+        for mob in self.pack.world.mobs:
+            self.line(f"Mob: {mob.name}")
             self.indent()
-            needsDelimiter = False
-            for index, habitat in enumerate(spawn.habitats, start=1):
-                if needsDelimiter: self.line()
-                needsDelimiter = True
 
-                self.text("Habitat ").line(index)
+            needsDelimiter = False
+            for spawn in self.pack.world.mobSpawns:
+                if spawn.mob != mob: continue
+                habitat = spawn.habitat
+                ecotype = spawn.ecotype
+
+                self.line().text("Spawn: ").line(spawn.name)
                 self.indent()
                 self.text("altitude: ").line(habitat.altitude)
-                self.text("biomeFilter: ").line(habitat.biomeFilter)
+                self.text("biomeFilter: ")
+                self.line(" -OR- ".join(str(b) for b in habitat.biomeFilters))
                 self.text("seasons: ").line(", ".join([str(s) for s in habitat.seasons]))
-                self.text("group: ").line(habitat.group)
-                self.text("location: ").line(habitat.location)
-                self.text("scarcity: ").line(habitat.scarcity)
+                self.line()
+                self.text("group: ").line(ecotype.group)
+                self.text("location: ").line(ecotype.location)
+                self.text("scarcity: ").line(ecotype.scarcity)
                 self.outdent()
 
             self.outdent()

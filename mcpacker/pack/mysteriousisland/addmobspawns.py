@@ -2,6 +2,7 @@ from mcpacker.model.ecology.biomefilter import BiomeFilter as BF
 from mcpacker.model.fauna.mob import Mob
 from mcpacker.model.fauna.mobcatalog import MobCatalog
 from mcpacker.model.fauna.mobspawn import MobSpawn
+from mcpacker.model.fauna.mobspawnbuilder import MobSpawnBuilder
 from mcpacker.model.habitat import Habitat
 from mcpacker.model.resourceid import ResourceId
 from mcpacker.model.modpack import ModPack
@@ -24,607 +25,496 @@ import mcpacker.model.season as SE
 
 def addMobSpawns(pack:ModPack):
     mobs = pack.world.mobs
-    spawns = pack.world.mobSpawns
+    b = MobSpawnBuilder(pack.world.mobSpawns)
 
-    spawns.add(
-        MobSpawn(mobs["animalplus:raccoon"],
-            Habitat(
-                altitude = AL.span(AL.LOWLANDS, AL.HILLS),
-                biomeFilter = BF([(FL.CANOPY, FL.FOREST), HE.within(HE.TEMPERATE, HE.BOREAL)]),
-                seasons = SE.exclude(SE.WINTER),
-                group = GR.merge(GR.SOLO, GR.PAIR),
-                scarcity = SC.UNCOMMON,
-            ).derive(
-                seasons = SE.WINTER,
-                scarcity = SC.SPARSE,
-            )
-        )
-    )
+    b.start(mobs["animalplus:raccoon"])
+    b.altitude = AL.span(AL.LOWLANDS, AL.HILLS)
+    b.biomeFilters = BF([(FL.CANOPY, FL.FOREST), HE.within(HE.TEMPERATE, HE.BOREAL)])
+    b.seasons = SE.exclude(SE.WINTER)
+    b.group = GR.merge(GR.SOLO, GR.PAIR)
+    b.scarcity = SC.UNCOMMON
+    b.save("raccoon-normal")
 
-    spawns.add(
-        MobSpawn(mobs["animalplus:red_panda"],
-            Habitat(
-                altitude = AL.span(AL.UPLANDS, AL.HILLS),
-                biomeFilter = BF([ResourceId.parse("bamboo_forest")]),
-                seasons = SE.ALL,
-                group = GR.merge(GR.SOLO, GR.PAIR),
-                scarcity = SC.SPARSE,
-            )
-        )
-    )
+    b.seasons = SE.WINTER
+    b.scarcity = SC.SPARSE
+    b.save("raccoon-winter")
 
-    spawns.add(
-        MobSpawn(mobs["bearminimum:black_bear"],
-            Habitat(
-                altitude = AL.span(AL.LOWLANDS, AL.ALPINE),
-                biomeFilter = BF([HE.TEMPERATE, FL.FOREST]),
-                seasons = SE.AUTUMN,
-                group = GR.merge(GR.SOLO, GR.FAMILY),
-                scarcity = SC.UNCOMMON,
-            ).derive(
-                seasons = [SE.SPRING, SE.SUMMER], scarcity = SC.SPARSE
-            ).derive(
-                seasons = SE.WINTER, scarcity = SC.UNUSUAL
-            ).derive(
-                biomeFilter = BF([HE.BOREAL, (FL.CANOPY, FL.FOREST)]),
-                seasons = SE.AUTUMN,
-                scarcity = SC.SPARSE
-            ).derive(
-                seasons = [SE.SPRING, SE.SUMMER], scarcity = SC.UNUSUAL
-            ).derive(
-                seasons = SE.WINTER, scarcity = SC.RARE
-            )
-        )
-    )
+    b.start(mobs["animalplus:red_panda"])
+    b.altitude = AL.span(AL.UPLANDS, AL.HILLS)
+    b.biomeFilters = BF([ResourceId.parse("bamboo_forest")])
+    b.seasons = SE.ALL
+    b.group = GR.merge(GR.SOLO, GR.PAIR)
+    b.scarcity = SC.SPARSE
+    b.save("redpanda-normal")
 
-    spawns.add(
-        MobSpawn(mobs["minecraft:armadillo"],
-            Habitat(
-                altitude = AL.LOWLANDS,
-                biomeFilter = BF([HE.SUBTROPICAL, HU.DRY, SO.CLAYEY]),
-                seasons = SE.SUMMER,
-                group = GR.merge(GR.SOLO, GR.PAIR),
-                scarcity = SC.COMMON
-            ).derive(
-                altitude = AL.UPLANDS,
-                scarcity = SC.SPARSE,
-            ).derive(
-                altitude = AL.LOWLANDS,
-                scarcity = SC.UNCOMMON,
-                seasons = SE.exclude(SE.SUMMER),
-            ).derive(
-                altitude = AL.UPLANDS,
-                scarcity = SC.UNUSUAL,
-            )
-        )
-    )
+    b.start(mobs["bearminimum:black_bear"])
+    b.altitude = AL.span(AL.LOWLANDS, AL.ALPINE)
+    b.biomeFilters = BF([HE.TEMPERATE, FL.FOREST])
+    b.seasons = SE.AUTUMN
+    b.group = GR.merge(GR.SOLO, GR.FAMILY)
+    b.scarcity = SC.UNCOMMON
+    b.save("blackbear-temperate-autumn")
 
-    spawns.add(
-        MobSpawn(mobs["minecraft:blaze"],
-            Habitat(
-                altitude = AL.PLUTONIC,
-                location = LO.CAVE,
-                group = GR.SOLO,
-                scarcity = SC.UNCOMMON
-            )
-        )
-    )
+    b.seasons = [SE.SPRING, SE.SUMMER]
+    b.scarcity = SC.SPARSE
+    b.save("blackbear-temperate-springsummer")
 
-    spawns.add(
-        MobSpawn(mobs["bearminimum:brown_bear"],
-            Habitat(
-                altitude = AL.span(AL.LOWLANDS, AL.ALPINE),
-                biomeFilter = BF([HE.BOREAL, (FL.CANOPY, FL.FOREST)]),
-                seasons = SE.AUTUMN,
-                group = GR.SOLO,
-                scarcity = SC.SPARSE
-            ).derive(
-                seasons = [SE.SPRING, SE.SUMMER], scarcity = SC.UNUSUAL
-            ).derive(
-                seasons = SE.WINTER, scarcity = SC.RARE
-            )
-        )
-    )
+    b.seasons = SE.WINTER
+    b.scarcity = SC.UNUSUAL
+    b.save("blackbear-temperate-winter")
 
-    spawns.add(
-        MobSpawn(mobs["minecraft:camel"],
-            Habitat(
-                altitude = AL.span(AL.DUNES, AL.LOWLANDS),
-                biomeFilter = BF([HE.TROPICAL, HU.DRY, FL.BARREN, SO.SANDY]),
-                seasons = SE.DRY,
-                group = GR.FAMILY,
-                scarcity = SC.UNUSUAL,
-            ).derive(
-                seasons = SE.WET, scarcity = SC.RARE
-            )
-        )
-    )
+    b.biomeFilters = BF([HE.BOREAL, (FL.CANOPY, FL.FOREST)])
+    b.seasons = SE.AUTUMN
+    b.scarcity = SC.SPARSE
+    b.save("blackbear-boreal-autumn")
 
-    spawns.add(
-        MobSpawn(mobs["minecraft:cave_spider"],
-            Habitat(
-                altitude = AL.span(AL.OVERBURDEN, AL.HILLS),
-                location = LO.CAVE,
-                group = GR.SOLO,
-                scarcity = SC.UNCOMMON
-            )
-        )
-    )
+    b.seasons = [SE.SPRING, SE.SUMMER]
+    b.scarcity = SC.UNUSUAL
+    b.save("blackbear-boreal-springsummer")
 
-    spawns.add(
-        MobSpawn(mobs["cold_sweat:chameleon"],
-            Habitat(
-                altitude = AL.span(AL.DUNES, AL.UPLANDS),
-                biomeFilter = BF([(FL.CANOPY, FL.FOREST), HE.TROPICAL, HU.WET, WA.INLAND]),
-                seasons = SE.WET,
-                group = GR.merge(GR.SOLO, GR.FAMILY),
-                scarcity = SC.COMMON,
-            ).derive(
-                seasons = SE.DRY,
-                scarcity = SC.UNCOMMON,
-            )
-        )
-    )
+    b.seasons = SE.WINTER
+    b.scarcity = SC.RARE
+    b.save("blackbear-boreal-winter")
 
-    spawns.add(
-        MobSpawn(mobs["minecraft:chicken"],
-            Habitat(
-                altitude = AL.span(AL.LOWLANDS, AL.UPLANDS),
-                biomeFilter = BF([FL.CLEARING, HE.TROPICAL, HU.WET], [SO.FUNGAL]),
-                seasons = SE.SUMMER,
-                group = GR.TROUP,
-                scarcity = SC.COMMON,
-            ).derive(
-                seasons = SE.exclude(SE.SUMMER),
-                scarcity = SC.UNCOMMON
-            )
-        )
-    )
+    b.start(mobs["minecraft:armadillo"])
+    b.altitude = AL.LOWLANDS
+    b.biomeFilters = BF([HE.SUBTROPICAL, HU.DRY, SO.CLAYEY])
+    b.seasons = SE.SUMMER
+    b.group = GR.merge(GR.SOLO, GR.PAIR)
+    b.scarcity = SC.COMMON
+    b.save("armadillo-lowlands-summer")
 
-    spawns.add(
-        MobSpawn(mobs["minecraft:cod"],
-            Habitat(
-                altitude = AL.span(AL.SHALLOWS, AL.DEEPS),
-                biomeFilter = BF([HE.BOREAL, WA.OCEAN]),
-                seasons = SE.ALL,
-                group = GR.HERD,
-                scarcity = SC.COMMON,
-            )
-        )
-    )
+    b.altitude = AL.UPLANDS
+    b.scarcity = SC.SPARSE
+    b.save("armadillo-uplands-summer")
 
-    spawns.add(
-        MobSpawn(mobs["minecraft:cow"],
-            Habitat(
-                altitude = AL.span(AL.LOWLANDS, AL.UPLANDS),
-                biomeFilter = BF(
-                    [
-                        HE.within(HE.SUBTROPICAL, HE.BOREAL),
-                        [HU.DAMP, HU.DRY],
-                        FL.FIELD,
-                    ], [
-                        SO.FUNGAL
-                    ]
-                ),
-                seasons = [SE.SPRING, SE.SUMMER],
-                group = GR.HERD,
-                scarcity = SC.SPARSE,
-            ).derive(
-                altitude = AL.LOWLANDS,
-                seasons = [SE.AUTUMN, SE.WINTER],
-                group = GR.TROUP,
-                scarcity = SC.UNUSUAL,
-            )
-        )
-    )
+    b.altitude = AL.LOWLANDS
+    b.scarcity = SC.UNCOMMON
+    b.seasons = SE.exclude(SE.SUMMER)
+    b.save("armadillo-lowlands-normal")
 
-    spawns.add(
-        MobSpawn(mobs["crabbersdelight:crab"],
-            Habitat(
-                altitude = AL.DUNES,
-                biomeFilter = BF([WA.COAST, [HE.TROPICAL, HE.SUBTROPICAL]]),
-                seasons = SE.ALL,
-                group = GR.SOLO,
-                scarcity = SC.UNCOMMON,
-            ).derive(
-                biomeFilter = BF([WA.COAST, [HE.TEMPERATE, HE.BOREAL]]),
-                scarcity = SC.SPARSE,
-            )
-        )
-    )
+    b.altitude = AL.UPLANDS
+    b.scarcity = SC.UNUSUAL
+    b.save("armadillo-uplands-normal")
 
-    spawns.add(
-        MobSpawn(mobs["minecraft:dolphin"],
-            Habitat(
-                altitude = AL.span(AL.SURFACE, AL.DEEPS),
-                biomeFilter = BF([WA.OCEAN, [HE.SUBTROPICAL, HE.TEMPERATE]]),
-                location = LO.WATER,
-                seasons = SE.SUMMER,
-                group = GR.FAMILY,
-                scarcity = SC.UNCOMMON,
-            ).derive(
-                seasons = SE.exclude(SE.SUMMER),
-                scarcity = SC.SPARSE,
-            )
-        )
-    )
+    b.start(mobs["minecraft:blaze"])
+    b.altitude = AL.PLUTONIC
+    b.location = LO.CAVE
+    b.group = GR.SOLO
+    b.scarcity = SC.UNCOMMON
+    b.save("blaze-normal")
 
-    spawns.add(MobSpawn(mobs["minecraft:donkey"],
-        Habitat(
-            altitude = AL.span(AL.UPLANDS, AL.HILLS),
-            biomeFilter = BF([HE.SUBTROPICAL, HU.DRY, FL.FIELD]),
-            seasons = [SE.SUMMER, SE.AUTUMN],
-            group = GR.FAMILY,
-            scarcity = SC.SPARSE,
-        ).derive(
-            altitude = AL.span(AL.LOWLANDS, AL.UPLANDS),
-            seasons = [SE.WINTER, SE.SPRING],
-            scarcity = SC.SPARSE,
-        )
-    ))
+    b.start(mobs["bearminimum:brown_bear"])
+    b.altitude = AL.span(AL.LOWLANDS, AL.ALPINE)
+    b.biomeFilters = BF([HE.BOREAL, (FL.CANOPY, FL.FOREST)])
+    b.seasons = SE.AUTUMN
+    b.group = GR.SOLO
+    b.scarcity = SC.SPARSE
+    b.save("brownbear-autumn")
 
-    spawns.add(MobSpawn(mobs["minecraft:fox"],
-        Habitat(
-            altitude = AL.span(AL.LOWLANDS, AL.HILLS),
-            biomeFilter = BF([HE.within(HE.TEMPERATE, HE.FROZEN), FL.FOREST]),
-            seasons = [SE.SPRING],
-            group = GR.FAMILY,
-            scarcity = SC.UNCOMMON,
-        ).derive(
-            seasons = SE.exclude(SE.SPRING),
-            group = GR.SOLO,
-            scarcity = SC.SPARSE,
-        )
-     ))
+    b.seasons = [SE.SPRING, SE.SUMMER]
+    b.scarcity = SC.UNUSUAL
+    b.save("brownbear-springsummer")
 
-    spawns.add(
-        MobSpawn(mobs["minecraft:frog"],
-            Habitat(
-                altitude = AL.span(AL.SURFACE, AL.DUNES),
-                biomeFilter = BF([(HE.TROPICAL, HE.TEMPERATE), HU.WET, WA.SWAMP]),
-                group = GR.HERD,
-                scarcity = SC.COMMON,
-                seasons = [SE.SUMMER],
-            ).derive(
-                seasons = [SE.SPRING],
-                scarcity = SC.SPARSE,
-            ).derive(
-                seasons = [SE.AUTUMN],
-                scarcity = SC.UNUSUAL,
-            ).derive(
-                seasons = [SE.WINTER],
-                scarcity = SC.ABSENT,
-            )
-        )
-    )
+    b.seasons = SE.WINTER
+    b.scarcity = SC.RARE
+    b.save("brownbear-winter")
 
-    spawns.add(
-        MobSpawn(mobs["minecraft:glow_squid"],
-            Habitat(
-                altitude = AL.ABYSS,
-                biomeFilter = BF([WA.OCEAN], [HE.FROZEN]),
-                group = GR.SOLO,
-                location = LO.WATER,
-                scarcity = SC.RARE,
-                seasons = SE.ALL,
-            )
-        )
-    )
+    b.start(mobs["minecraft:camel"])
+    b.altitude = AL.span(AL.DUNES, AL.LOWLANDS)
+    b.biomeFilters = BF([HE.TROPICAL, HU.DRY, FL.BARREN, SO.SANDY])
+    b.seasons = SE.DRY
+    b.group = GR.FAMILY
+    b.scarcity = SC.UNUSUAL
+    b.save("camel-dry")
 
-    spawns.add(
-        MobSpawn(mobs["minecraft:goat"],
-            Habitat(
-                altitude = AL.span(AL.HILLS, AL.CRAGS),
-                biomeFilter = BF([(HE.BOREAL, HE.FROZEN), SO.ROCKY]),
-                group = GR.FAMILY,
-                scarcity = SC.UNCOMMON,
-                seasons = SE.ALL,
-            )
-        )
-    )
+    b.seasons = SE.WET
+    b.scarcity = SC.RARE
+    b.save("camel-wet")
 
-    spawns.add(
-        MobSpawn(mobs["minecraft:horse"],
-            Habitat(
-                altitude = AL.span(AL.DUNES, AL.LOWLANDS),
-                biomeFilter = BF(
-                    [FL.FIELD, (HE.SUBTROPICAL, HE.TEMPERATE), (SO.LOAMY, SO.PEATY, SO.SANDY)]
-                ),
-                group = GR.HERD,
-                scarcity = SC.UNUSUAL,
-                seasons = SE.ALL,
-            )
-        )
-    )
+    b.start(mobs["minecraft:cave_spider"])
+    b.altitude = AL.span(AL.OVERBURDEN, AL.HILLS)
+    b.location = LO.CAVE
+    b.group = GR.SOLO
+    b.scarcity = SC.UNCOMMON
+    b.save("cavespider-normal")
 
-    spawns.add(
-        MobSpawn(mobs["minecraft:llama"],
-            Habitat(
-                altitude = AL.span(AL.ALPINE, AL.PEAKS),
-                biomeFilter = BF([(HE.BOREAL, HE.FROZEN), SO.ROCKY]),
-                group = GR.HERD,
-                scarcity = SC.UNCOMMON,
-                seasons = SE.ALL,
-            )
-        )
-    )
+    b.start(mobs["cold_sweat:chameleon"])
+    b.altitude = AL.span(AL.DUNES, AL.UPLANDS)
+    b.biomeFilters = BF([(FL.CANOPY, FL.FOREST), HE.TROPICAL, HU.WET, WA.INLAND])
+    b.seasons = SE.WET
+    b.group = GR.merge(GR.SOLO, GR.FAMILY)
+    b.scarcity = SC.COMMON
+    b.save("chameleon-wet")
 
-    spawns.add(
-        MobSpawn(mobs["minecraft:magma_cube"],
-            Habitat(
-                altitude = AL.PLUTONIC,
-                location = LO.CAVE,
-                group = GR.SOLO,
-                scarcity = SC.UNCOMMON
-            )
-        )
-    )
+    b.seasons = SE.DRY
+    b.scarcity = SC.UNCOMMON
+    b.save("chameleon-dry")
 
-    spawns.add(
-        MobSpawn(mobs["minecraft:mooshroom"],
-            Habitat(
-                altitude = AL.span(AL.DUNES, AL.UPLANDS),
-                biomeFilter = BF([SO.FUNGAL]),
-                group = GR.HERD,
-                scarcity = SC.UNCOMMON,
-                seasons = SE.ALL,
-            )
-        )
-    )
+    b.start(mobs["minecraft:chicken"])
+    b.altitude = AL.span(AL.LOWLANDS, AL.UPLANDS)
+    b.biomeFilters = BF([FL.CLEARING, HE.TROPICAL, HU.WET], [SO.FUNGAL])
+    b.seasons = SE.SUMMER
+    b.group = GR.TROUP
+    b.scarcity = SC.COMMON
+    b.save("chicken-summer")
 
-    spawns.add(
-        MobSpawn(mobs["minecraft:ocelot"],
-            Habitat(
-                altitude = AL.span(AL.LOWLANDS, AL.HILLS),
-                biomeFilter = BF([FL.CANOPY, HE.TROPICAL, HU.WET]),
-                group = GR.SOLO,
-                scarcity = SC.RARE,
-                seasons = SE.ALL,
-            )
-        )
-    )
+    b.seasons = SE.exclude(SE.SUMMER)
+    b.scarcity = SC.UNCOMMON
+    b.save("chicken-normal")
 
-    spawns.add(
-        MobSpawn(mobs["minecraft:panda"],
-            Habitat(
-                altitude = AL.span(AL.LOWLANDS, AL.UPLANDS),
-                biomeFilter = BF([ResourceId.parse("bamboo_forest")]),
-                group = GR.SOLO,
-                scarcity = SC.UNUSUAL,
-                seasons = SE.exclude(SE.SPRING),
-            ).derive(
-                group = GR.PAIR,
-                seasons = SE.SPRING,
-            )
-        )
-    )
+    b.start(mobs["minecraft:cod"])
+    b.altitude = AL.span(AL.SHALLOWS, AL.DEEPS)
+    b.biomeFilters = BF([HE.BOREAL, WA.OCEAN])
+    b.seasons = SE.ALL
+    b.group = GR.HERD
+    b.scarcity = SC.COMMON
+    b.save("cod-normal")
 
-    spawns.add(
-        MobSpawn(mobs["minecraft:parrot"],
-            Habitat(
-                altitude = AL.span(AL.DUNES, AL.HILLS),
-                biomeFilter = BF([(FL.CANOPY, FL.FOREST), HE.TROPICAL, HU.WET]),
-                group = GR.PAIR,
-                scarcity = SC.COMMON,
-                seasons = SE.ALL,
-            ).derive(
-                biomeFilter = BF([FL.CLEARING, HE.TROPICAL, HU.WET], [SO.FUNGAL]),
-                scarcity = SC.UNCOMMON,
-            )
-        )
-    )
+    b.start(mobs["minecraft:cow"])
+    b.altitude = AL.span(AL.LOWLANDS, AL.UPLANDS)
+    b.biomeFilters = \
+        BF([HE.within(HE.SUBTROPICAL, HE.BOREAL), [HU.DAMP, HU.DRY], FL.FIELD], [SO.FUNGAL])
+    b.seasons = [SE.SPRING, SE.SUMMER]
+    b.group = GR.HERD
+    b.scarcity = SC.SPARSE
+    b.save("cow-springsummer")
 
-    spawns.add(
-        MobSpawn(mobs["minecraft:pig"],
-            Habitat(
-                altitude = AL.span(AL.LOWLANDS, AL.HILLS),
-                biomeFilter = BF([
-                    FL.within(FL.CANOPY, FL.CLEARING),
-                    HE.within(HE.SUBTROPICAL, HE.TEMPERATE)
-                ]),
-                group = GR.TROUP,
-                scarcity = SC.COMMON,
-                seasons = [SE.SUMMER],
-            ).derive(
-                scarcity = SC.UNCOMMON,
-                seasons = SE.exclude(SE.SUMMER),
-            )
-        )
-    )
+    b.altitude = AL.LOWLANDS
+    b.seasons = [SE.AUTUMN, SE.WINTER]
+    b.group = GR.TROUP
+    b.scarcity = SC.UNUSUAL
+    b.save("cow-autumnwinter")
 
-    spawns.add(
-        MobSpawn(mobs["minecraft:polar_bear"],
-            Habitat(
-                altitude = AL.DUNES,
-                biomeFilter = BF([HE.FROZEN, (WA.COAST, WA.OCEAN)]),
-                group = GR.PAIR,
-                scarcity = SC.UNUSUAL,
-                seasons = [SE.SPRING, SE.WINTER]
-            ).derive(
-                group = GR.SOLO,
-                seasons = [SE.SUMMER, SE.AUTUMN],
-                scarcity = SC.RARE,
-            )
-        )
-    )
+    b.start(mobs["crabbersdelight:crab"])
+    b.altitude = AL.DUNES
+    b.biomeFilters = BF([WA.COAST, [HE.TROPICAL, HE.SUBTROPICAL]])
+    b.seasons = SE.ALL
+    b.group = GR.SOLO
+    b.scarcity = SC.UNCOMMON
+    b.save("crab-warm")
 
-    spawns.add(
-        MobSpawn(mobs["minecraft:pufferfish"],
-            Habitat(
-                altitude = AL.SHALLOWS,
-                biomeFilter = BF([(HE.TEMPERATE, HE.TROPICAL), WA.OCEAN]),
-                group = GR.TROUP,
-                location = LO.WATER,
-                scarcity = SC.UNCOMMON,
-                seasons = SE.ALL,
-            )
-        )
-    )
+    b.biomeFilters = BF([WA.COAST, [HE.TEMPERATE, HE.BOREAL]])
+    b.scarcity = SC.SPARSE
+    b.save("crab-cool")
 
-    spawns.add(
-        MobSpawn(mobs["minecraft:rabbit"],
-            Habitat(
-                altitude = AL.span(AL.DUNES, AL.ALPINE),
-                biomeFilter = BF([
-                    FL.within(FL.CANOPY, FL.FIELD),
-                    HE.within(HE.SUBTROPICAL, HE.BOREAL),
-                    WA.INLAND,
-                ]),
-                group = GR.FAMILY,
-                scarcity = SC.COMMON,
-                seasons = [SE.SPRING],
-            ).derive(
-                scarcity = SC.SPARSE,
-                seasons = [SE.SUMMER, SE.AUTUMN],
-            ).derive(
-                scarcity = SC.SPARSE,
-                seasons = [SE.WINTER],
-            ).derive(
-                altitude = AL.span(AL.DUNES, AL.LOWLANDS),
-                biomeFilter = BF([FL.BARREN, HE.TROPICAL, HU.DRY]),
-                group = GR.PAIR,
-                scarcity = SC.SPARSE,
-                seasons = SE.exclude(SE.SUMMER),
-            ).derive(
-                scarcity = SC.UNUSUAL,
-                seasons = [SE.SUMMER],
-            ).derive(
-                altitude = AL.span(AL.LOWLANDS, AL.UPLANDS),
-                biomeFilter = BF([FL.within(FL.FOREST, FL.FIELD), HE.FROZEN]),
-                scarcity = SC.SPARSE,
-                seasons = SE.exclude(SE.WINTER),
-            ).derive(
-                scarcity = SC.UNUSUAL,
-                seasons = [SE.WINTER],
-            )
-        )
-    )
+    b.start(mobs["minecraft:dolphin"])
+    b.altitude = AL.span(AL.SURFACE, AL.DEEPS)
+    b.biomeFilters = BF([WA.OCEAN, [HE.SUBTROPICAL, HE.TEMPERATE]])
+    b.location = LO.WATER
+    b.seasons = SE.SUMMER
+    b.group = GR.FAMILY
+    b.scarcity = SC.UNCOMMON
+    b.save("dolphin-summer")
 
-    spawns.add(
-        MobSpawn(mobs["minecraft:salmon"],
-            Habitat(
-                altitude = AL.span(AL.SURFACE, AL.SHALLOWS),
-                biomeFilter = BF([WA.RIVER], [HE.FROZEN]),
-                group = GR.HERD,
-                scarcity = SC.COMMON,
-                seasons = [SE.AUTUMN],
-            ).derive(
-                scarcity = SC.UNCOMMON,
-                seasons = [SE.SPRING],
-            ).derive(
-                seasons = [SE.SUMMER, SE.WINTER],
-                scarcity = SC.ABSENT,
-            )
-        )
-    )
+    b.seasons = SE.exclude(SE.SUMMER)
+    b.scarcity = SC.SPARSE
+    b.save("dolphin-normal")
 
-    spawns.add(
-        MobSpawn(mobs["minecraft:sheep"],
-            Habitat(
-                altitude = AL.span(AL.LOWLANDS, AL.UPLANDS),
-                biomeFilter = BF([FL.within(FL.FOREST, FL.FIELD), HE.BOREAL]),
-                group = GR.HERD,
-                scarcity = SC.UNCOMMON,
-                seasons = SE.ALL,
-            )
-        )
-    )
+    b.start(mobs["minecraft:donkey"])
+    b.altitude = AL.span(AL.UPLANDS, AL.HILLS)
+    b.biomeFilters = BF([HE.SUBTROPICAL, HU.DRY, FL.FIELD])
+    b.seasons = [SE.SUMMER, SE.AUTUMN]
+    b.group = GR.FAMILY
+    b.scarcity = SC.SPARSE
+    b.save("donkey-autumnsummer")
 
-    spawns.add(
-        MobSpawn(mobs["minecraft:slime"],
-            Habitat(
-                altitude = AL.span(AL.SURFACE, AL.DUNES),
-                biomeFilter = BF([HE.TEMPERATE, WA.SWAMP]),
-                group = GR.SOLO,
-                scarcity = SC.UNCOMMON,
-                seasons = [SE.SPRING],
-            ).derive(
-                scarcity = SC.UNUSUAL,
-                seasons = SE.exclude(SE.SPRING),
-            )
-        )
-    )
+    b.altitude = AL.span(AL.LOWLANDS, AL.UPLANDS)
+    b.seasons = [SE.WINTER, SE.SPRING]
+    b.scarcity = SC.SPARSE
+    b.save("donkey-springwinter")
 
-    spawns.add(
-        MobSpawn(mobs["minecraft:spider"],
-            Habitat(
-                altitude = AL.span(AL.LOWLANDS, AL.HILLS),
-                biomeFilter = BF([FL.CANOPY, HE.TEMPERATE]),
-                group = GR.SOLO,
-                scarcity = SC.COMMON,
-                seasons = [SE.SUMMER],
-            ).derive(
-                scarcity = SC.UNCOMMON,
-                seasons = [SE.SPRING, SE.AUTUMN],
-            ).derive(
-                scarcity = SC.SPARSE,
-                seasons = [SE.WINTER],
-            )
-        )
-    )
+    b.start(mobs["minecraft:fox"])
+    b.altitude = AL.span(AL.LOWLANDS, AL.HILLS)
+    b.biomeFilters = BF([HE.within(HE.TEMPERATE, HE.FROZEN), FL.FOREST])
+    b.seasons = [SE.SPRING]
+    b.group = GR.FAMILY
+    b.scarcity = SC.UNCOMMON
+    b.save("fox-spring")
 
-    spawns.add(
-        MobSpawn(mobs["minecraft:squid"],
-            Habitat(
-                altitude = AL.DEEPS,
-                biomeFilter = BF([WA.OCEAN], [HE.FROZEN]),
-                group = GR.SOLO,
-                location = LO.WATER,
-                scarcity = SC.SPARSE,
-                seasons = SE.ALL,
-            )
-        )
-    )
+    b.seasons = SE.exclude(SE.SPRING)
+    b.group = GR.SOLO
+    b.scarcity = SC.SPARSE
+    b.save("fox-normal")
 
-    spawns.add(
-        MobSpawn(mobs["minecraft:tropical_fish"],
-            Habitat(
-                altitude = AL.SHALLOWS,
-                biomeFilter = BF([HE.TROPICAL, WA.OCEAN]),
-                group = GR.HERD,
-                location = LO.WATER,
-                scarcity = SC.COMMON,
-                seasons = SE.ALL,
-            )
-        )
-    )
+    b.start(mobs["minecraft:frog"])
+    b.altitude = AL.span(AL.SURFACE, AL.DUNES)
+    b.biomeFilters = BF([(HE.TROPICAL, HE.TEMPERATE), HU.WET, WA.SWAMP])
+    b.group = GR.HERD
+    b.scarcity = SC.COMMON
+    b.seasons = SE.SUMMER
+    b.save("frog-summer")
 
-    spawns.add(
-        MobSpawn(mobs["minecraft:turtle"],
-            Habitat(
-                altitude = AL.span(AL.SURFACE, AL.SHALLOWS),
-                biomeFilter = BF([HE.within(HE.TROPICAL, HE.SUBTROPICAL), WA.OCEAN]),
-                group = GR.SOLO,
-                scarcity = SC.SPARSE,
-                seasons = SE.ALL,
-            ).derive(
-                altitude = AL.DUNES,
-                biomeFilter = BF([HE.within(HE.TROPICAL, HE.SUBTROPICAL), WA.COAST]),
-                group = GR.SOLO,
-                scarcity = SC.UNUSUAL,
-            )
-        )
-    )
+    b.seasons = SE.SPRING
+    b.scarcity = SC.SPARSE
+    b.save("frog-spring")
 
-    spawns.add(
-        MobSpawn(mobs["minecraft:wolf"],
-            Habitat(
-                altitude = AL.span(AL.LOWLANDS, AL.UPLANDS),
-                biomeFilter = BF([FL.CANOPY, HE.TEMPERATE, WA.INLAND]),
-                group = GR.TROUP,
-                scarcity = SC.COMMON,
-                seasons = SE.ALL,
-            ).derive(
-                biomeFilter = BF([
-                    FL.within(FL.FOREST, FL.FIELD), (HE.TEMPERATE, HE.BOREAL), WA.INLAND,
-                ]),
-                scarcity = SC.UNCOMMON,
-            ).derive(
-                biomeFilter = BF([FL.within(FL.FOREST, FL.FIELD), HE.FROZEN, WA.INLAND]),
-                scarcity = SC.UNUSUAL,
-            ).derive(
-                biomeFilter = BF([(FL.CLEARING, FL.FIELD), HE.SUBTROPICAL, WA.INLAND]),
-                scarcity = SC.SPARSE,
-            )
-        )
-    )
+    b.seasons = SE.AUTUMN
+    b.scarcity = SC.UNUSUAL
+    b.save("frog-autumn")
+
+    b.seasons = SE.WINTER
+    b.scarcity = SC.ABSENT
+    b.save("frog-winter")
+
+    b.start(mobs["minecraft:glow_squid"])
+    b.altitude = AL.ABYSS
+    b.biomeFilters = BF([WA.OCEAN], [HE.FROZEN])
+    b.group = GR.SOLO
+    b.location = LO.WATER
+    b.scarcity = SC.RARE
+    b.seasons = SE.ALL
+    b.save("glowsquid-normal")
+
+    b.start(mobs["minecraft:goat"])
+    b.altitude = AL.span(AL.HILLS, AL.CRAGS)
+    b.biomeFilters = BF([(HE.BOREAL, HE.FROZEN), SO.ROCKY])
+    b.group = GR.FAMILY
+    b.scarcity = SC.UNCOMMON
+    b.seasons = SE.ALL
+    b.save("goat-normal")
+
+    b.start(mobs["minecraft:horse"])
+    b.altitude = AL.span(AL.DUNES, AL.LOWLANDS)
+    b.biomeFilters = BF([FL.FIELD, (HE.SUBTROPICAL, HE.TEMPERATE), (SO.LOAMY, SO.PEATY, SO.SANDY)])
+    b.group = GR.HERD
+    b.scarcity = SC.UNUSUAL
+    b.seasons = SE.ALL
+    b.save("horse-normal")
+
+    b.start(mobs["minecraft:llama"])
+    b.altitude = AL.span(AL.ALPINE, AL.PEAKS)
+    b.biomeFilters = BF([(HE.BOREAL, HE.FROZEN), SO.ROCKY])
+    b.group = GR.HERD
+    b.scarcity = SC.UNCOMMON
+    b.seasons = SE.ALL
+    b.save("llama-normal")
+
+    b.start(mobs["minecraft:magma_cube"])
+    b.altitude = AL.PLUTONIC
+    b.location = LO.CAVE
+    b.group = GR.SOLO
+    b.scarcity = SC.UNCOMMON
+    b.save("magmacube-normal")
+
+    b.start(mobs["minecraft:mooshroom"])
+    b.altitude = AL.span(AL.DUNES, AL.UPLANDS)
+    b.biomeFilters = BF([SO.FUNGAL])
+    b.group = GR.HERD
+    b.scarcity = SC.UNCOMMON
+    b.seasons = SE.ALL
+    b.save("mooshroom-normal")
+
+    b.start(mobs["minecraft:ocelot"])
+    b.altitude = AL.span(AL.LOWLANDS, AL.HILLS)
+    b.biomeFilters = BF([FL.CANOPY, HE.TROPICAL, HU.WET])
+    b.group = GR.SOLO
+    b.scarcity = SC.RARE
+    b.seasons = SE.ALL
+    b.save("ocelot-normal")
+
+    b.start(mobs["minecraft:panda"])
+    b.altitude = AL.span(AL.LOWLANDS, AL.UPLANDS)
+    b.biomeFilters = BF([ResourceId.parse("bamboo_forest")])
+    b.group = GR.SOLO
+    b.scarcity = SC.UNUSUAL
+    b.seasons = SE.exclude(SE.SPRING)
+    b.save("panda-normal")
+
+    b.group = GR.PAIR
+    b.seasons = SE.SPRING
+    b.save("panda-spring")
+
+    b.start(mobs["minecraft:parrot"])
+    b.altitude = AL.span(AL.DUNES, AL.HILLS)
+    b.biomeFilters = BF([(FL.CANOPY, FL.FOREST), HE.TROPICAL, HU.WET])
+    b.group = GR.PAIR
+    b.scarcity = SC.COMMON
+    b.seasons = SE.ALL
+    b.save("parrot-canopyforest")
+
+    b.biomeFilters = BF([FL.CLEARING, HE.TROPICAL, HU.WET], [SO.FUNGAL])
+    b.scarcity = SC.UNCOMMON
+    b.save("parrot-clearing")
+
+    b.start(mobs["minecraft:pig"])
+    b.altitude = AL.span(AL.LOWLANDS, AL.HILLS)
+    b.biomeFilters = BF([
+        FL.within(FL.CANOPY, FL.CLEARING),
+        HE.within(HE.SUBTROPICAL, HE.TEMPERATE)
+    ])
+    b.group = GR.TROUP
+    b.scarcity = SC.COMMON
+    b.seasons = SE.SUMMER
+    b.save("pig-summer")
+
+    b.scarcity = SC.UNCOMMON
+    b.seasons = SE.exclude(SE.SUMMER)
+    b.save("pig-normal")
+
+    b.start(mobs["minecraft:polar_bear"])
+    b.altitude = AL.DUNES
+    b.biomeFilters = BF([HE.FROZEN, (WA.COAST, WA.OCEAN)])
+    b.group = GR.PAIR
+    b.scarcity = SC.UNUSUAL
+    b.seasons = [SE.SPRING, SE.WINTER]
+    b.save("polarbear-springwinter")
+
+    b.group = GR.SOLO
+    b.seasons = [SE.SUMMER, SE.AUTUMN]
+    b.scarcity = SC.RARE
+    b.save("polarbear-autumnsummer")
+
+    b.start(mobs["minecraft:pufferfish"])
+    b.altitude = AL.SHALLOWS
+    b.biomeFilters = BF([(HE.TEMPERATE, HE.TROPICAL), WA.OCEAN])
+    b.group = GR.TROUP
+    b.location = LO.WATER
+    b.scarcity = SC.UNCOMMON
+    b.seasons = SE.ALL
+    b.save("pufferfish-normal")
+
+    b.start(mobs["minecraft:rabbit"])
+    b.altitude = AL.span(AL.DUNES, AL.ALPINE)
+    b.biomeFilters = BF([
+        FL.within(FL.CANOPY, FL.FIELD),
+        HE.within(HE.SUBTROPICAL, HE.BOREAL),
+        WA.INLAND,
+    ])
+    b.group = GR.FAMILY
+    b.scarcity = SC.COMMON
+    b.seasons = SE.SPRING
+    b.save("rabbit-temperate-spring")
+
+    b.scarcity = SC.SPARSE
+    b.seasons = [SE.SUMMER, SE.AUTUMN]
+    b.save("rabbit-temperate-autumnsummer")
+
+    b.scarcity = SC.SPARSE
+    b.seasons = SE.WINTER
+    b.save("rabbit-temperate-winter")
+
+    b.altitude = AL.span(AL.DUNES, AL.LOWLANDS)
+    b.biomeFilters = BF([FL.BARREN, HE.TROPICAL, HU.DRY])
+    b.group = GR.PAIR
+    b.scarcity = SC.SPARSE
+    b.seasons = SE.exclude(SE.SUMMER)
+    b.save("rabbit-desert-normal")
+
+    b.scarcity = SC.UNUSUAL
+    b.seasons = SE.SUMMER
+    b.save("rabbit-desert-summer")
+
+    b.altitude = AL.span(AL.LOWLANDS, AL.UPLANDS)
+    b.biomeFilters = BF([FL.within(FL.FOREST, FL.FIELD), HE.FROZEN])
+    b.scarcity = SC.SPARSE
+    b.seasons = SE.exclude(SE.WINTER)
+    b.save("rabbit-frozen-normal")
+
+    b.scarcity = SC.UNUSUAL
+    b.seasons = SE.WINTER
+    b.save("rabbit-frozen-winter")
+
+    b.start(mobs["minecraft:salmon"])
+    b.altitude = AL.span(AL.SURFACE, AL.SHALLOWS)
+    b.biomeFilters = BF([WA.RIVER], [HE.FROZEN])
+    b.group = GR.HERD
+    b.scarcity = SC.COMMON
+    b.seasons = SE.AUTUMN
+    b.save("salmon-autumnrun")
+
+    b.scarcity = SC.UNCOMMON
+    b.seasons = [SE.SPRING]
+    b.save("salmon-springrun")
+
+    b.seasons = [SE.SUMMER, SE.WINTER]
+    b.scarcity = SC.ABSENT
+    b.save("salmon-notrunning")
+
+    b.start(mobs["minecraft:sheep"])
+    b.altitude = AL.span(AL.LOWLANDS, AL.UPLANDS)
+    b.biomeFilters = BF([FL.within(FL.FOREST, FL.FIELD), HE.BOREAL])
+    b.group = GR.HERD
+    b.scarcity = SC.UNCOMMON
+    b.seasons = SE.ALL
+    b.save("sheep-normal")
+
+    b.start(mobs["minecraft:slime"])
+    b.altitude = AL.span(AL.SURFACE, AL.DUNES)
+    b.biomeFilters = BF([HE.TEMPERATE, WA.SWAMP])
+    b.group = GR.SOLO
+    b.scarcity = SC.UNCOMMON
+    b.seasons = [SE.SPRING]
+    b.save("slime-spring")
+
+    b.scarcity = SC.UNUSUAL
+    b.seasons = SE.exclude(SE.SPRING)
+    b.save("slime-normal")
+
+    b.start(mobs["minecraft:spider"])
+    b.altitude = AL.span(AL.LOWLANDS, AL.HILLS)
+    b.biomeFilters = BF([FL.CANOPY, HE.TEMPERATE])
+    b.group = GR.SOLO
+    b.scarcity = SC.COMMON
+    b.seasons = SE.SUMMER
+    b.save("spider-summer")
+
+    b.scarcity = SC.UNCOMMON
+    b.seasons = [SE.SPRING, SE.AUTUMN]
+    b.save("spider-springsummer")
+
+    b.scarcity = SC.SPARSE
+    b.seasons = SE.WINTER
+    b.save("spider-winter")
+
+    b.start(mobs["minecraft:squid"])
+    b.altitude = AL.DEEPS
+    b.biomeFilters = BF([WA.OCEAN], [HE.FROZEN])
+    b.group = GR.SOLO
+    b.location = LO.WATER
+    b.scarcity = SC.SPARSE
+    b.seasons = SE.ALL
+    b.save("squid-normal")
+
+    b.start(mobs["minecraft:tropical_fish"])
+    b.altitude = AL.SHALLOWS
+    b.biomeFilters = BF([HE.TROPICAL, WA.OCEAN])
+    b.group = GR.HERD
+    b.location = LO.WATER
+    b.scarcity = SC.COMMON
+    b.seasons = SE.ALL
+    b.save("tropicalfish-normal")
+
+    b.start(mobs["minecraft:turtle"])
+    b.altitude = AL.span(AL.SURFACE, AL.SHALLOWS)
+    b.biomeFilters = BF([HE.within(HE.TROPICAL, HE.SUBTROPICAL), WA.OCEAN])
+    b.group = GR.SOLO
+    b.scarcity = SC.SPARSE
+    b.seasons = SE.ALL
+    b.save("turtle-normal")
+
+    b.altitude = AL.DUNES
+    b.biomeFilters = BF([HE.within(HE.TROPICAL, HE.SUBTROPICAL), WA.COAST])
+    b.group = GR.SOLO
+    b.scarcity = SC.UNUSUAL
+    b.save("turtle-spawning")
+
+    b.start(mobs["minecraft:wolf"])
+    b.altitude = AL.span(AL.LOWLANDS, AL.UPLANDS)
+    b.biomeFilters = BF([FL.CANOPY, HE.TEMPERATE, WA.INLAND])
+    b.group = GR.TROUP
+    b.scarcity = SC.COMMON
+    b.seasons = SE.ALL
+    b.save("wolf-deepforest")
+
+    b.biomeFilters = BF([FL.within(FL.FOREST, FL.FIELD), (HE.TEMPERATE, HE.BOREAL), WA.INLAND])
+    b.scarcity = SC.UNCOMMON
+    b.save("wolf-normal")
+
+    b.biomeFilters = BF([FL.within(FL.FOREST, FL.FIELD), HE.FROZEN, WA.INLAND])
+    b.scarcity = SC.UNUSUAL
+    b.save("wolf-arctic")
+
+    b.biomeFilters = BF([(FL.CLEARING, FL.FIELD), HE.SUBTROPICAL, WA.INLAND])
+    b.scarcity = SC.SPARSE
+    b.save("wolf-savanna")

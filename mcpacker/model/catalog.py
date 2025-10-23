@@ -1,10 +1,7 @@
 from collections.abc import Iterable
-from typing import Any
+from collections.abc import Iterator
 from typing import Callable
-from typing import Generic
-from typing import Iterator
 from typing import Protocol
-from typing import TypeVar
 
 
 # Type Support #####################################################################################
@@ -14,14 +11,10 @@ class HasName(Protocol):
     @property
     def name(self) -> str: ...
 
-CatalogItem = TypeVar("CatalogItem", bound=HasName)
-
-MapTarget = TypeVar("MapTarget")
-
 
 # Class ############################################################################################
 
-class Catalog(Generic[CatalogItem]):
+class Catalog[CatalogItem: HasName]:
 
     def __init__(self, items:Iterable[CatalogItem]|None=None):
         self._items:dict[str,CatalogItem] = {}
@@ -39,7 +32,7 @@ class Catalog(Generic[CatalogItem]):
         return self._items[name]
 
     def __iter__(self) -> Iterator[CatalogItem]:
-        for name in sorted([i.name for i in self._items.values()]):
+        for name in sorted([item.name for item in self._items.values()]):
             yield self._items[name]
 
     def __len__(self) -> int:
@@ -64,6 +57,6 @@ class Catalog(Generic[CatalogItem]):
             if isAllowed(item):
                 yield item
 
-    def map(self, doTransform:Callable[[CatalogItem], MapTarget]) -> Iterator[MapTarget]:
+    def map[Target](self, doTransform:Callable[[CatalogItem], Target]) -> Iterator[Target]:
         for item in self:
             yield doTransform(item)

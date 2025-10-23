@@ -1,3 +1,4 @@
+from mcpacker.model.fauna.mobspawnbuilder import MobSpawnBuilder
 from mcpacker.format.report.mobspawnreport import MobSpawnReport
 from mcpacker.model.ecology.biomefilter import BiomeFilter as BF
 from mcpacker.model.fauna.mob import Mob
@@ -34,25 +35,22 @@ def defineAddMobs():
     yield addMobs
 
 @fixture(name="addMobSpawns")
-def defineAddMobSpawnss():
+def defineAddMobSpawns():
     def addMobSpawns(pack:ModPack):
         mobs = pack.world.mobs
-        spawns = pack.world.mobSpawns
+        b = MobSpawnBuilder(pack.world.mobSpawns)
 
-        pack.world.mobSpawns.add(
-            MobSpawn(mobs["minecraft:chicken"],
-                Habitat(
-                    altitude    = AL.span(AL.LOWLANDS, AL.UPLANDS),
-                    biomeFilter = BF([HE.TROPICAL, HU.WET, FL.within(FL.CANOPY, FL.CLEARING)]),
-                    seasons     = SE.SUMMER,
-                    group       = GR.TROUP,
-                    scarcity    = SC.COMMON,
-                ).derive(
-                    seasons     = SE.exclude(SE.SUMMER),
-                    scarcity    = SC.UNCOMMON
-                )
-            )
-        )
+        b.start(mobs["minecraft:chicken"])
+        b.altitude = AL.span(AL.LOWLANDS, AL.UPLANDS)
+        b.biomeFilters = BF([HE.TROPICAL, HU.WET, FL.within(FL.CANOPY, FL.CLEARING)])
+        b.seasons = SE.SUMMER
+        b.group = GR.TROUP
+        b.scarcity = SC.COMMON
+        b.save("chicken-summer")
+
+        b.seasons = SE.exclude(SE.SUMMER)
+        b.scarcity = SC.UNCOMMON
+        b.save("chicken-normal")
 
     yield addMobSpawns
 
@@ -71,19 +69,21 @@ def test_write(report:MobSpawnReport):
     assert str(report).strip() == textwrap.dedent("""
         Mob: minecraft:chicken
 
-            Habitat 1
-                altitude: lowlands to uplands (70 to 124)
-                biomeFilter: tropical and wet and (canopy or forest or clearing)
-                seasons: summer
-                group: troup (3 to 6)
-                location: outside
-                scarcity: common
-
-            Habitat 2
+            Spawn: chicken-normal
                 altitude: lowlands to uplands (70 to 124)
                 biomeFilter: tropical and wet and (canopy or forest or clearing)
                 seasons: spring, autumn, winter
+
                 group: troup (3 to 6)
                 location: outside
                 scarcity: uncommon
+
+            Spawn: chicken-summer
+                altitude: lowlands to uplands (70 to 124)
+                biomeFilter: tropical and wet and (canopy or forest or clearing)
+                seasons: summer
+
+                group: troup (3 to 6)
+                location: outside
+                scarcity: common
     """).strip()

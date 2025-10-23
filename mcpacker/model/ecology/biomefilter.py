@@ -10,7 +10,7 @@ class BiomeFilter:
     """
     A description of which biomes may be considered for a given purpose.
 
-    This class works by allowing *both* allowed and prohibited traits.
+    This class works by accepting *both* allowed and prohibited traits.
 
     The list of allowed traits may contain either individual trait objects, or a list of such
     objects.  When an individual trait is given, only biomes with that exact trait are permitted.
@@ -30,8 +30,8 @@ class BiomeFilter:
         required:Sequence[BiomeTrait|ResourceId|Sequence[BiomeTrait]]|None=None,
         prohibited:Sequence[BiomeTrait|ResourceId]|None=None,
     ):
-        self.required = required or []
-        self.prohibited = prohibited or []
+        self.required = list(required or [])
+        self.prohibited = list(prohibited or [])
 
     def __repr__(self) -> str:
         return (

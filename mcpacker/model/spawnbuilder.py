@@ -32,6 +32,13 @@ class SpawnBuilder[SpawnableKind:Spawnable, EcotypeKind:Ecotype, SpawnKind:Spawn
         self._spawnable = spawnable
         return self
 
+    def switch(self, spawnable:SpawnableKind) -> Self:
+        biomeFilters = self.biomeFilters
+        self._reset()
+        self._biomeFilters = biomeFilters
+        self._spawnable = spawnable
+        return self
+
     def save(self, name:str) -> Self:
         if not self._spawnable: raise RuntimeError("you must call start before save")
 

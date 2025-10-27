@@ -1,14 +1,11 @@
-from mcpacker.json import JsonBlob
+from mcpacker.format.json import JsonBlob
 
 
 # Class ############################################################################################
 
-class Placement:
-
-    def __init__(self, gameId:str):
-        self.gameId = gameId
+class NoopBiomeModifier:
 
     def asJsonBlob(self) -> JsonBlob:
         return {
-            "type": self.gameId,
+            "type": "forge:none",
         }

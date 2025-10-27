@@ -1,13 +1,16 @@
 from collections.abc import Iterable
-from mcpacker.json import JsonBlob
+from mcpacker.format.json import JsonBlob
+from mcpacker.model.ecology.biome import Biome
 from mcpacker.model.ecology.biomefilter import BiomeFilter
 from mcpacker.model.fauna.active import Active
 from mcpacker.model.fauna.mobspawn import MobSpawn
 from mcpacker.model.scarcity import Scarcity
 from mcpacker.model.season import Season
 from mcpacker.write.writer import Writer
+from typing import cast
 
-import mcpacker.json as json
+import mcpacker.format.json as FJ
+import mcpacker.write.json as WJ
 import mcpacker.model.dimension as DI
 import mcpacker.model.fauna.location as LO
 import mcpacker.model.scarcity as SC
@@ -21,15 +24,19 @@ class SpawnerWriter(Writer):
     def doWrite(self):
         path = self.locator.inc_config()/"spawner.json"
         self.resetOutputFile(path)
-        path.write_text(json.dumps(self._makeAllRules(), indent=json.INDENT))
+        path.write_text(WJ.dumps(self._makeAllRules()))
 
 
     # Private Functions ########################################################
 
     def _computeBiomeNames(self, biomeFilters:Iterable[BiomeFilter]) -> JsonBlob:
-        return list(
-            str(b.gameId) for b in self.pack.world.biomes.find(biomeFilters)
-        )
+        accepted:set[Biome] = set()
+        for biome in self.pack.world.biomes:
+            for biomeFilter in biomeFilters:
+                if not biomeFilter.accepts(biome): continue
+                accepted.add(biome)
+
+        return cast(JsonBlob, sorted(str(b.gameId) for b in accepted))
 
     def _computeSpawnRate(self, scarcity:Scarcity) -> float:
         base = {
@@ -73,7 +80,7 @@ class SpawnerWriter(Writer):
                 for active in spawn.mob.active:
                     result.append(self._makeRule(spawn, season, active))
 
-        return json.removeEmptyObjects(json.removeNoneValues(result))
+        return FJ.removeEmptyObjects(FJ.removeNoneValues(result))
 
     def _makeCondition(self, spawn:MobSpawn, season:Season, active:Active) -> JsonBlob:
         return {

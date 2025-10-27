@@ -1,4 +1,5 @@
 from mcpacker.model.modpack import ModPack
+from mcpacker.model.geology.mineralspawn import MineralSpawn
 from mcpacker.model.ecology.biome import Biome
 from mcpacker.format.report.composer import ReportComposer
 from pathlib import Path
@@ -26,15 +27,17 @@ class BiomeReport(ReportComposer):
 
     def _composeGeologySection(self, biome:Biome):
         self.line().line("Geology:").indent()
-        depositCount = 0
-        for deposit in self.pack.world.deposits:
-            if not deposit.acceptsBiome(biome): continue
-            self.line(f"{deposit.name} ({deposit.scarcity})")
-            depositCount += 1
+        mineralCount = 0
+        for spawn in self.pack.world.mineralSpawns:
+            if "plutonic" in spawn.name: continue
 
-        if depositCount == 0:
-            self.line("<no deposits>")
-        self.outdent() # deposits
+            if not spawn.habitat.accepts(biome): continue
+            self.line(f"{spawn.name} ({spawn.ecotype.scarcity})")
+            mineralCount += 1
+
+        if mineralCount == 0:
+            self.line("<no minerals>")
+        self.outdent() # minerals
 
     def _composeFaunaSection(self, biome:Biome):
         self.line().line("Fauna:").indent()

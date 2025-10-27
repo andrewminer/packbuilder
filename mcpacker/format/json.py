@@ -1,18 +1,13 @@
-from json import dump
-from json import dumps
-from json import load
-from json import loads
-from typing import TypeAlias
-
-
-# Constants ########################################################################################
-
-INDENT = "    "
+from typing import Protocol
 
 
 # Type Support #####################################################################################
 
-JsonBlob:TypeAlias = dict[str, "JsonBlob"] | list["JsonBlob"] | str | int | float | bool | None
+type JsonBlob = dict[str, "JsonBlob"] | list["JsonBlob"] | str | int | float | bool | None
+
+class JsonBlobSource(Protocol):
+
+    def asJsonBlob(self) -> JsonBlob:...
 
 
 # Functions ########################################################################################

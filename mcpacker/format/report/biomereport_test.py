@@ -52,7 +52,7 @@ def test_report(report):
             Traits: field, sedimentary, subtropical, dry, sandy, inland
 
             Geology:
-                <no deposits>
+                <no minerals>
 
             Flora:
                 <no flora>
@@ -65,7 +65,7 @@ def test_report(report):
             Traits: field, sedimentary, temperate, damp, loamy, inland
 
             Geology:
-                <no deposits>
+                <no minerals>
 
             Flora:
                 <no flora>

@@ -40,11 +40,24 @@ def test_report(report:MineralReport):
     assert str(report).strip() == textwrap.dedent("""
         Mineral: copper
 
-            #minecraft:stone_replaceables => minecraft:copper_ore
-            #minecraft:deepslate_replaceables => minecraft:deepslate_copper_ore
+            Replacements:
+
+                #minecraft:stone_replaceables => minecraft:copper_ore
+                #minecraft:deepslate_replaceables => minecraft:deepslate_copper_ore
+
+            Spawns:
+
+            Biomes:
+
 
         Mineral: iron
 
-            #minecraft:stone_replaceables => minecraft:iron_ore
-            #minecraft:deepslate_replaceables => minecraft:deepslate_iron_ore
+            Replacements:
+
+                #minecraft:stone_replaceables => minecraft:iron_ore
+                #minecraft:deepslate_replaceables => minecraft:deepslate_iron_ore
+
+            Spawns:
+
+            Biomes:
     """).strip()

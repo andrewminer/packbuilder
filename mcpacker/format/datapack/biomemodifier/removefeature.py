@@ -1,12 +1,11 @@
 from collections.abc import Iterable
-from mcpacker.format.datapack.biomemodifier import BiomeModifier
 from mcpacker.format.datapack.generationstep import GenerationStep
-from mcpacker.json import JsonBlob
+from mcpacker.format.json import JsonBlob
 
 
-# Classes ##########################################################################################
+# Class ############################################################################################
 
-class RemoveFeatureBiomeModifier(BiomeModifier):
+class RemoveFeatureBiomeModifier:
 
     def __init__(
         self,
@@ -26,7 +25,7 @@ class RemoveFeatureBiomeModifier(BiomeModifier):
 
     def asJsobBlob(self) -> JsonBlob:
         result:dict[str,JsonBlob] = {
-            "type": "neoforge:remove_features",
+            "type": "forge:remove_features",
             "biomes": list(self.biomes),
             "features": list(self.features),
         }

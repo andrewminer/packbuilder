@@ -11,7 +11,6 @@ from mcpacker.write.datapack.disablespawnwriter import DisableSpawnWriter
 from mcpacker.write.datapack.metawriter import DataPackMetaWriter
 from mcpacker.write.datapack.writer import DataPackWriter
 from mcpacker.write.incontrol.spawnerwriter import SpawnerWriter
-from mcpacker.write.largeoredeposits.depositwriter import DepositWriter as LodDepositWriter
 from mcpacker.write.report.writer import ReportWriter
 from mcpacker.write.resourcepack.metawriter import ResourcePackMetaWriter
 from mcpacker.write.resourcepack.writer import ResourcePackWriter
@@ -72,7 +71,6 @@ class Runner:
         CompositeWriter(p, o, [
             StaticWriter(p, o),
             SpawnerWriter(p, o),
-            LodDepositWriter(p, o),
             DataPackWriter(p, o, [
                 DataPackMetaWriter(p, o, 48),
                 DepositWriter(p, o),

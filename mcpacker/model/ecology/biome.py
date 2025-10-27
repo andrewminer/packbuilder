@@ -6,6 +6,7 @@ from mcpacker.model.ecology.humidity import Humidity
 from mcpacker.model.ecology.soil import Soil
 from mcpacker.model.ecology.water import Water
 from mcpacker.model.resourceid import ResourceId
+from typing import Any
 
 
 ####################################################################################################
@@ -36,7 +37,7 @@ class Biome:
         self.soil = soil
         self.water = water
 
-    def __eq__(self, other) -> bool:
+    def __eq__(self, other:Any) -> bool:
         if type(self) != type(other): return False
         if self.gameId != other.gameId: return False
         if self.name != other.name: return False
@@ -45,20 +46,26 @@ class Biome:
     def __hash__(self) -> int:
         return hash((self.gameId, self.name))
 
+    def __lt__(self, other:Any) -> bool:
+        if type(self) != type(other): raise ValueError()
+        return self.gameId < other.gameId
+
     def __str__(self) -> str:
         return f"{self.gameId} ({self.name})"
 
     def __repr__(self) -> str:
-        return "".join([str(p) for p in [
-            "Biome(",
-                "flora=", repr(self.flora), ", ",
-                "geology=", repr(self.geology), ", ",
-                "heat=", repr(self.heat), ", ",
-                "humidity=", repr(self.humidity), ", ",
-                "soil=", repr(self.soil), ", ",
-                "water=", repr(self.water),
+        return (
+            "Biome("
+                f"flora={self.flora!r}, "
+                f"gameId={self.gameId!r}, "
+                f"geology={self.geology!r}, "
+                f"heat={self.heat!r}, "
+                f"humidity={self.humidity!r}, "
+                f"name={self.name!r}, "
+                f"soil={self.soil!r}, "
+                f"water={self.water!r}"
             ")"
-        ]])
+        )
 
     def traits(self) -> list[BiomeTrait]:
         return list([

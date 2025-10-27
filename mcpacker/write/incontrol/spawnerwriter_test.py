@@ -1,3 +1,4 @@
+from mcpacker.format.json import JsonBlob
 from mcpacker.model.ecology.biome import Biome
 from mcpacker.model.ecology.biomefilter import BiomeFilter as BF
 from mcpacker.model.fauna.mob import Mob
@@ -11,7 +12,7 @@ from mcpacker.write.incontrol.spawnerwriter import SpawnerWriter
 from pathlib import Path
 from pytest import fixture
 
-import mcpacker.json as json
+import mcpacker.write.json as json
 import mcpacker.model.altitude as AL
 import mcpacker.model.ecology.flora as FL
 import mcpacker.model.ecology.geology as GE
@@ -88,13 +89,26 @@ def test_write(writer:SpawnerWriter, tmp_path:Path):
     text = path.read_text()
     data = json.loads(text)
 
+    assert isinstance(data, list)
     assert len(data) == 4
 
     rule = data[0]
+    assert isinstance(rule, dict)
+    assert isinstance(rule["conditions"], dict)
+    assert isinstance(rule["conditions"]["and"], dict)
+    assert isinstance(rule["persecond"], float)
+
     assert rule["conditions"]["and"]["spring"]
     assert abs(rule["persecond"] - 0.066) < 0.001
 
     rule = data[3]
+    assert isinstance(rule, dict)
+    assert isinstance(rule["mob"], str)
+    assert isinstance(rule["amount"], dict)
+    assert isinstance(rule["conditions"], dict)
+    assert isinstance(rule["conditions"]["and"], dict)
+    assert isinstance(rule["persecond"], float)
+
     assert rule["mob"] == "minecraft:chicken"
     assert rule["amount"]["maximum"] == 6
     assert rule["conditions"]["and"]["biome"] == ["minecraft:jungle"]

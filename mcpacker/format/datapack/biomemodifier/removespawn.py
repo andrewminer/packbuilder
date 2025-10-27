@@ -1,12 +1,11 @@
 from collections.abc import Iterable
-from mcpacker.format.datapack.biomemodifier import BiomeModifier
+from mcpacker.format.json import JsonBlob
 from mcpacker.model.resourceid import ResourceId
-from mcpacker.json import JsonBlob
 
 
-# Classes ##########################################################################################
+# Class ############################################################################################
 
-class RemoveSpawnBiomeModifier(BiomeModifier):
+class RemoveSpawnBiomeModifier:
 
     def __init__(self, biomes:Iterable[str]|str, entityTypes:Iterable[ResourceId]):
         if isinstance(biomes, str):

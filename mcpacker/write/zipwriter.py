@@ -7,7 +7,7 @@ from pathlib import Path
 from zipfile import ZipFile
 from zipfile import ZIP_DEFLATED
 
-import mcpacker.json as json
+import mcpacker.write.json as json
 import os
 
 

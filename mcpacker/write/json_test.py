@@ -1,4 +1,4 @@
-import mcpacker.format.datapack.biomemodifier.addfeature
+import mcpacker.write.json
 
 
 # Tests ############################################################################################

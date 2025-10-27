@@ -1,4 +1,5 @@
 from collections.abc import Sequence
+from collections.abc import Iterable
 from mcpacker.model.resourceid import ResourceId
 from mcpacker.model.ecology.biome import Biome
 from mcpacker.model.ecology.biometrait import BiomeTrait
@@ -24,6 +25,21 @@ class BiomeFilter:
     The filter only accepts biomes which pass *both* lists.  That is, it must possess *all* the
     required traits while simultaneously not possessing *any* of the prohibited ones.
     """
+
+    @staticmethod
+    def collate(biomes:Iterable[Biome], biomeFilters:Iterable["BiomeFilter"]) -> list[Biome]:
+        """
+        Return the subset of given biomes which are accepted by all of the given filters.
+        """
+        accepted:set[Biome] = set()
+
+        for biome in biomes:
+            for biomeFilter in biomeFilters:
+                if not biomeFilter.accepts(biome): continue
+                accepted.add(biome)
+                break
+
+        return sorted(accepted)
 
     def __init__(
         self,

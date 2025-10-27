@@ -10,6 +10,7 @@ def addDisabledFeatures(pack:ModPack):
         pack.disabledFeatures.append(ResourceId.parse(resourceText))
 
     # Disable vanilla ore generation
+    add("minecraft:amethyst_geode")
     add("minecraft:ore_coal_lower")
     add("minecraft:ore_coal_upper")
     add("minecraft:ore_copper_large")

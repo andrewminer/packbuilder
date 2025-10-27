@@ -2,7 +2,7 @@ from mcpacker.model.modpack import ModPack
 from mcpacker.write.writer import Writer
 from pathlib import Path
 
-import mcpacker.json as json
+import mcpacker.write.json as json
 
 
 # Class ############################################################################################
@@ -27,4 +27,4 @@ class PackMetaWriter(Writer):
                     "pack_format": self.formatVersion,
                     "description": f"auto-generated overrides for {self.pack.name}"
                 }
-            }, indent="    "))
+            }))

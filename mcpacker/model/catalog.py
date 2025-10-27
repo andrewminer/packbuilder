@@ -47,7 +47,7 @@ class Catalog[CatalogItem: HasName]:
 
     def add(self, item:CatalogItem) -> "Catalog[CatalogItem]":
         if item.name in self._items:
-            raise Exception(f"Catalog already contains {item.name}")
+            raise Exception(f"Catalog already contains '{item.name}'")
 
         self._items[item.name] = item
         return self

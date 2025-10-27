@@ -1,6 +1,7 @@
 from mcpacker.model.flora.patch import Patch
 from mcpacker.model.flora.tree import Tree
 from mcpacker.format.report.composer import ReportComposer
+from mcpacker.model.ecology.biomefilter import BiomeFilter
 from mcpacker.model.ecology.biometrait import BiomeTrait
 from mcpacker.model.modpack import ModPack
 from pathlib import Path
@@ -52,7 +53,7 @@ class PlantSpawnReport(ReportComposer):
 
             self.line().line("Biomes:")
             self.indent() # biomes
-            for biome in self.pack.world.biomes.find(spawn.habitat.biomeFilters):
+            for biome in BiomeFilter.collate(self.pack.world.biomes, spawn.habitat.biomeFilters):
                 self.line(biome)
             self.outdent() # biomes
 

@@ -1,8 +1,8 @@
-from mcpacker.json import JsonBlob
+from mcpacker.format.json import JsonBlob
 from pytest import fixture
 from typing import cast
 
-import mcpacker.json as json
+import mcpacker.format.json as json
 
 
 # Fixtures #########################################################################################

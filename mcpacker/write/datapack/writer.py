@@ -5,6 +5,9 @@ from pathlib import Path
 # Class ############################################################################################
 
 class DataPackWriter(ZipWriter):
+    """
+    Write a zip file containing the modpack's own datapack.
+    """
 
     @property
     def archiveFile(self) -> Path:

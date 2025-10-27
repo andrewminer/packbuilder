@@ -1,7 +1,7 @@
 from mcpacker.format.datapack.biomemodifier.removespawn import RemoveSpawnBiomeModifier
 from mcpacker.write.writer import Writer
 
-import mcpacker.json as json
+import mcpacker.write.json as json
 
 
 # Class ############################################################################################
@@ -16,4 +16,4 @@ class DisableSpawnWriter(Writer):
         modifier = RemoveSpawnBiomeModifier("#c:is_overworld", entityTypes)
         path = self.locator.biomeModifiers() / "remove_managed_mob_spawns.json"
         self.resetOutputFile(path)
-        path.write_text(json.dumps(modifier.asJsonBlob(), indent=json.INDENT))
+        path.write_text(json.dumps(modifier.asJsonBlob()))

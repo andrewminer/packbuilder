@@ -1,6 +1,9 @@
-from mcpacker.json import JsonBlob
 from mcpacker.model.resourceid import ResourceId
 from typing import Any
+
+# Type Support  ####################################################################################
+
+type PropertyDict = dict[str, str|int]
 
 
 # Class ############################################################################################
@@ -12,7 +15,7 @@ class BlockState:
         if isinstance(value, BlockState): return value
         return BlockState(ResourceId.parse(value))
 
-    def __init__(self, gameId:ResourceId|str, properties:JsonBlob=None):
+    def __init__(self, gameId:ResourceId|str, properties:PropertyDict|None=None):
         self.gameId = ResourceId.parse(gameId)
         self.properties = properties
 

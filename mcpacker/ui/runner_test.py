@@ -13,7 +13,6 @@ from pathlib import Path
 from pytest import fixture
 from zipfile import ZipFile
 
-import mcpacker.json as json
 import mcpacker.model.altitude as AL
 import mcpacker.model.ecology.flora as FL
 import mcpacker.model.ecology.geology as GE

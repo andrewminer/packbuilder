@@ -15,11 +15,13 @@ class Humidity(BiomeTrait):
 
 # Constants ########################################################################################
 
+SOAKED  = Humidity("soaked")
 WET  = Humidity("wet")
 DAMP = Humidity("damp")
-DRY  = Humidity("dry")
+DRY = Humidity("dry")
+ARID  = Humidity("arid")
 
-ALL = [WET, DAMP, DRY]
+ALL = [SOAKED, WET, DAMP, DRY, ARID]
 
 
 # Helpers ##########################################################################################

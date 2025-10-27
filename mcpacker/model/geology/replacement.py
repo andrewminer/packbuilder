@@ -3,8 +3,9 @@ from mcpacker.model.resourceid import ResourceId
 
 # Constants ########################################################################################
 
-STONE_REPLACEABLES = "#minecraft:stone_ore_replaceables"
 DEEPSLATE_REPLACEABLES = "#minecraft:deepslate_ore_replaceables"
+NETHERRACK_REPLACEABLES = "#minecraft:base_stone_nether"
+STONE_REPLACEABLES = "#minecraft:stone_ore_replaceables"
 
 
 # Class ############################################################################################
@@ -12,29 +13,28 @@ DEEPSLATE_REPLACEABLES = "#minecraft:deepslate_ore_replaceables"
 class Replacement:
 
     @staticmethod
-    def inStone(target:str, weight:int=100):
-        return Replacement(STONE_REPLACEABLES, target, weight)
+    def inDeepslate(target:ResourceId|str):
+        return Replacement(DEEPSLATE_REPLACEABLES, target)
 
     @staticmethod
-    def inDeepslate(target:str, weight:int=100):
-        return Replacement(DEEPSLATE_REPLACEABLES, target, weight)
+    def inNetherrack(target:ResourceId|str):
+        return Replacement(NETHERRACK_REPLACEABLES, target)
 
-    def __init__(self, source:str, target:str, weight:int=100):
-        self.source = ResourceId.canonical(source)
-        self.target = ResourceId.canonical(target)
-        self.weight = weight
+    @staticmethod
+    def inStone(target:ResourceId|str):
+        return Replacement(STONE_REPLACEABLES, target)
+
+    def __init__(self, source:ResourceId|str, target:ResourceId|str):
+        self.source = ResourceId.parse(source)
+        self.target = ResourceId.parse(target)
 
     def __str__(self) -> str:
-        if self.weight == 100:
-            return f"{self.source} => {self.target}"
-
-        return f"{self.source} => {self.target} ({self.weight}%)"
+        return f"{self.source} => {self.target}"
 
     def __repr__(self) -> str:
-        return "".join([str(p) for p in [
-            "Replacement(" +
-                "source=", repr(self.source), ", ",
-                "target=", repr(self.target), ", ",
-                "weight=", repr(self.weight),
+        return (
+            "Replacement("
+                f"source={self.source!r}, "
+                f"target={self.target!r}"
             ")"
-        ]])
+        )

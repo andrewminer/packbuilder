@@ -1,9 +1,9 @@
+from mcpacker.model.catalog import Catalog
 from mcpacker.model.fauna.group import Group
 from mcpacker.model.fauna.location import Location
 from mcpacker.model.fauna.mob import Mob
 from mcpacker.model.fauna.mobecotype import MobEcotype
 from mcpacker.model.fauna.mobspawn import MobSpawn
-from mcpacker.model.fauna.mobspawncatalog import MobSpawnCatalog
 from mcpacker.model.scarcity import Scarcity
 from mcpacker.model.spawnbuilder import SpawnBuilder
 from typing import Self
@@ -16,7 +16,7 @@ import mcpacker.model.fauna.location as LO
 
 class MobSpawnBuilder(SpawnBuilder[Mob, MobEcotype, MobSpawn]):
 
-    def __init__(self, catalog:MobSpawnCatalog):
+    def __init__(self, catalog:Catalog[MobSpawn]):
         super().__init__(catalog, MobSpawn)
 
     @property

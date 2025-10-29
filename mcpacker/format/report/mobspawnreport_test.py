@@ -86,4 +86,6 @@ def test_write(report:MobSpawnReport):
                 group: troup (3 to 6)
                 location: outside
                 scarcity: common
+
+            Biomes:
     """).strip()

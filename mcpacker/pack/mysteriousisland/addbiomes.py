@@ -27,7 +27,7 @@ def addBiomes(pack:ModPack):
     ))
 
     biomes.add(Biome("helsinki", "minecraft:birch_forest",
-        FL.FOREST, GE.SEDIMENTARY, HE.TEMPERATE, HU.WET, SO.ACIDIC, WA.INLAND
+        FL.FOREST, GE.SEDIMENTARY, HE.TEMPERATE, HU.DAMP, SO.ACIDIC, WA.INLAND
     ))
 
     biomes.add(Biome("tokyo", "minecraft:cherry_grove",
@@ -35,7 +35,7 @@ def addBiomes(pack:ModPack):
     ))
 
     biomes.add(Biome("boston", "minecraft:cold_ocean",
-        FL.BARREN, GE.SEDIMENTARY, HE.BOREAL, HU.DAMP, SO.CLAYEY, WA.OCEAN
+        FL.BARREN, GE.SEDIMENTARY, HE.BOREAL, HU.WET, SO.CLAYEY, WA.OCEAN
     ))
 
     biomes.add(Biome("freiburg", "minecraft:dark_forest",
@@ -119,11 +119,11 @@ def addBiomes(pack:ModPack):
     ))
 
     biomes.add(Biome("sanfrancisco", "minecraft:ocean",
-        FL.BARREN, GE.IGNEOUS, HE.TEMPERATE, HU.DAMP, SO.SANDY, WA.OCEAN
+        FL.BARREN, GE.IGNEOUS, HE.TEMPERATE, HU.WET, SO.SANDY, WA.OCEAN
     ))
 
     biomes.add(Biome("minsk", "minecraft:old_growth_birch_forest",
-        FL.FOREST, GE.SEDIMENTARY, HE.TEMPERATE, HU.WET, SO.SANDY, WA.INLAND
+        FL.FOREST, GE.SEDIMENTARY, HE.TEMPERATE, HU.DAMP, SO.ACIDIC, WA.INLAND
     ))
 
     biomes.add(Biome("stpetersburg", "minecraft:old_growth_pine_taiga",
@@ -187,11 +187,11 @@ def addBiomes(pack:ModPack):
     ))
 
     biomes.add(Biome("irkutsk", "minecraft:taiga",
-        FL.FOREST, GE.IGNEOUS, HE.BOREAL, HU.DAMP, SO.ACIDIC, WA.INLAND
+        FL.FOREST, GE.METAMORPHIC, HE.BOREAL, HU.DAMP, SO.ACIDIC, WA.INLAND
     ))
 
     biomes.add(Biome("nassau", "minecraft:warm_ocean",
-        FL.BARREN, GE.SEDIMENTARY, HE.TROPICAL, HU.SOAKED, SO.SANDY, WA.COAST
+        FL.BARREN, GE.SEDIMENTARY, HE.TROPICAL, HU.SOAKED, SO.SANDY, WA.OCEAN
     ))
 
     biomes.add(Biome("stirling", "minecraft:windswept_forest",

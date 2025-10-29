@@ -1,7 +1,10 @@
-from mcpacker.model.modpack import ModPack
-from mcpacker.model.geology.mineralspawn import MineralSpawn
-from mcpacker.model.ecology.biome import Biome
 from mcpacker.format.report.composer import ReportComposer
+from mcpacker.model.altitude import Altitude
+from mcpacker.model.ecology.biome import Biome
+from mcpacker.model.fauna.mob import Mob
+from mcpacker.model.flora.plant import Plant
+from mcpacker.model.geology.mineralspawn import MineralSpawn
+from mcpacker.model.modpack import ModPack
 from pathlib import Path
 
 import mcpacker.model.altitude as AL
@@ -41,34 +44,39 @@ class BiomeReport(ReportComposer):
 
     def _composeFaunaSection(self, biome:Biome):
         self.line().line("Fauna:").indent()
-        faunaLineCount = 0
+        faunaLines:list[tuple[Mob, Altitude]] = []
 
         for mob in self.pack.world.mobs:
             altitude = None
             for spawn in self.pack.world.mobSpawns:
+                if spawn.mob != mob: continue
                 if not spawn.habitat.accepts(biome): continue
                 if spawn.ecotype.location == LO.CAVE: continue
 
                 altitude = AL.span(altitude or spawn.habitat.altitude, spawn.habitat.altitude)
 
             if altitude != None:
-                self.line(f"{mob.name} @ {altitude}")
-                faunaLineCount += 1
+                faunaLines.append((mob, altitude))
 
-        if faunaLineCount == 0:
+        for line in sorted(faunaLines, reverse=True, key=lambda p: (p[1].bottom, p[1].top)):
+            self.line(f"{line[0]} @ {line[1]}")
+
+        if len(faunaLines) == 0:
             self.line("<no fauna>")
 
         self.outdent() # fauna
 
     def _composeFloraSection(self, biome:Biome):
         self.line().line("Flora:").indent()
-        floraLineCount = 0
+        floraLines:list[tuple[Plant, Altitude]] = []
         for spawn in self.pack.world.plantSpawns:
             if not spawn.habitat.accepts(biome): continue
-            self.line(f"{spawn.plant.name} @ {spawn.habitat.altitude}")
-            floraLineCount += 1
+            floraLines.append((spawn.plant, spawn.habitat.altitude))
 
-        if floraLineCount == 0:
+        for line in sorted(floraLines, reverse=True, key=lambda p: (p[1].bottom, p[1].top)):
+            self.line(f"{line[0]} @ {line[1]}")
+
+        if len(floraLines) == 0:
             self.line("<no flora>")
 
         self.outdent() # flora

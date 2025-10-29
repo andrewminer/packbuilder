@@ -29,7 +29,7 @@ def addMobSpawns(pack:ModPack):
 
     b.start(mobs["animalplus:raccoon"])
     b.altitude = AL.span(AL.LOWLANDS, AL.HILLS)
-    b.biomeFilters = BF([(FL.CANOPY, FL.FOREST), HE.within(HE.TEMPERATE, HE.BOREAL)])
+    b.biomeFilters = BF([(FL.CANOPY, FL.FOREST), HE.TEMPERATE])
     b.seasons = SE.exclude(SE.WINTER)
     b.group = GR.merge(GR.SOLO, GR.PAIR)
     b.scarcity = SC.UNCOMMON
@@ -41,7 +41,7 @@ def addMobSpawns(pack:ModPack):
 
     b.start(mobs["animalplus:red_panda"])
     b.altitude = AL.span(AL.UPLANDS, AL.HILLS)
-    b.biomeFilters = BF([ResourceId.parse("bamboo_forest")])
+    b.biomeFilters = BF([ResourceId.parse("bamboo_jungle")])
     b.seasons = SE.ALL
     b.group = GR.merge(GR.SOLO, GR.PAIR)
     b.scarcity = SC.SPARSE
@@ -53,32 +53,19 @@ def addMobSpawns(pack:ModPack):
     b.seasons = SE.AUTUMN
     b.group = GR.merge(GR.SOLO, GR.FAMILY)
     b.scarcity = SC.UNCOMMON
-    b.save("blackbear-temperate-autumn")
+    b.save("blackbear-autumn")
 
     b.seasons = [SE.SPRING, SE.SUMMER]
     b.scarcity = SC.SPARSE
-    b.save("blackbear-temperate-springsummer")
+    b.save("blackbear-springsummer")
 
     b.seasons = SE.WINTER
     b.scarcity = SC.UNUSUAL
-    b.save("blackbear-temperate-winter")
-
-    b.biomeFilters = BF([HE.BOREAL, (FL.CANOPY, FL.FOREST)])
-    b.seasons = SE.AUTUMN
-    b.scarcity = SC.SPARSE
-    b.save("blackbear-boreal-autumn")
-
-    b.seasons = [SE.SPRING, SE.SUMMER]
-    b.scarcity = SC.UNUSUAL
-    b.save("blackbear-boreal-springsummer")
-
-    b.seasons = SE.WINTER
-    b.scarcity = SC.RARE
-    b.save("blackbear-boreal-winter")
+    b.save("blackbear-winter")
 
     b.start(mobs["minecraft:armadillo"])
     b.altitude = AL.LOWLANDS
-    b.biomeFilters = BF([HE.SUBTROPICAL, HU.DRY, SO.CLAYEY])
+    b.biomeFilters = BF([HE.SUBTROPICAL, HU.ARID, (SO.CLAYEY, SO.ROCKY)])
     b.seasons = SE.SUMMER
     b.group = GR.merge(GR.SOLO, GR.PAIR)
     b.scarcity = SC.COMMON
@@ -106,7 +93,7 @@ def addMobSpawns(pack:ModPack):
 
     b.start(mobs["bearminimum:brown_bear"])
     b.altitude = AL.span(AL.LOWLANDS, AL.ALPINE)
-    b.biomeFilters = BF([HE.BOREAL, (FL.CANOPY, FL.FOREST)])
+    b.biomeFilters = BF([(FL.CANOPY, FL.FOREST), HE.BOREAL])
     b.seasons = SE.AUTUMN
     b.group = GR.SOLO
     b.scarcity = SC.SPARSE
@@ -122,7 +109,7 @@ def addMobSpawns(pack:ModPack):
 
     b.start(mobs["minecraft:camel"])
     b.altitude = AL.span(AL.DUNES, AL.LOWLANDS)
-    b.biomeFilters = BF([HE.TROPICAL, HU.DRY, FL.BARREN, SO.SANDY])
+    b.biomeFilters = BF([HE.TROPICAL, HU.ARID, SO.SANDY])
     b.seasons = SE.DRY
     b.group = GR.FAMILY
     b.scarcity = SC.UNUSUAL
@@ -141,7 +128,7 @@ def addMobSpawns(pack:ModPack):
 
     b.start(mobs["cold_sweat:chameleon"])
     b.altitude = AL.span(AL.DUNES, AL.UPLANDS)
-    b.biomeFilters = BF([(FL.CANOPY, FL.FOREST), HE.TROPICAL, HU.WET, WA.INLAND])
+    b.biomeFilters = BF([(FL.CANOPY, FL.FOREST), HE.TROPICAL, HU.SOAKED])
     b.seasons = SE.WET
     b.group = GR.merge(GR.SOLO, GR.FAMILY)
     b.scarcity = SC.COMMON
@@ -153,7 +140,7 @@ def addMobSpawns(pack:ModPack):
 
     b.start(mobs["minecraft:chicken"])
     b.altitude = AL.span(AL.LOWLANDS, AL.UPLANDS)
-    b.biomeFilters = BF([FL.CLEARING, HE.TROPICAL, HU.WET], [SO.FUNGAL])
+    b.biomeFilters = BF([FL.CLEARING, HE.TROPICAL, HU.SOAKED], [SO.FUNGAL])
     b.seasons = SE.SUMMER
     b.group = GR.TROUP
     b.scarcity = SC.COMMON
@@ -173,8 +160,10 @@ def addMobSpawns(pack:ModPack):
 
     b.start(mobs["minecraft:cow"])
     b.altitude = AL.span(AL.LOWLANDS, AL.UPLANDS)
-    b.biomeFilters = \
-        BF([HE.within(HE.SUBTROPICAL, HE.BOREAL), [HU.DAMP, HU.DRY], FL.FIELD], [SO.FUNGAL])
+    b.biomeFilters = BF(
+        [FL.FIELD, HE.within(HE.SUBTROPICAL, HE.BOREAL), (HU.DAMP, HU.DRY)],
+        [SO.FUNGAL, SO.ROCKY]
+    )
     b.seasons = [SE.SPRING, SE.SUMMER]
     b.group = GR.HERD
     b.scarcity = SC.SPARSE
@@ -188,19 +177,19 @@ def addMobSpawns(pack:ModPack):
 
     b.start(mobs["crabbersdelight:crab"])
     b.altitude = AL.DUNES
-    b.biomeFilters = BF([WA.COAST, [HE.TROPICAL, HE.SUBTROPICAL]])
+    b.biomeFilters = BF([(HE.TROPICAL, HE.SUBTROPICAL), WA.COAST])
     b.seasons = SE.ALL
     b.group = GR.SOLO
     b.scarcity = SC.UNCOMMON
     b.save("crab-warm")
 
-    b.biomeFilters = BF([WA.COAST, [HE.TEMPERATE, HE.BOREAL]])
+    b.biomeFilters = BF([(HE.TEMPERATE, HE.BOREAL), WA.COAST])
     b.scarcity = SC.SPARSE
     b.save("crab-cool")
 
     b.start(mobs["minecraft:dolphin"])
     b.altitude = AL.span(AL.SURFACE, AL.DEEPS)
-    b.biomeFilters = BF([WA.OCEAN, [HE.SUBTROPICAL, HE.TEMPERATE]])
+    b.biomeFilters = BF([(HE.SUBTROPICAL, HE.TEMPERATE), WA.OCEAN])
     b.location = LO.WATER
     b.seasons = SE.SUMMER
     b.group = GR.FAMILY
@@ -213,7 +202,7 @@ def addMobSpawns(pack:ModPack):
 
     b.start(mobs["minecraft:donkey"])
     b.altitude = AL.span(AL.UPLANDS, AL.HILLS)
-    b.biomeFilters = BF([HE.SUBTROPICAL, HU.DRY, FL.FIELD])
+    b.biomeFilters = BF([FL.CLEARING, HE.SUBTROPICAL, HU.DRY])
     b.seasons = [SE.SUMMER, SE.AUTUMN]
     b.group = GR.FAMILY
     b.scarcity = SC.SPARSE
@@ -226,7 +215,7 @@ def addMobSpawns(pack:ModPack):
 
     b.start(mobs["minecraft:fox"])
     b.altitude = AL.span(AL.LOWLANDS, AL.HILLS)
-    b.biomeFilters = BF([HE.within(HE.TEMPERATE, HE.FROZEN), FL.FOREST])
+    b.biomeFilters = BF([FL.FOREST, HE.within(HE.TEMPERATE, HE.FROZEN), SO.ACIDIC])
     b.seasons = [SE.SPRING]
     b.group = GR.FAMILY
     b.scarcity = SC.UNCOMMON
@@ -239,7 +228,7 @@ def addMobSpawns(pack:ModPack):
 
     b.start(mobs["minecraft:frog"])
     b.altitude = AL.span(AL.SURFACE, AL.DUNES)
-    b.biomeFilters = BF([(HE.TROPICAL, HE.TEMPERATE), HU.WET, WA.SWAMP])
+    b.biomeFilters = BF([WA.SWAMP])
     b.group = GR.HERD
     b.scarcity = SC.COMMON
     b.seasons = SE.SUMMER
@@ -307,7 +296,7 @@ def addMobSpawns(pack:ModPack):
 
     b.start(mobs["minecraft:ocelot"])
     b.altitude = AL.span(AL.LOWLANDS, AL.HILLS)
-    b.biomeFilters = BF([FL.CANOPY, HE.TROPICAL, HU.WET])
+    b.biomeFilters = BF([FL.CANOPY, HE.TROPICAL])
     b.group = GR.SOLO
     b.scarcity = SC.RARE
     b.seasons = SE.ALL
@@ -315,7 +304,7 @@ def addMobSpawns(pack:ModPack):
 
     b.start(mobs["minecraft:panda"])
     b.altitude = AL.span(AL.LOWLANDS, AL.UPLANDS)
-    b.biomeFilters = BF([ResourceId.parse("bamboo_forest")])
+    b.biomeFilters = BF([ResourceId.parse("bamboo_jungle")])
     b.group = GR.SOLO
     b.scarcity = SC.UNUSUAL
     b.seasons = SE.exclude(SE.SPRING)
@@ -327,13 +316,13 @@ def addMobSpawns(pack:ModPack):
 
     b.start(mobs["minecraft:parrot"])
     b.altitude = AL.span(AL.DUNES, AL.HILLS)
-    b.biomeFilters = BF([(FL.CANOPY, FL.FOREST), HE.TROPICAL, HU.WET])
+    b.biomeFilters = BF([FL.CANOPY, HE.TROPICAL])
     b.group = GR.PAIR
     b.scarcity = SC.COMMON
     b.seasons = SE.ALL
     b.save("parrot-canopyforest")
 
-    b.biomeFilters = BF([FL.CLEARING, HE.TROPICAL, HU.WET], [SO.FUNGAL])
+    b.biomeFilters = BF([FL.CLEARING, HE.TROPICAL], [SO.FUNGAL])
     b.scarcity = SC.UNCOMMON
     b.save("parrot-clearing")
 
@@ -341,7 +330,9 @@ def addMobSpawns(pack:ModPack):
     b.altitude = AL.span(AL.LOWLANDS, AL.HILLS)
     b.biomeFilters = BF([
         FL.within(FL.CANOPY, FL.CLEARING),
-        HE.within(HE.SUBTROPICAL, HE.TEMPERATE)
+        HE.within(HE.SUBTROPICAL, HE.BOREAL),
+        SO.LOAMY,
+
     ])
     b.group = GR.TROUP
     b.scarcity = SC.COMMON
@@ -395,7 +386,7 @@ def addMobSpawns(pack:ModPack):
     b.save("rabbit-temperate-winter")
 
     b.altitude = AL.span(AL.DUNES, AL.LOWLANDS)
-    b.biomeFilters = BF([FL.BARREN, HE.TROPICAL, HU.DRY])
+    b.biomeFilters = BF([FL.BARREN, HE.TROPICAL, HU.ARID])
     b.group = GR.PAIR
     b.scarcity = SC.SPARSE
     b.seasons = SE.exclude(SE.SUMMER)
@@ -515,6 +506,6 @@ def addMobSpawns(pack:ModPack):
     b.scarcity = SC.UNUSUAL
     b.save("wolf-arctic")
 
-    b.biomeFilters = BF([(FL.CLEARING, FL.FIELD), HE.SUBTROPICAL, WA.INLAND])
+    b.biomeFilters = BF([(FL.CLEARING, FL.FIELD), HE.SUBTROPICAL, WA.INLAND], [SO.ROCKY])
     b.scarcity = SC.SPARSE
     b.save("wolf-savanna")

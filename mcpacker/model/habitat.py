@@ -54,6 +54,6 @@ class Habitat:
 
     def accepts(self, biome:Biome) -> bool:
         for biomeFilter in self.biomeFilters:
-            if not biomeFilter.accepts(biome): return False
+            if biomeFilter.accepts(biome): return True
 
-        return True
+        return False

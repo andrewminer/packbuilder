@@ -37,7 +37,7 @@ def addPlantSpawns(pack:ModPack):
 
     b.start(plants["bellpepper"])
     b.altitude = AL.LOWLANDS
-    b.biomeFilters = BF([FL.CLEARING, HE.TROPICAL, HU.WET, WA.INLAND])
+    b.biomeFilters = BF([FL.CLEARING, HE.TROPICAL, HU.SOAKED, WA.INLAND])
     b.scarcity = SC.COMMON
     b.save("bellpepper")
 
@@ -48,20 +48,13 @@ def addPlantSpawns(pack:ModPack):
     b.save("blueberry")
 
     b.start(plants["brownmushroom"])
-    b.altitude = AL.span(AL.SOIL, AL.ALPINE)
-    b.biomeFilters = [
-        BF([(FL.CANOPY, FL.FOREST), (HE.TEMPERATE, HE.BOREAL), (SO.LOAMY, SO.CLAYEY)], [WA.OCEAN]),
-        BF([HU.WET], [HE.FROZEN, WA.OCEAN, WA.RIVER]),
-        BF([SO.FUNGAL]),
-    ]
+    b.altitude = AL.span(AL.SOIL, AL.UPLANDS)
+    b.biomeFilters = BF(
+        [HU.within(HU.DAMP, HU.SOAKED), (SO.CLAYEY, SO.LOAMY, SO.FUNGAL)],
+        [HE.FROZEN, WA.OCEAN, WA.RIVER]
+    )
     b.scarcity = SC.COMMON
     b.save("brownmushroom")
-
-    b.start(plants["cabbage"])
-    b.altitude = AL.HILLS
-    b.biomeFilters = BF([(HE.SUBTROPICAL, HE.TEMPERATE), SO.SANDY, WA.COAST])
-    b.scarcity = SC.COMMON
-    b.save("cabbage")
 
     b.start(plants["carrot"])
     b.altitude = AL.LOWLANDS
@@ -73,7 +66,7 @@ def addPlantSpawns(pack:ModPack):
 
     b.start(plants["coffee"])
     b.altitude = AL.span(AL.HILLS, AL.ALPINE)
-    b.biomeFilters = BF([FL.CANOPY, HE.TROPICAL, HU.WET])
+    b.biomeFilters = BF([FL.CANOPY, HE.TROPICAL, HU.SOAKED])
     b.scarcity = SC.SPARSE
     b.save("coffee")
 
@@ -97,7 +90,7 @@ def addPlantSpawns(pack:ModPack):
 
     b.start(plants["cranberry"])
     b.altitude = AL.DUNES
-    b.biomeFilters = BF([HU.WET, SO.PEATY])
+    b.biomeFilters = BF([(HE.TEMPERATE, HE.BOREAL), WA.SWAMP])
     b.scarcity = SC.UNCOMMON
     b.save("cranberry")
 
@@ -106,13 +99,13 @@ def addPlantSpawns(pack:ModPack):
     #       "flax" as a fiberous, desert-dwelling cousin.
     b.start(plants["flax"])
     b.altitude = AL.DUNES
-    b.biomeFilters = BF([FL.BARREN, HU.DRY, SO.SANDY])
+    b.biomeFilters = BF([FL.BARREN, HU.ARID, SO.SANDY])
     b.scarcity = SC.COMMON
     b.save("flax")
 
     b.start(plants["hamimelon"])
     b.altitude = AL.span(AL.LOWLANDS, AL.UPLANDS)
-    b.biomeFilters = BF([FL.FIELD, HE.SUBTROPICAL, HU.DRY, (SO.LOAMY, SO.SANDY)])
+    b.biomeFilters = BF([FL.FIELD, HE.SUBTROPICAL, HU.ARID, (SO.LOAMY, SO.SANDY)])
     b.scarcity = SC.RARE
     b.save("hamimelon")
 
@@ -130,9 +123,15 @@ def addPlantSpawns(pack:ModPack):
     b.scarcity = SC.SPARSE
     b.save("lemon")
 
+    b.start(plants["lettuce"])
+    b.altitude = AL.HILLS
+    b.biomeFilters = BF([FL.FIELD, HE.TEMPERATE, SO.SANDY])
+    b.scarcity = SC.COMMON
+    b.save("lettuce")
+
     b.start(plants["melon"])
     b.altitude = AL.LOWLANDS
-    b.biomeFilters = BF([FL.CLEARING, HE.TROPICAL, HU.WET], [SO.FUNGAL])
+    b.biomeFilters = BF([FL.CLEARING, HE.TROPICAL, HU.SOAKED], [SO.FUNGAL])
     b.scarcity = SC.SPARSE
     b.save("melon")
 
@@ -147,7 +146,7 @@ def addPlantSpawns(pack:ModPack):
     #       a more cactus-like cousin of actual pineapples.
     b.start(plants["pineapple"])
     b.altitude = AL.LOWLANDS
-    b.biomeFilters = BF([FL.BARREN, HE.TROPICAL, HU.DRY, SO.SANDY])
+    b.biomeFilters = BF([FL.BARREN, HE.TROPICAL, HU.ARID, SO.SANDY])
     b.scarcity = SC.SPARSE
     # TODO: add sand as substrate in addplants.py
     b.save("pineapple")
@@ -165,12 +164,11 @@ def addPlantSpawns(pack:ModPack):
     b.save("pumpkin")
 
     b.start(plants["redmushroom"])
-    b.altitude = AL.span(AL.SOIL, AL.ALPINE)
-    b.biomeFilters = [
-        BF([(FL.CANOPY, FL.FOREST), (HE.TEMPERATE, HE.BOREAL), (SO.LOAMY, SO.CLAYEY)]),
-        BF([HU.WET], [HE.FROZEN, WA.OCEAN, WA.RIVER]),
-        BF([SO.FUNGAL]),
-    ]
+    b.altitude = AL.span(AL.SOIL, AL.UPLANDS)
+    b.biomeFilters = BF(
+        [HU.within(HU.DAMP, HU.SOAKED), (SO.ACIDIC, SO.CLAYEY, SO.FUNGAL)],
+        [HE.FROZEN, WA.OCEAN, WA.RIVER]
+    )
     b.scarcity = SC.UNCOMMON
     b.save("redmushroom")
 
@@ -193,8 +191,8 @@ def addPlantSpawns(pack:ModPack):
     b.save("sunflower")
 
     b.start(plants["tomato"])
-    b.altitude = AL.span(AL.UPLANDS, AL.HILLS)
-    b.biomeFilters = BF([FL.CLEARING, HE.TROPICAL, HU.WET], [SO.FUNGAL])
+    b.altitude = AL.UPLANDS
+    b.biomeFilters = BF([FL.CLEARING, HE.TROPICAL, (HU.DAMP, HU.SOAKED)], [SO.FUNGAL])
     b.scarcity = SC.UNCOMMON
     b.save("tomato")
 
@@ -220,7 +218,7 @@ def addPlantSpawns(pack:ModPack):
 
     b.start(plants["blueorchid"])
     b.altitude = AL.span(AL.LOWLANDS, AL.UPLANDS)
-    b.biomeFilters = BF([FL.CANOPY, HE.TROPICAL, HU.WET])
+    b.biomeFilters = BF([FL.CANOPY, HE.TROPICAL, HU.SOAKED])
     b.scarcity = SC.RARE
     b.save("blueorchid")
 
@@ -326,8 +324,8 @@ def addPlantSpawns(pack:ModPack):
     b.save("bayberry-tree")
 
     b.start(plants["durian"])
-    b.altitude = AL.HILLS
-    b.biomeFilters = BF([FL.within(FL.CANOPY, FL.CLEARING), HE.TROPICAL, HU.WET, SO.ACIDIC])
+    b.altitude = AL.UPLANDS
+    b.biomeFilters = BF([FL.FOREST, HE.TROPICAL, SO.ACIDIC])
     b.scarcity = SC.UNUSUAL
     b.save("durian-tree")
 
@@ -338,28 +336,26 @@ def addPlantSpawns(pack:ModPack):
     b.save("fig-tree")
 
     b.start(plants["hawberry"])
-    b.altitude = AL.span(AL.UPLANDS, AL.HILLS)
-    b.biomeFilters = BF([(FL.FOREST, FL.CLEARING), HE.TEMPERATE, (SO.ACIDIC, SO.LOAMY)])
+    b.altitude = AL.span(AL.LOWLANDS, AL.UPLANDS)
+    b.biomeFilters = BF([(FL.FOREST, FL.CLEARING), HE.TEMPERATE, SO.ACIDIC])
     b.scarcity = SC.SPARSE
     b.save("hawberry-tree")
 
     b.start(plants["lychee"])
-    b.altitude = AL.UPLANDS
-    b.biomeFilters = BF([FL.CLEARING, HE.TROPICAL, HU.WET], [SO.FUNGAL])
+    b.altitude = AL.LOWLANDS
+    b.biomeFilters = BF([FL.CANOPY, HE.TROPICAL, HU.SOAKED])
     b.scarcity = SC.SPARSE
     b.save("lychee-tree")
 
     b.start(plants["mango"])
     b.altitude = AL.LOWLANDS
-    b.biomeFilters = BF(
-        [FL.within(FL.CANOPY, FL.CLEARING), HE.TROPICAL, (HU.DAMP, HU.WET), SO.ACIDIC]
-    )
+    b.biomeFilters = BF([FL.CANOPY, HE.TROPICAL, HU.SOAKED])
     b.scarcity = SC.UNCOMMON
     b.save("mango-tree")
 
     b.start(plants["mangosteen"])
     b.altitude = AL.UPLANDS
-    b.biomeFilters = BF([FL.CANOPY, HE.TROPICAL, HU.WET, SO.ACIDIC])
+    b.biomeFilters = BF([FL.CANOPY, HE.TROPICAL, HU.SOAKED])
     b.scarcity = SC.UNUSUAL
     b.save("mangosteen-tree")
 
@@ -383,6 +379,6 @@ def addPlantSpawns(pack:ModPack):
 
     b.start(plants["persimmon"])
     b.altitude = AL.span(AL.LOWLANDS, AL.UPLANDS)
-    b.biomeFilters = BF([FL.FOREST, HE.TEMPERATE, SO.LOAMY])
+    b.biomeFilters = BF([FL.FIELD, HE.TEMPERATE, SO.LOAMY])
     b.scarcity = SC.UNCOMMON
     b.save("persimmon-tree")

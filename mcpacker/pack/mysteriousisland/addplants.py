@@ -65,13 +65,6 @@ def addPlants(pack:ModPack):
     ))
 
     plants.add(Patch(
-        name = "cabbage",
-        blocks = f"{FD}:wild_cabbages",
-        density = DE.THIN,
-        radius = 4,
-    ))
-
-    plants.add(Patch(
         name = "carrot",
         blocks = f"{FD}:wild_carrots",
         density = DE.THIN,
@@ -140,6 +133,13 @@ def addPlants(pack:ModPack):
         blocks = BlockState(f"{UD}:lemon_tree", {"age": 4}),
         density = DE.SPARSE,
         radius = 3,
+    ))
+
+    plants.add(Patch(
+        name = "lettuce",
+        blocks = f"{FD}:wild_cabbages",
+        density = DE.THIN,
+        radius = 4,
     ))
 
     plants.add(Patch(

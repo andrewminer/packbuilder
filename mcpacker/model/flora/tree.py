@@ -25,7 +25,7 @@ class Tree(Plant):
     ):
         super().__init__(name)
 
-        self.foliage = foliage
+        self.foliage = ResourceId.parse(foliage)
         self.log = log
         self.trunkShape = trunkShape
         self.trunkHeightMin = trunkHeightMin

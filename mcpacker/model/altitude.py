@@ -70,7 +70,22 @@ ALL = OVERGROUND + UNDERGROUND + UNDERWATER
 
 # Helper Functions #################################################################################
 
-def span(*altitudes:Altitude):
+def intersect(*altitudes:Altitude) -> Altitude|None:
+    if not altitudes: return None
+
+    bottom = altitudes[0].bottom
+    top = altitudes[0].top
+
+    for index in range(1, len(altitudes)):
+        bottom = max(bottom, altitudes[index].bottom)
+        top = min(top, altitudes[index].top)
+
+    if bottom >= top:
+        return None
+
+    return Altitude(altitudes[0].name, bottom, top)
+
+def span(*altitudes:Altitude) -> Altitude:
     if not altitudes: return ANYWHERE
     result = Altitude("", ANYWHERE.top, ANYWHERE.bottom)
 

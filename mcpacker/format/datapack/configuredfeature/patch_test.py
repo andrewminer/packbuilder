@@ -35,7 +35,7 @@ def test_asJsonBlob(blob:JsonBlob):
                 "tries": 58,
                 "xz_spread": 3,
                 "y_spread": 1.5,
-                "feature": "test:plant/poppy"
+                "feature": "test:crop/poppy"
             }
         }
     """).strip()

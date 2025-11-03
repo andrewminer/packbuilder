@@ -26,3 +26,6 @@ class Spawn[SpawnableKind: Spawnable, EcotypeKind: Ecotype]:
                 f"spawnable={self.spawnable!r}"
             ")"
         )
+
+    def __str__(self) -> str:
+        return self.name

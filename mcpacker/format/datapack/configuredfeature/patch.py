@@ -18,6 +18,6 @@ class PatchConfiguredFeature:
                 "tries": self.patch.attempts(),
                 "xz_spread": self.patch.radius,
                 "y_spread": self.patch.radius / 2,
-                "feature": f"{self.pack.name}:plant/{self.patch.name}",
+                "feature": f"{self.pack.name}:crop/{self.patch.name}",
             }
         }

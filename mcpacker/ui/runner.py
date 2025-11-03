@@ -10,6 +10,7 @@ from mcpacker.write.datapack.disablefeaturewriter import DisableFeatureWriter
 from mcpacker.write.datapack.disablespawnwriter import DisableSpawnWriter
 from mcpacker.write.datapack.metawriter import DataPackMetaWriter
 from mcpacker.write.datapack.writer import DataPackWriter
+from mcpacker.write.datapack.plantwriter import PlantWriter
 from mcpacker.write.incontrol.spawnerwriter import SpawnerWriter
 from mcpacker.write.report.writer import ReportWriter
 from mcpacker.write.resourcepack.metawriter import ResourcePackMetaWriter
@@ -74,6 +75,7 @@ class Runner:
             DataPackWriter(p, o, [
                 DataPackMetaWriter(p, o, 48),
                 DepositWriter(p, o),
+                PlantWriter(p, o),
                 DisableFeatureWriter(p, o),
                 DisableSpawnWriter(p, o),
             ]),
